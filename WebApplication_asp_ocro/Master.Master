@@ -1,0 +1,118 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Master.Master.cs" Inherits="WebApplication_asp_ocro.Naster" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <!-- 导入标准css -->
+    <asp:ContentPlaceHolder ID="cssStdImportHead" runat="server">
+        <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="/css/main.css" />
+    </asp:ContentPlaceHolder>
+    <!-- 导入自定义css -->
+    <asp:ContentPlaceHolder ID="cssCusImportHead" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <!-- 导入Header标准js -->
+    <asp:ContentPlaceHolder ID="scriptStdImportHeader" runat="server">
+        <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script src="/js/particles.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+    </asp:ContentPlaceHolder>
+    <!-- Header标准Div -->
+    <asp:ContentPlaceHolder ID="divStdHeader" runat="server">
+        <div id="particles-js" class="particles-div"></div>
+        <div id="back"></div>
+    </asp:ContentPlaceHolder>
+    <!-- 导航 -->
+    <asp:ContentPlaceHolder ID="stdHeader" runat="server">
+        <div class="clearfix">
+            <nav class="navbar navbar-default" role="navigation" style="border-radius: 0px;">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"></button>
+                    <a class="navbar-brand" href="#">WEB ASP</a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">C_1<strong class="caret"></strong></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="/webs/1.aspx">Show IP and time</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">C_2<strong class="caret"></strong></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="/webs/2.aspx">+-*/ calc</a>
+                                </li>
+                                <li>
+                                    <a href="/webs/2_2.aspx">Calculator</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">C_3<strong class="caret"></strong></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="/webs/3.aspx">Login</a>
+                                </li>
+                                <li>
+                                    <a href="/webs/3_1.aspx">Register</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </asp:ContentPlaceHolder>
+    <!-- 内容 -->
+    <asp:ContentPlaceHolder ID="stdContentMoudle" runat="server">
+        <div class="container">
+            <div class="row clearfix">
+                <div class="col-md-1 column">
+                </div>
+                <div class="col-md-6 column">
+                    <asp:ContentPlaceHolder ID="stdContent" runat="server">
+                    </asp:ContentPlaceHolder>
+                </div>
+                <div class="col-md-1 column">
+                </div>
+                <div class="col-md-3 column">
+                    <asp:ContentPlaceHolder ID="stdContentSideBar" runat="server">
+                        <label for="sideBar">SideBar</label>
+                    </asp:ContentPlaceHolder>
+                </div>
+            </div>
+        </div>
+    </asp:ContentPlaceHolder>
+    <!-- 版权 -->
+    <asp:ContentPlaceHolder ID="stdFooter" runat="server">
+        <div class="clearfix">
+            <nav class="navbar navbar-default" role="navigation" style="border-radius: 0px; bottom:0px;margin:20px 0px 0px 0px;">
+                <p class="text-muted credit" style="padding: 10px; text-align: center;">
+                    <span id="copyright">&copy;2017 ocrosoft.com<br />
+                        浙ICP备16010729号
+                    <span id='cc'>150104400108</span>
+                    </span>
+                </p>
+            </nav>
+        </div>
+    </asp:ContentPlaceHolder>
+    <!-- 导入Footer标准js -->
+    <asp:ContentPlaceHolder ID="scriptStdFooter" runat="server">
+        <script src="/js/particlesON.js"></script>
+        <script src="/js/main.js"></script>
+    </asp:ContentPlaceHolder>
+    <!-- 导入自定义Footer js -->
+    <asp:ContentPlaceHolder ID="scriptCusFooter" runat="server">
+        <!-- Σ( ° △ °|||)︴ -->
+    </asp:ContentPlaceHolder>
+</body>
+</html>

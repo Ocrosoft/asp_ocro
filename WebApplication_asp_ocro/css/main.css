@@ -1,0 +1,47 @@
+html{
+    height: 100%;
+}
+
+body {
+    background: #000;
+    height: 100%;
+}
+
+a:link, a:visited, a:active {
+    text-decoration: none;
+    text-align: center;
+    color: #000;
+}
+
+a:hover {
+    text-decoration: none;
+    text-align: center;
+    color: #04f;
+}
+
+.particles-div {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: auto;
+    top: 0px;
+    left: 0px;
+}
+
+#back {
+    position: fixed;
+    width: 130px;
+    height: 278px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    bottom: 100px;
+    right: -135px;
+}
+
+.container {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    min-height: 90%;
+    border-radius: 4px;
+    background-color: rgba(255,255,255,0.8);
+}
