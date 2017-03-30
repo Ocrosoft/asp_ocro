@@ -62,13 +62,13 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Default.aspx" />
     <Content Include="webs\1.aspx" />
     <Content Include="webs\2.aspx" />
     <Content Include="webs\2_2.aspx" />
     <Content Include="webs\3.aspx" />
     <Content Include="webs\3_1.aspx" />
     <Content Include="webs\3_2.aspx" />
+    <Content Include="webs\3_3.aspx" />
     <Content Include="webs\4.aspx" />
     <Content Include="Master.Master" />
     <Content Include="css\bootstrap-theme.css.map" />
@@ -104,13 +104,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
     <Compile Include="MyMD5.cs" />
     <Compile Include="MysqlHelper.cs" />
     <Compile Include="webs\1.aspx.cs">
@@ -154,6 +147,13 @@
     </Compile>
     <Compile Include="webs\3_2.aspx.designer.cs">
       <DependentUpon>3_2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="webs\3_3.aspx.cs">
+      <DependentUpon>3_3.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="webs\3_3.aspx.designer.cs">
+      <DependentUpon>3_3.aspx</DependentUpon>
     </Compile>
     <Compile Include="webs\4.aspx.cs">
       <DependentUpon>4.aspx</DependentUpon>

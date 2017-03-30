@@ -34,10 +34,11 @@
             <nav class="navbar navbar-default" role="navigation" style="border-radius: 0px;">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse"></button>
-                    <a class="navbar-brand" href="/Default.aspx">WEB ASP</a>
+                    <a class="navbar-brand" href="/webs/3.aspx">WEB ASP</a>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
+                        <!--
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">C_1<strong class="caret"></strong></a>
                             <ul class="dropdown-menu">
@@ -67,6 +68,36 @@
                                     <a href="/webs/3_1.aspx">Register</a>
                                 </li>
                             </ul>
+                        </li> -->
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <% 
+                                    if (Session["loginSession"] != null)
+                                    {
+                                        Response.Write(Session["loginSession"]);
+                                    }
+                                    else Response.Write("Login");
+                                %><strong class="caret"></strong>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <% 
+                                    if (Session["loginSession"] != null)
+                                    {
+                                        Response.Write("<li><a href=\"/webs/3_3.aspx\">Edit Profile</a></li>");
+                                    }
+                                %>
+                                <li id="logout"><a href="#" runat="server" onserverclick="Logout">Logout</a></li>
+                                <%
+                                    if (Session["loginSession"] == null)
+                                    {
+                                        Response.Write("<script>$('#logout').remove();</script>");
+                                        Response.Write("<li><a href=\"/webs/3.aspx\">Login</a></li>");
+                                        Response.Write("<li><a href=\"/webs/3_1.aspx\">Register</a></li>");
+                                    }
+                                %>
+                            </ul>
                         </li>
                     </ul>
                 </div>
@@ -88,6 +119,8 @@
                 <div class="col-md-3 column">
                     <asp:ContentPlaceHolder ID="stdContentSideBar" runat="server">
                         <label for="sideBar">SideBar</label>
+                        <br />
+                        <label for="none">Σ( ° △ °|||)︴</label>
                     </asp:ContentPlaceHolder>
                 </div>
             </div>
@@ -100,7 +133,6 @@
                 <p class="text-muted credit" style="padding: 10px; text-align: center;">
                     <span id="copyright">&copy;2017 ocrosoft.com<br />
                         浙ICP备16010729号
-                   
                         <span id='cc'>150104400108</span>
                     </span>
                 </p>

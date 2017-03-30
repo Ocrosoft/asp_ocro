@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="3_1.aspx.cs" Inherits="WebApplication_asp_ocro.webs._3_1" %>
+﻿<%@ Page Title="Register" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="3_1.aspx.cs" Inherits="WebApplication_asp_ocro.webs._3_1" %>
 <asp:Content ID="stdContent" ContentPlaceHolderID="stdContent" runat="server">
     <form role="form" method="post" runat="server">
         <div class="form-group">
@@ -22,8 +22,8 @@
         <div class="form-group">
             <label for="selectorSex" style="display: block;">Sex&nbsp</label>
             <asp:RadioButtonList ID="selectorSex" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow">
-                <asp:ListItem Selected="True" Value="1">&nbspMan&nbsp&nbsp</asp:ListItem>
-                <asp:ListItem Value="0">&nbspWoman&nbsp</asp:ListItem>
+                <asp:ListItem Selected="True" Value="1">&nbspMale&nbsp&nbsp</asp:ListItem>
+                <asp:ListItem Value="0">&nbspFemale&nbsp</asp:ListItem>
             </asp:RadioButtonList>
         </div>
         <div class="form-group">

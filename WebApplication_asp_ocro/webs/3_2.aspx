@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="3_2.aspx.cs" Inherits="WebApplication_asp_ocro.webs._3_2" %>
+﻿<%@ Page Title="Welcome" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="3_2.aspx.cs" Inherits="WebApplication_asp_ocro.webs._3_2" %>
 <asp:Content ID="stdContent" ContentPlaceHolderID="stdContent" runat="server">
     <form class="form-horizontal" role="form"  runat="server" style="text-align:center;">
         <h1 class="text-success">Welcome!</h1>

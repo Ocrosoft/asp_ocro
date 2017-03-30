@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace WebApplication_asp_ocro
 {
@@ -12,6 +7,13 @@ namespace WebApplication_asp_ocro
         protected void Page_Load(object sender, EventArgs e)
         {
 
+        }
+
+        protected void Logout(object sender, EventArgs e)
+        {
+            Session.Clear();
+            Server.Transfer("/webs/3.aspx");
+            //Response.Write("<script>window.loaction.href='/webs/3.aspx';</script>");
         }
     }
 }

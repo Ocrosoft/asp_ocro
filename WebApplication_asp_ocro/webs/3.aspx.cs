@@ -8,14 +8,11 @@ namespace WebApplication_asp_ocro.webs
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(Request.Cookies["loginCookies"]!=null)
+            if (Request.Cookies["loginCookies"] != null)
             {
                 string savedUsername = Request.Cookies["loginCookies"].Value;
-                if (savedUsername != null)
-                {
-                    checkBoxRemember.Checked = true;
-                    inputUsername.Text = savedUsername;
-                }
+                checkBoxRemember.Checked = true;
+                inputUsername.Text = savedUsername;
             }
         }
         protected void Click_Login(object sender, EventArgs e)
@@ -39,7 +36,7 @@ namespace WebApplication_asp_ocro.webs
                 Response.Write("<script>window.location.href='/webs/3.aspx';</script>");
                 return;
             }
-            if(checkBoxRemember.Checked)
+            if (checkBoxRemember.Checked)
             {
                 Response.Cookies["loginCookies"].Value = user_name;
                 Response.Cookies["loginCookies"].Expires = DateTime.Now.AddDays(7);
