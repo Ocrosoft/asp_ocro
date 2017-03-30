@@ -13,6 +13,7 @@
     </asp:ContentPlaceHolder>
     <!-- 导入自定义css -->
     <asp:ContentPlaceHolder ID="cssCusImportHead" runat="server">
+        <!-- Σ( ° △ °|||)︴ -->
     </asp:ContentPlaceHolder>
 </head>
 <body>
@@ -33,7 +34,7 @@
             <nav class="navbar navbar-default" role="navigation" style="border-radius: 0px;">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse"></button>
-                    <a class="navbar-brand" href="#">WEB ASP</a>
+                    <a class="navbar-brand" href="/Default.aspx">WEB ASP</a>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
@@ -95,11 +96,12 @@
     <!-- 版权 -->
     <asp:ContentPlaceHolder ID="stdFooter" runat="server">
         <div class="clearfix">
-            <nav class="navbar navbar-default" role="navigation" style="border-radius: 0px; bottom:0px;margin:20px 0px 0px 0px;">
+            <nav class="navbar navbar-default" role="navigation" style="border-radius: 0px; bottom: 0px; margin: 20px 0px 0px 0px;">
                 <p class="text-muted credit" style="padding: 10px; text-align: center;">
                     <span id="copyright">&copy;2017 ocrosoft.com<br />
                         浙ICP备16010729号
-                    <span id='cc'>150104400108</span>
+                   
+                        <span id='cc'>150104400108</span>
                     </span>
                 </p>
             </nav>

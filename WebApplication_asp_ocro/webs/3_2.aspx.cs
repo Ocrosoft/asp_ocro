@@ -6,7 +6,8 @@ namespace WebApplication_asp_ocro.webs
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["loginSession"] == null)
+                Response.Write("<script>window.location.href='/webs/3.aspx';</script>");
         }
         protected void Click_Back(object sender, EventArgs e)
         {

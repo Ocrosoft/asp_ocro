@@ -16,16 +16,19 @@
         </div>
         <div class="form-group">
             <label for="inputCheckCode" style="display: block;">CheckCode</label>
-            <asp:TextBox runat="server" type="text" ID="checkCode" name="checkCode" value=""
-                class="form-control" Style="width: 75%; display: inline;"
+            <asp:TextBox runat="server" ID="checkCode"
+                CssClass="form-control" Style="width: 75%; display: inline;"
                 placeholder="Enter checkcode" />
             <img
                 style="cursor: pointer; float: right; width: 12%;" alt="CheckCode" id="imageCode"
                 src="/webs/CheckCode.aspx" />
         </div>
         <div class="form-group">
+            <asp:CheckBox runat="server" Text="Remember me" ID="checkBoxRemember"/>
+        </div>
+        <div class="form-group">
             <div>
-                <asp:Button runat="server" Text="Login" OnClick="Click_Login" class="btn btn-primary form-control" />
+                <asp:Button runat="server" Text="Login" OnClick="Click_Login" CssClass="btn btn-primary form-control" />
             </div>
             <a href="/webs/3_1.aspx">
                 <input type="button" class="btn btn-link" style="outline: none; right: 0; position: absolute;" value="Register->" />
