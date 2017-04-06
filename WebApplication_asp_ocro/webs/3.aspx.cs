@@ -1,6 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using System.Web;
+using System.Text.RegularExpressions;
 
 namespace WebApplication_asp_ocro.webs
 {
@@ -8,11 +8,19 @@ namespace WebApplication_asp_ocro.webs
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Request.Cookies["loginCookies"] != null)
+            if (Session["loginSession"] != null)
             {
-                string savedUsername = Request.Cookies["loginCookies"].Value;
-                checkBoxRemember.Checked = true;
-                inputUsername.Text = savedUsername;
+                Response.Write("<script>window.location.href='/webs/3_2.aspx';</script>");
+                return;
+            }
+            if (!IsPostBack)
+            {
+                if (Request.Cookies["loginCookies"] != null)
+                {
+                    string savedUsername = Request.Cookies["loginCookies"].Value;
+                    checkBoxRemember.Checked = true;
+                    inputUsername.Text = savedUsername;
+                }
             }
         }
         protected void Click_Login(object sender, EventArgs e)
@@ -20,20 +28,12 @@ namespace WebApplication_asp_ocro.webs
             string user_name, pass_word;
             user_name = inputUsername.Text.Trim();
             pass_word = inputPassword.Text.Trim();
-            pass_word = MyMD5.MD5(pass_word);
-            pass_word = pass_word.ToUpper();
             string check_code = Session["CheckCode"].ToString();
             string check_Code = checkCode.Text.Trim();
-            if (user_name.Trim().Length == 0)
+            if (!Regex.IsMatch(user_name, @"^[0-9a-zA-Z_]{1,21}$") ||
+                !Regex.IsMatch(pass_word, @"^[!@#$%^&*()0-9a-zA-Z_?<>.]{7,20}$")
+                )
             {
-                Response.Write("<script>alert('Please enter your username!');</script>");
-                Response.Write("<script>window.location.href='/webs/3.aspx';</script>");
-                return;
-            }
-            else if (pass_word.Trim().Length == 0)
-            {
-                Response.Write("<script>alert('Please enter your password!');</script>");
-                Response.Write("<script>window.location.href='/webs/3.aspx';</script>");
                 return;
             }
             if (checkBoxRemember.Checked)
@@ -43,9 +43,8 @@ namespace WebApplication_asp_ocro.webs
             }
             else
             {
-                HttpCookie cookie = new HttpCookie("loginCookies");
-                cookie.Expires = DateTime.Now.AddDays(-7);
-                Response.Cookies.Add(cookie);
+                Response.Cookies["loginCookies"].Value = "";
+                Response.Cookies["loginCookies"].Expires = DateTime.Now.AddDays(-7);
             }
             if (!check_code.Equals(check_Code))
             {
@@ -53,10 +52,12 @@ namespace WebApplication_asp_ocro.webs
                 Response.Write("<script>window.location.href='/webs/3.aspx';</script>");
                 return;
             }
+            pass_word = MyMD5.MD5(pass_word);
+            pass_word = pass_word.ToUpper();
             object obj = null;
             try
             {
-                string sql = "select username from users where username=?1 and password=?2;";
+                string sql = "select username from " + (checkBoxTeacher.Checked ? "teacher" : "users") + " where username=?1 and password=?2;";
                 MySqlParameter[] para = new MySqlParameter[2];
                 para[0] = new MySqlParameter("?1", user_name);
                 para[1] = new MySqlParameter("?2", pass_word);
@@ -64,7 +65,7 @@ namespace WebApplication_asp_ocro.webs
             }
             catch
             {
-                Response.Write("<script>alert('Services is not available!');</script>");
+                Response.Write("<script>alert('Server error!');</script>");
                 Response.Write("<script>window.location.href='/webs/3.aspx';</script>");
                 return;
             }
@@ -77,8 +78,10 @@ namespace WebApplication_asp_ocro.webs
             else
             {
                 Session["loginSession"] = user_name;
+                if (checkBoxTeacher.Checked) Session["loginIden"] = "Teacher";
+                else Session["loginIden"] = "User";
                 Response.Write("<script>window.location.href='/webs/3_2.aspx';</script>");
             }
         }
     }
-}
+};

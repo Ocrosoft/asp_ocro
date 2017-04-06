@@ -10,6 +10,7 @@
     <asp:ContentPlaceHolder ID="cssStdImportHead" runat="server">
         <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="/css/main.css" />
+        <link rel="stylesheet" type="text/css" href="/js/tooltips/tip-skyblue/tip-skyblue.css" />
     </asp:ContentPlaceHolder>
     <!-- 导入自定义css -->
     <asp:ContentPlaceHolder ID="cssCusImportHead" runat="server">
@@ -22,6 +23,7 @@
         <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
         <script src="/js/particles.js"></script>
         <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/tooltips/jquery.poshytip.js"></script>
     </asp:ContentPlaceHolder>
     <!-- Header标准Div -->
     <asp:ContentPlaceHolder ID="divStdHeader" runat="server">
@@ -34,44 +36,13 @@
             <nav class="navbar navbar-default" role="navigation" style="border-radius: 0px;">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse"></button>
-                    <a class="navbar-brand" href="/webs/3.aspx">WEB ASP</a>
+                    <a class="navbar-brand" href="/webs/3.aspx">ASP.NET</a>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <!--
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">C_1<strong class="caret"></strong></a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="/webs/1.aspx">Show IP and time</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">C_2<strong class="caret"></strong></a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="/webs/2.aspx">+-*/ calc</a>
-                                </li>
-                                <li>
-                                    <a href="/webs/2_2.aspx">Calculator</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">C_3<strong class="caret"></strong></a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="/webs/3.aspx">Login</a>
-                                </li>
-                                <li>
-                                    <a href="/webs/3_1.aspx">Register</a>
-                                </li>
-                            </ul>
-                        </li> -->
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown">
+                        <li class="dropdown" id="loginOperation">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <% 
                                     if (Session["loginSession"] != null)
@@ -85,7 +56,8 @@
                                 <% 
                                     if (Session["loginSession"] != null)
                                     {
-                                        Response.Write("<li><a href=\"/webs/3_3.aspx\">Edit Profile</a></li>");
+                                        if ((string)Session["loginIden"] == "User") Response.Write("<li><a href=\"/webs/3_3.aspx\">Edit Profile</a></li>");
+                                        else Response.Write("<li><a href=\"/webs/3_5.aspx\">Manage Panel</a></li>");
                                     }
                                 %>
                                 <li id="logout"><a href="#" runat="server" onserverclick="Logout">Logout</a></li>

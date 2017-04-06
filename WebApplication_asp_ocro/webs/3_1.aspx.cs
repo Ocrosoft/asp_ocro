@@ -9,16 +9,19 @@ namespace WebApplication_asp_ocro.webs
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["loginSession"] != null)
+            {
+                Response.Write("<script>window.location.href='/webs/3_2.aspx';</script>");
+                return;
+            }
         }
         protected void buttonSubmit_Click(object sender, EventArgs e)
         {
-            string username = inputUsername.Text;
-            string password = inputPassword.Text;
-            password = MyMD5.MD5(password);
-            password = password.ToUpper();
+            string username = inputUsername.Text.Trim();
+            string password = inputPassword.Text.Trim();
+            string repassword = inputRepeatPassword.Text.Trim();
             string sex = selectorSex.SelectedValue;
-            string year = inputYear.Text;
+            string year = inputYear.Text.Trim();
             string grade = selectGrade.SelectedValue;
             string major = selectMajor.SelectedValue;
             string check_code = Session["CheckCode"].ToString();
@@ -27,12 +30,21 @@ namespace WebApplication_asp_ocro.webs
             DateTime dtime = DateTime.Now;
             string time = dtime.ToString();
 
+            if(!Regex.IsMatch(username,@"^[0-9a-zA-Z_]{1,21}$") ||
+                !Regex.IsMatch(password, @"^[!@#$%^&*()0-9a-zA-Z_?<>.]{7,20}$") ||
+                password!=repassword 
+                ) // 非法请求均不提示
+            {
+                return;
+            }
             if (!check_code.Equals(checkcode))
             {
                 Response.Write("<script>alert('Incorrect checkcode!');</script>");
-                Response.Write("<script>window.location.href='http://debug.ocrosoft.com:8001/webs/3.aspx';</script>");
+                Response.Write("<script>window.location.href='/webs/3_1.aspx';</script>");
                 return;
             }
+            password = MyMD5.MD5(password);
+            password = password.ToUpper();
 
             try
             {
@@ -49,18 +61,18 @@ namespace WebApplication_asp_ocro.webs
                 int res = MysqlHelper.ExecuteNonQuery(sql, para);
                 if (res > 0)
                 {
-                    Response.Write("<script>alert('Register successful! Turning to login page...');</script>");
+                    Response.Write("<script>alert('Register successful! Navigation to login page...');</script>");
                     Response.Write("<script>window.location.href='/webs/3.aspx';</script>");
                 }
                 else
                 {
-                    Response.Write("<script>alert('Faild, server returned an error message(1)!');</script>");
+                    Response.Write("<script>alert('Register faild, an error has occurred!');</script>");
                     Response.Write("<script>window.location.href='/webs/3_1.aspx';</script>");
                 }
             }
             catch
             {
-                Response.Write("<script>alert('Faild, server returned an error message(0)!');</script>");
+                Response.Write("<script>alert('Register faild, user has been exists!');</script>");
                 Response.Write("<script>window.location.href='/webs/3_1.aspx';</script>");
                 return;
             }

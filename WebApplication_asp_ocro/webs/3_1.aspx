@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="Register" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="3_1.aspx.cs" Inherits="WebApplication_asp_ocro.webs._3_1" %>
 <asp:Content ID="stdContent" ContentPlaceHolderID="stdContent" runat="server">
-    <form role="form" method="post" runat="server">
+    <form role="form" method="post" runat="server" id="Register">
         <div class="form-group">
             <label for="inputUsername">Username</label>
             <asp:TextBox runat="server" type="text"
@@ -73,42 +73,59 @@
         }
         $("#imageCode").bind('click', reloadCode);
 
-        function changeBorderColor(id) {
+        function changeBorderColor(id, message) {
             $(id).css('border-color', '#f00');
+            $(id).poshytip('destroy');
+            $(id).poshytip({
+                content: message,
+                className: 'tip-skyblue',
+                showOn: 'none',
+                alignTo: 'target',
+                alignX: 'inner-right',
+                offsetY: '10'
+            });
+            $(id).poshytip('show');
             $(id).focus(function () {
                 $(id).css('border-color', '#ccc');
+                $(id).poshytip('destroy');
             });
         }
+        String.prototype.trim = function () {
+            return this.replace(/(^\s*)|(\s*$)/g, "");
+        }
 
-        $('form').submit(function () {
-            var username = $("#inputUsername")[0].value;
-            var password = $("#inputPassword")[0].value;
-            var repassword = $("#inputRepeatPassword")[0].value;
-            var year = $("#inputYear")[0].value;
-            var checkcode = $("#checkCode")[0].value;
-            var valid = true;
+        var idFix = "stdContentMoudle_stdContent_";
+        $('#Register').submit(function () {
+            var username = $("#" + idFix + "inputUsername")[0].value;
+            var password = $("#" + idFix +"inputPassword")[0].value;
+            var repassword = $("#" + idFix + "inputRepeatPassword")[0].value;
+            var year = $("#" + idFix + "inputYear")[0].value.trim();
+            var checkcode = $("#" + idFix +"checkCode")[0].value;
 
-            if (username.length == 0) {
-                changeBorderColor("#inputUsername");
-                valid = false;
+            var reg = new RegExp("^[0-9a-zA-Z_]{1,21}$");
+            if (!reg.test(username)){
+                changeBorderColor("#" + idFix + "inputUsername", "Username should satisfy:<br/>1.Length at least 1, at most 20.<br/>2.Include '0-9','a-z','A-Z','_' only.");
+                return false;
             }
-            if (password.length < 6 || password.length > 20) {
-                changeBorderColor("#inputPassword");
-                valid = false;
+            reg = new RegExp("^[!@#$%^&*()0-9a-zA-Z_?<>.]{7,20}$");
+            if (!reg.test(password)) {
+                changeBorderColor("#" + idFix + "inputPassword", "Password should satisfy:<br/>1.Length at least 7, at most 20.<br/>2.Include '0-9','a-z','A-Z'<br/>and special character(such as '!') only.");
+                return false;
             }
             if (password != repassword) {
-                changeBorderColor("#repassword");
-                valid = false;
+                changeBorderColor("#" + idFix +"inputRepeatPassword", "Repeat password is not equal to password.");
+                return false;
             }
             if (year < 18 || year > 100) {
-                changeBorderColor("#inputYear");
-                valid = false;
+                changeBorderColor("#" + idFix +"inputYear", "Age should satisfy:<br/>1.You are at least 18 years old.<br/>2.You can't older than 100 years old.");
+                return false;
             }
-            if (checkcode.length != 4) {
-                changeBorderColor("#checkCode");
-                valid = false;
+            reg = new RegExp("^[a-zA-Z0-9]{4}$");
+            if (!reg.test(checkcode)) {
+                changeBorderColor("#" + idFix +"checkCode", "Checkcode should satisfy:<br>1.Length must be 4.<br/>2.Include '0-9','a-z','A-Z' only.");
+                return false;
             }
-            return valid;
+            return true;
         });
     </script>
 </asp:Content>

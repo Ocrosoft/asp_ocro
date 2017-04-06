@@ -9,7 +9,6 @@
         if (top >= max) pos = -5;
         else pos += 130 * (top * 1.0 / max);
         $('#back').animate({ right: pos + 'px' }, 500);
-        //$('#back').css('right', pos + 'px');
     })();
     $('#back').click(function () {
         $('body').animate({ scrollTop: '0px' }, 300);
@@ -37,6 +36,5 @@ function setBackPos() {
     if (top >= max) pos = -5;
     else pos += 130 * (top * 1.0 / max);
     $('#back').css('right', pos + 'px');
-    console.log(top + "--" + max);
 }
 window.onscroll = setBackPos;

@@ -7,9 +7,9 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace WebApplication_asp_ocro {
+namespace WebApplication_asp_ocro.webs {
     
     
-    public partial class _4 {
+    public partial class _3_5 {
     }
 }

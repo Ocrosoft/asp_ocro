@@ -62,6 +62,27 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="index.html" />
+    <Content Include="js\tooltips\jquery.poshytip.js" />
+    <Content Include="js\tooltips\jquery.poshytip.min.js" />
+    <Content Include="js\tooltips\tip-darkgray\tip-darkgray.css" />
+    <Content Include="js\tooltips\tip-darkgray\tip-darkgray.png" />
+    <Content Include="js\tooltips\tip-darkgray\tip-darkgray_arrows.png" />
+    <Content Include="js\tooltips\tip-green\tip-green.css" />
+    <Content Include="js\tooltips\tip-green\tip-green_arrows.gif" />
+    <Content Include="js\tooltips\tip-skyblue\tip-skyblue.css" />
+    <Content Include="js\tooltips\tip-skyblue\tip-skyblue.png" />
+    <Content Include="js\tooltips\tip-skyblue\tip-skyblue_arrows.png" />
+    <Content Include="js\tooltips\tip-twitter\tip-twitter.css" />
+    <Content Include="js\tooltips\tip-twitter\tip-twitter_arrows.gif" />
+    <Content Include="js\tooltips\tip-violet\tip-violet.css" />
+    <Content Include="js\tooltips\tip-violet\tip-violet.png" />
+    <Content Include="js\tooltips\tip-violet\tip-violet_arrows.png" />
+    <Content Include="js\tooltips\tip-yellowsimple\tip-yellowsimple.css" />
+    <Content Include="js\tooltips\tip-yellowsimple\tip-yellowsimple_arrows.gif" />
+    <Content Include="js\tooltips\tip-yellow\tip-yellow.css" />
+    <Content Include="js\tooltips\tip-yellow\tip-yellow.png" />
+    <Content Include="js\tooltips\tip-yellow\tip-yellow_arrows.png" />
     <Content Include="webs\1.aspx" />
     <Content Include="webs\2.aspx" />
     <Content Include="webs\2_2.aspx" />
@@ -69,7 +90,7 @@
     <Content Include="webs\3_1.aspx" />
     <Content Include="webs\3_2.aspx" />
     <Content Include="webs\3_3.aspx" />
-    <Content Include="webs\4.aspx" />
+    <Content Include="webs\3_5.aspx" />
     <Content Include="Master.Master" />
     <Content Include="css\bootstrap-theme.css.map" />
     <Content Include="css\bootstrap-theme.min.css.map" />
@@ -155,12 +176,12 @@
     <Compile Include="webs\3_3.aspx.designer.cs">
       <DependentUpon>3_3.aspx</DependentUpon>
     </Compile>
-    <Compile Include="webs\4.aspx.cs">
-      <DependentUpon>4.aspx</DependentUpon>
+    <Compile Include="webs\3_5.aspx.cs">
+      <DependentUpon>3_5.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="webs\4.aspx.designer.cs">
-      <DependentUpon>4.aspx</DependentUpon>
+    <Compile Include="webs\3_5.aspx.designer.cs">
+      <DependentUpon>3_5.aspx</DependentUpon>
     </Compile>
     <Compile Include="Master.Master.cs">
       <DependentUpon>Master.Master</DependentUpon>
