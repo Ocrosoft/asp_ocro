@@ -65,6 +65,27 @@
         </a>
     </form>
 </asp:Content>
+<asp:Content ID="stdContentSideBar" ContentPlaceHolderID="stdContentSideBar" runat="server">
+    <div class="panel panel-success">
+        <div class="panel-heading" style="text-align:center;">提示</div>
+        <div class="panel-body" style="text-align:center;">
+            <label for="hint">
+                不要使用简单密码，<br/>
+                数据库中密码采用MD5加密，<br/>
+                简单密码容易被猜出。
+            </label>
+        </div>
+    </div>
+    <div class="panel panel-success">
+        <div class="panel-heading" style="text-align:center;">提示</div>
+        <div class="panel-body" style="text-align:center;">
+            <label for="hint">
+                请尽量填写真实数据，<br/>
+                所有信息都不会被泄露。
+            </label>
+        </div>
+    </div>
+</asp:Content>
 <asp:Content ID="scriptCusFooter" ContentPlaceHolderID="scriptCusFooter" runat="server">
     <script>
         function reloadCode() {
@@ -72,27 +93,6 @@
             document.getElementById("imageCode").src = "CheckCode.aspx?" + time;
         }
         $("#imageCode").bind('click', reloadCode);
-
-        function changeBorderColor(id, message) {
-            $(id).css('border-color', '#f00');
-            $(id).poshytip('destroy');
-            $(id).poshytip({
-                content: message,
-                className: 'tip-skyblue',
-                showOn: 'none',
-                alignTo: 'target',
-                alignX: 'inner-right',
-                offsetY: '10'
-            });
-            $(id).poshytip('show');
-            $(id).focus(function () {
-                $(id).css('border-color', '#ccc');
-                $(id).poshytip('destroy');
-            });
-        }
-        String.prototype.trim = function () {
-            return this.replace(/(^\s*)|(\s*$)/g, "");
-        }
 
         var idFix = "stdContentMoudle_stdContent_";
         $('#Register').submit(function () {

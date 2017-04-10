@@ -88,6 +88,7 @@
                 </div>
                 <div class="col-md-1 column">
                 </div>
+
                 <div class="col-md-3 column">
                     <asp:ContentPlaceHolder ID="stdContentSideBar" runat="server">
                         <label for="sideBar">SideBar</label>
@@ -115,6 +116,35 @@
     <asp:ContentPlaceHolder ID="scriptStdFooter" runat="server">
         <script src="/js/particlesON.js"></script>
         <script src="/js/main.js"></script>
+        <script>
+            function changeBorderColor(id, message) {
+                $(id).css('border-color', '#f00');
+                $(id).poshytip('destroy');
+                $(id).poshytip({
+                    content: message,
+                    className: 'tip-skyblue',
+                    showOn: 'none',
+                    alignTo: 'target',
+                    alignX: 'inner-right',
+                    offsetY: '10'
+                });
+                $(id).poshytip('show');
+                $(id).focus(function () {
+                    $(id).css('border-color', '#ccc');
+                    $(id).poshytip('destroy');
+                });
+            }
+        </script>
+        <script>
+            $('.panel-heading').css("cursor", "pointer");
+            $('.panel-heading').bind('click', function () {
+                console.log(this.nextSibling.nextSibling);
+                if (this.nextSibling.nextSibling.style.display == 'none')
+                    this.nextSibling.nextSibling.style.display = 'block';
+                else
+                    this.nextSibling.nextSibling.style.display = 'none';
+            });
+        </script>
     </asp:ContentPlaceHolder>
     <!-- 导入自定义Footer js -->
     <asp:ContentPlaceHolder ID="scriptCusFooter" runat="server">

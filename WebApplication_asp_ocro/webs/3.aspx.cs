@@ -13,6 +13,13 @@ namespace WebApplication_asp_ocro.webs
                 Response.Write("<script>window.location.href='/webs/3_2.aspx';</script>");
                 return;
             }
+            if(Session["loginError"]!=null)
+            {
+                Page.ClientScript.RegisterStartupScript(Page.GetType(), "",
+                    "$(document).ready(function(){changeBorderColor('#"+Session["loginErrorID"]+"','" + Session["loginError"] + "');});", true);
+                Session["loginErrorID"] = null;
+                Session["loginError"] = null;
+            }
             if (!IsPostBack)
             {
                 if (Request.Cookies["loginCookies"] != null)
@@ -48,8 +55,12 @@ namespace WebApplication_asp_ocro.webs
             }
             if (!check_code.Equals(check_Code))
             {
-                Response.Write("<script>alert('Incorrect checkcode!');</script>");
+                Session["loginErrorID"] = "stdContentMoudle_stdContent_buttonLogin";
+                Session["loginError"] = "Server error!";
                 Response.Write("<script>window.location.href='/webs/3.aspx';</script>");
+                //Session["loginErrorID"] = "stdContentMoudle_stdContent_checkCode";
+                //Session["loginError"] = "Incorrect checkcode!";
+                //Response.Write("<script>window.location.href='/webs/3.aspx';</script>");
                 return;
             }
             pass_word = MyMD5.MD5(pass_word);
@@ -65,13 +76,15 @@ namespace WebApplication_asp_ocro.webs
             }
             catch
             {
-                Response.Write("<script>alert('Server error!');</script>");
+                Session["loginErrorID"] = "stdContentMoudle_stdContent_buttonLogin";
+                Session["loginError"] = "Server error!";
                 Response.Write("<script>window.location.href='/webs/3.aspx';</script>");
                 return;
             }
             if (Equals(obj, null))
             {
-                Response.Write("<script>alert('Username or password wrong!');</script>");
+                Session["loginErrorID"] = "stdContentMoudle_stdContent_inputPassword";
+                Session["loginError"] = "Username or password wrong!";
                 Response.Write("<script>window.location.href='/webs/3.aspx';</script>");
                 return;
             }

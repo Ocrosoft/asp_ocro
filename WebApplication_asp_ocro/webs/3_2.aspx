@@ -3,9 +3,30 @@
     <form class="form-horizontal" role="form"  runat="server" style="text-align:center;">
         <h1 class="text-success">Welcome!</h1>
         <h1><asp:Label runat="server" ID="labelIden" CssClass="text-success"></asp:Label></h1><br/>
-        <asp:Button ID="Button1" runat="server" Text="Return to login page" CssClass="btn btn-primary" Style="width: 50%;" OnClick="Click_Back" /><br />
+        <asp:Button ID="Button1" runat="server" Text="Return to login page(useless now)" CssClass="btn btn-primary" Style="width: 50%;" OnClick="Click_Back" /><br />
         <br />
     </form>
+</asp:Content>
+
+<asp:Content ID="stdContentSideBar" ContentPlaceHolderID="stdContentSideBar" runat="server">
+    <div class="panel panel-success">
+        <div class="panel-heading">提示</div>
+        <div class="panel-body" style="text-align:center;">
+            <label for="hint" style="text-align:center;">
+                在右上角可以登出。
+            </label>
+        </div>
+    </div>
+    <div class="panel panel-success">
+        <div class="panel-heading">提示</div>
+        <div class="panel-body" style="text-align:center;">
+            <label for="hint" style="text-align:center;">
+                在右上角，<br/>
+                学生可以修改自己的信息，<br/>
+                教师可以查看所有已注册学生。
+            </label>
+        </div>
+    </div>
 </asp:Content>
 
 <asp:Content ID="scriptCusFooter" ContentPlaceHolderID="scriptCusFooter" runat="server">

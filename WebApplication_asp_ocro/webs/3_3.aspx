@@ -52,26 +52,29 @@
         <asp:Button runat="server" type="submit" class="btn btn-primary form-control" ID="buttonSubmit" Text="Accept(Not Available Yet)" OnClick="buttonSubmit_Click" />
     </form>
 </asp:Content>
+<asp:Content ID="stdContentSideBar" ContentPlaceHolderID="stdContentSideBar" runat="server">
+    <div class="panel panel-success">
+        <div class="panel-heading">提示</div>
+        <div class="panel-body" style="text-align:center;">
+            <label for="hint" style="text-align:center;">
+                部分信息，例如性别，<br/>
+                是无法修改的 <s>呢</s> 。
+            </label>
+        </div>
+    </div>
+    <div class="panel panel-success">
+        <div class="panel-heading">提示</div>
+        <div class="panel-body" style="text-align:center;">
+            <label for="hint" style="text-align:center;">
+                如果修改信息，原密码必须输入，<br/>
+                如果不想修改密码，<br/>
+                留空新密码和重复密码即可。
+            </label>
+        </div>
+    </div>
+</asp:Content>
 <asp:Content ID="scriptCusFooter" ContentPlaceHolderID="scriptCusFooter" runat="server">
     <script>
-        function changeBorderColor(id, message) {
-            $(id).css('border-color', '#f00');
-            $(id).poshytip('destroy');
-            $(id).poshytip({
-                content: message,
-                className: 'tip-skyblue',
-                showOn: 'none',
-                alignTo: 'target',
-                alignX: 'inner-right',
-                offsetY: '10'
-            });
-            $(id).poshytip('show');
-            $(id).focus(function () {
-                $(id).css('border-color', '#ccc');
-                $(id).poshytip('destroy');
-            });
-        }
-
         var idFix = "stdContentMoudle_stdContent_";
         $('#Edit').submit(function () {
             var oldpassword = $("#" + idFix + "inputOldPassword")[0].value;

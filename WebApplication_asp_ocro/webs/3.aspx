@@ -24,12 +24,12 @@
                 src="/webs/CheckCode.aspx" />
         </div>
         <div class="form-group">
-            <asp:CheckBox runat="server" Text="&nbspRemember me" ID="checkBoxRemember"/>
-            <asp:CheckBox runat="server" Text="&nbspTeacher" ID="checkBoxTeacher"  style="position:absolute;right:0;"/>
+            <asp:CheckBox runat="server" Text="&nbspRemember me" ID="checkBoxRemember" />
+            <asp:CheckBox runat="server" Text="&nbspTeacher" ID="checkBoxTeacher" Style="position: absolute; right: 0;" />
         </div>
         <div class="form-group">
             <div>
-                <asp:Button runat="server" Text="Login" OnClick="Click_Login" CssClass="btn btn-primary form-control" />
+                <asp:Button ID="buttonLogin" runat="server" Text="Login" OnClick="Click_Login" CssClass="btn btn-primary form-control" />
             </div>
             <a href="/webs/3_1.aspx">
                 <input type="button" class="btn btn-link" style="outline: none; right: 0; position: absolute;" value="Register->" />
@@ -37,6 +37,28 @@
         </div>
     </form>
 </asp:Content>
+<asp:Content ID="stdContentSideBar" ContentPlaceHolderID="stdContentSideBar" runat="server">
+    <div class="panel panel-success">
+        <div class="panel-heading">提示</div>
+        <div class="panel-body" style="text-align:center;">
+            <label for="hint" style="text-align:center;">
+                测试教师账号：teacher01<br />
+                测试教师密码：123123123<br />
+                登录需要勾选 Teacher 单选框
+            </label>
+        </div>
+    </div>
+    <div class="panel panel-success">
+        <div class="panel-heading">提示</div>
+        <div class="panel-body" style="text-align:center;">
+            <label for="hint" style="text-align:center;">
+                登录教师账号，<br/>
+                可以查看所有注册信息。
+            </label>
+        </div>
+    </div>
+</asp:Content>
+
 <asp:Content ID="scriptCusFooter" ContentPlaceHolderID="scriptCusFooter" runat="server">
     <script>
         function reloadCode() {
@@ -45,29 +67,11 @@
         }
         $("#imageCode").bind('click', reloadCode);
 
-        function changeBorderColor(id, message) {
-            $(id).css('border-color', '#f00');
-            $(id).poshytip('destroy');
-            $(id).poshytip({
-                content: message,
-                className: 'tip-skyblue',
-                showOn: 'none',
-                alignTo: 'target',
-                alignX: 'inner-right',
-                offsetY: '10'
-            });
-            $(id).poshytip('show');
-            $(id).focus(function () {
-                $(id).css('border-color', '#ccc');
-                $(id).poshytip('destroy');
-            });
-        }
-
         var idFix = "stdContentMoudle_stdContent_";
         $('#Login').submit(function () {
-            var username = $("#"+idFix+"inputUsername")[0].value;
-            var password = $("#" + idFix +"inputPassword")[0].value;
-            var checkcode = $("#" + idFix +"checkCode")[0].value;
+            var username = $("#" + idFix + "inputUsername")[0].value;
+            var password = $("#" + idFix + "inputPassword")[0].value;
+            var checkcode = $("#" + idFix + "checkCode")[0].value;
 
             var reg = new RegExp("^[0-9a-zA-Z_]{1,21}$");
             if (!reg.test(username)) {
