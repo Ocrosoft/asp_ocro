@@ -20,7 +20,7 @@
 <body>
     <!-- 导入Header标准js -->
     <asp:ContentPlaceHolder ID="scriptStdImportHeader" runat="server">
-        <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script src="/js/jquery-2.1.4.min.js"></script>
         <script src="/js/particles.js"></script>
         <script src="/js/bootstrap.min.js"></script>
         <script src="/js/tooltips/jquery.poshytip.js"></script>
