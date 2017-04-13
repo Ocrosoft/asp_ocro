@@ -31,7 +31,7 @@
             </asp:RadioButtonList>
         </div>
         <div class="form-group">
-            <label for="inputYear" style="display: block;">Year</label>
+            <label for="inputYear" style="display: block;">Age</label>
             <asp:TextBox runat="server"
                 class="form-control" name="inputYear" ID="inputYear" />
         </div>
@@ -87,15 +87,15 @@
                 return false;
             }
             if (password.length != 0 && (password.length < 7 || password.length > 20)) {
-                changeBorderColor("#" + idFix + "inputPassword", "Password's length should be more than 7 and less than 20(Invlusive)");
+                changeBorderColor("#" + idFix + "inputPassword", "Password should satisfy:<br/>1.Length at least 7, at most 20.<br/>2.Include '0-9','a-z','A-Z'<br/>and special character(such as '!') only.");
                 return false;
             }
             if (password.length!=0 && password != repassword) {
-                changeBorderColor("#" + idFix + "inputRepeatPassword", "Password you entered is not equal");
+                changeBorderColor("#" + idFix + "inputRepeatPassword", "Password you entered is not equal.");
                 return false;
             }
             if (year < 18 || year > 100) {
-                changeBorderColor("#" + idFix + "inputYear", "Please enter a valid age");
+                changeBorderColor("#" + idFix + "inputYear", "Age should satisfy:<br/>1.You are at least 18 years old.<br/>2.You can't older than 100 years old.");
                 return false;
             }
 

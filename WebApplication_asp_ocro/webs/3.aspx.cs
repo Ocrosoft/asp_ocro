@@ -1,6 +1,8 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
+using System.Configuration;
 using System.Text.RegularExpressions;
+using System.Security.Cryptography;
 
 namespace WebApplication_asp_ocro.webs
 {
@@ -55,12 +57,9 @@ namespace WebApplication_asp_ocro.webs
             }
             if (!check_code.Equals(check_Code))
             {
-                Session["loginErrorID"] = "stdContentMoudle_stdContent_buttonLogin";
-                Session["loginError"] = "Server error!";
+                Session["loginErrorID"] = "stdContentMoudle_stdContent_checkCode";
+                Session["loginError"] = "Incorrect checkcode!";
                 Response.Write("<script>window.location.href='/webs/3.aspx';</script>");
-                //Session["loginErrorID"] = "stdContentMoudle_stdContent_checkCode";
-                //Session["loginError"] = "Incorrect checkcode!";
-                //Response.Write("<script>window.location.href='/webs/3.aspx';</script>");
                 return;
             }
             pass_word = MyMD5.MD5(pass_word);

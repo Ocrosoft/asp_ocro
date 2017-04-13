@@ -15,4 +15,12 @@
     </div>
 </asp:Content>
 <asp:Content ID="scriptCusFooter" ContentPlaceHolderID="scriptCusFooter" runat="server">
+    <script>
+        $('.DeleteButton').click(function () {
+            if (confirm("确定要删除这个学生吗?")) {
+                return true;
+            }
+            else return false;
+        });
+    </script>
 </asp:Content>

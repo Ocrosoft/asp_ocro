@@ -21,7 +21,6 @@ namespace WebApplication_asp_ocro.webs
                     return;
                 }
             }
-            //if (!IsPostBack)
             {
                 string sql = "select username,sex,grade,age,major,IP,regtime from users;";
                 DataTable table = MysqlHelper.ExecuteDataTable(sql);
@@ -79,6 +78,7 @@ namespace WebApplication_asp_ocro.webs
                     myRow.Cells.Add(delCell);
                     delCell = new TableCell();
                     lb = new LinkButton();
+                    lb.CssClass = "DeleteButton";
                     lb.ID = "LinkButton_" + (index - 1).ToString();
                     lb.Text = "Delete";
                     lb.Click += new EventHandler(Button_Delete);

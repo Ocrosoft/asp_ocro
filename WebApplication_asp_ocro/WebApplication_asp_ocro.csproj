@@ -87,6 +87,7 @@
     <Content Include="js\tooltips\tip-yellow\tip-yellow.css" />
     <Content Include="js\tooltips\tip-yellow\tip-yellow.png" />
     <Content Include="js\tooltips\tip-yellow\tip-yellow_arrows.png" />
+    <Content Include="MySql.Data.dll" />
     <Content Include="webs\1.aspx" />
     <Content Include="webs\2.aspx" />
     <Content Include="webs\2_2.aspx" />

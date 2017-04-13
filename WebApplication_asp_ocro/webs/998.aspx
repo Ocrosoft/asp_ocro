@@ -74,7 +74,8 @@
             function reset() {
                 var bounds = path.bounds(collection),
                     topLeft = bounds[0],
-                    bottomRight = bounds[1];
+                    bottomRight = bounds[1];
+
                 svg.attr("width", bottomRight[0] - topLeft[0]) // 右(下角)-左(上角)=宽度
                     .attr("height", bottomRight[1] - topLeft[1]) // (右)下(角)-(左)上(角)=高度
                     .style("left", topLeft[0] + "px") // 左边距=左(上角)

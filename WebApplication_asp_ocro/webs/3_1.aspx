@@ -27,7 +27,7 @@
             </asp:RadioButtonList>
         </div>
         <div class="form-group">
-            <label for="inputYear" style="display: block;">Year</label>
+            <label for="inputYear" style="display: block;">Age</label>
             <asp:TextBox runat="server"
                 type="text" class="form-control" name="inputYear" ID="inputYear"
                 placeholder="Enter your year" />
