@@ -16,7 +16,6 @@ namespace WebApplication_asp_ocro.webs
             {
                 if ((string)Session["loginIden"] == "Teacher")
                 {
-                    Response.Write("<script>alert('You can't edit your profile as teacher!')</script>");
                     Response.Write("<script>history.go(-1);</script>");
                     return;
                 }

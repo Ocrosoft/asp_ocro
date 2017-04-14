@@ -7,15 +7,14 @@ namespace WebApplication_asp_ocro.webs
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["loginSession"] == null)
-                Response.Write("<script>window.location.href='/webs/3.aspx';</script>");
-            if (!IsPostBack)
             {
-                labelIden.Text = Session["loginIden"] + " " + Session["loginSession"];
+                Response.Write("<script>window.location.href='/webs/3.aspx';</script>");
+                return;
             }
-        }
-        protected void Click_Back(object sender, EventArgs e)
-        {
-            Response.Write("<script>window.location.href='/webs/3.aspx';</script>");
+
+            if (Session["loginIden"].ToString() == "User") labelIden.Text = "你是学生，用户名是：";
+            else labelIden.Text = "您是教师，<br/>用户名是：";
+            labelIden.Text += Session["loginSession"];
         }
     }
 }

@@ -1,67 +1,67 @@
-﻿<%@ Page Title="Register" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="3_1.aspx.cs" Inherits="WebApplication_asp_ocro.webs._3_1" %>
+﻿<%@ Page Title="注册" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="3_1.aspx.cs" Inherits="WebApplication_asp_ocro.webs._3_1" %>
 <asp:Content ID="stdContent" ContentPlaceHolderID="stdContent" runat="server">
     <form role="form" method="post" runat="server" id="Register">
         <div class="form-group">
-            <label for="inputUsername">Username</label>
+            <label for="inputUsername">用户名</label>
             <asp:TextBox runat="server" type="text"
                 class="form-control" name="inputUsername" ID="inputUsername"
-                placeholder="Email/Phone Number/Name/ID" />
+                placeholder="邮箱 / 姓名 / 手机号" />
         </div>
         <div class="form-group">
-            <label for="inputPassword">Password</label>
+            <label for="inputPassword">密码</label>
             <asp:TextBox runat="server" type="password"
                 class="form-control" name="inputPassword" ID="inputPassword"
-                placeholder="Enter your password" />
+                placeholder="请输入你的密码" />
         </div>
         <div class="form-group">
-            <label for="inputRepeatPassword">Repeat Password</label>
+            <label for="inputRepeatPassword">确认密码</label>
             <asp:TextBox runat="server"
                 type="password" class="form-control" name="inputRepeatPassword"
-                ID="inputRepeatPassword" placeholder="Repeat your password" />
+                ID="inputRepeatPassword" placeholder="请重复你的密码" />
         </div>
         <div class="form-group">
-            <label for="selectorSex" style="display: block;">Sex&nbsp</label>
+            <label for="selectorSex" style="display: block;">性别&nbsp</label>
             <asp:RadioButtonList ID="selectorSex" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow">
-                <asp:ListItem Selected="True" Value="1">&nbspMale&nbsp&nbsp</asp:ListItem>
-                <asp:ListItem Value="0">&nbspFemale&nbsp</asp:ListItem>
+                <asp:ListItem Selected="True" Value="1">&nbsp 男 &nbsp&nbsp</asp:ListItem>
+                <asp:ListItem Value="0">&nbsp 女 &nbsp</asp:ListItem>
             </asp:RadioButtonList>
         </div>
         <div class="form-group">
-            <label for="inputYear" style="display: block;">Age</label>
+            <label for="inputYear" style="display: block;">年龄</label>
             <asp:TextBox runat="server"
                 type="text" class="form-control" name="inputYear" ID="inputYear"
-                placeholder="Enter your year" />
+                placeholder="请填写你的年龄" />
         </div>
         <div class="form-group">
-            <label for="selectorGrade" style="display: block;">Grade</label>
+            <label for="selectorGrade" style="display: block;">年级</label>
             <asp:DropDownList runat="server" name="selectGrade" ID="selectGrade" CssClass="form-control">
-                <asp:ListItem Value="1">Grade 1</asp:ListItem>
-                <asp:ListItem Value="2">Grade 2</asp:ListItem>
-                <asp:ListItem Value="3">Grade 3</asp:ListItem>
-                <asp:ListItem Value="4">Grade 4</asp:ListItem>
+                <asp:ListItem Value="2016">2016</asp:ListItem>
+                <asp:ListItem Value="2015">2015</asp:ListItem>
+                <asp:ListItem Value="2014">2014</asp:ListItem>
+                <asp:ListItem Value="2013">2013</asp:ListItem>
             </asp:DropDownList>
         </div>
         <div class="form-group">
-            <label for="selectorMajor" style="display: block;">Major</label>
+            <label for="selectorMajor" style="display: block;">专业</label>
             <asp:DropDownList runat="server" name="selectMajor" ID="selectMajor" CssClass="form-control">
-                <asp:ListItem Value="Software Engineering">Software Engineering</asp:ListItem>
-                <asp:ListItem Value="Computer">Computer</asp:ListItem>
-                <asp:ListItem Value="Infomation">Infomation</asp:ListItem>
-                <asp:ListItem Value="Electronic Commerce">Electronic Commerce</asp:ListItem>
+                <asp:ListItem Value="电子商务">电子商务</asp:ListItem>
+                <asp:ListItem Value="计算机">计算机</asp:ListItem>
+                <asp:ListItem Value="软件工程">软件工程</asp:ListItem>
+                <asp:ListItem Value="信息技术">信息技术</asp:ListItem>
             </asp:DropDownList>
         </div>
         <div class="form-group">
-            <label for="inputCheckCode" style="display: block;">CheckCode</label>
+            <label for="inputCheckCode" style="display: block;">验证码</label>
             <asp:TextBox runat="server" type="text" ID="checkCode" name="checkCode" value=""
                 class="form-control" Style="width: 75%; display: inline;"
-                placeholder="Enter checkcode" />
+                placeholder="请输入验证码" />
             <img
                 style="cursor: pointer; float: right; width: 12%;" alt="CheckCode" id="imageCode"
                 src="/webs/CheckCode.aspx" />
         </div>
-        <asp:Button runat="server" type="submit" class="btn btn-primary form-control" ID="buttonSubmit" Text="Register" OnClick="buttonSubmit_Click" />
+        <asp:Button runat="server" type="submit" class="btn btn-primary form-control" ID="buttonSubmit" Text="注册" OnClick="buttonSubmit_Click" />
         <a href="/webs/3.aspx">
-            <input type="button" class="btn btn-link" style="outline: none; right: 0; position: absolute;" value="Login->" />
+            <input type="button" class="btn btn-link" style="outline: none; right: 0; position: absolute;" value="登录->" />
         </a>
     </form>
 </asp:Content>
@@ -104,25 +104,25 @@
 
             var reg = new RegExp("^[0-9a-zA-Z_]{1,21}$");
             if (!reg.test(username)){
-                changeBorderColor("#" + idFix + "inputUsername", "Username should satisfy:<br/>1.Length at least 1, at most 20.<br/>2.Include '0-9','a-z','A-Z','_' only.");
+                changeBorderColor("#" + idFix + "inputUsername", "用户名需要满足:<br/>1.长度在1到20之间。<br/>2.只包含下划线、大小写字母、数字。");
                 return false;
             }
             reg = new RegExp("^[!@#$%^&*()0-9a-zA-Z_?<>.]{7,20}$");
             if (!reg.test(password)) {
-                changeBorderColor("#" + idFix + "inputPassword", "Password should satisfy:<br/>1.Length at least 7, at most 20.<br/>2.Include '0-9','a-z','A-Z'<br/>and special character(such as '!') only.");
+                changeBorderColor("#" + idFix + "inputPassword", "密码需要满足:<br/>1.长度在7到20之间。<br/>2.只包含数字、大小写字母、特殊字符。");
                 return false;
             }
             if (password != repassword) {
-                changeBorderColor("#" + idFix +"inputRepeatPassword", "Repeat password is not equal to password.");
+                changeBorderColor("#" + idFix +"inputRepeatPassword", "两次输入的密码不一致！");
                 return false;
             }
             if (year < 18 || year > 100) {
-                changeBorderColor("#" + idFix +"inputYear", "Age should satisfy:<br/>1.You are at least 18 years old.<br/>2.You can't older than 100 years old.");
+                changeBorderColor("#" + idFix +"inputYear", "年龄需要满足:<br/>1.已年满十八周岁。<br/>2.不能超过100岁。");
                 return false;
             }
             reg = new RegExp("^[a-zA-Z0-9]{4}$");
             if (!reg.test(checkcode)) {
-                changeBorderColor("#" + idFix +"checkCode", "Checkcode should satisfy:<br>1.Length must be 4.<br/>2.Include '0-9','a-z','A-Z' only.");
+                changeBorderColor("#" + idFix + "checkCode", "验证码需要满足:<br>1.长度必须为4。<br/>2.只包含数字、大小写字母。");
                 return false;
             }
             return true;

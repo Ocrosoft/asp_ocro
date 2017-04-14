@@ -39,6 +39,7 @@ namespace WebApplication_asp_ocro.webs
             pass_word = inputPassword.Text.Trim();
             string check_code = Session["CheckCode"].ToString();
             string check_Code = checkCode.Text.Trim();
+            check_Code = check_Code.ToLower();
             if (!Regex.IsMatch(user_name, @"^[0-9a-zA-Z_]{1,21}$") ||
                 !Regex.IsMatch(pass_word, @"^[!@#$%^&*()0-9a-zA-Z_?<>.]{7,20}$")
                 )
@@ -58,7 +59,7 @@ namespace WebApplication_asp_ocro.webs
             if (!check_code.Equals(check_Code))
             {
                 Session["loginErrorID"] = "stdContentMoudle_stdContent_checkCode";
-                Session["loginError"] = "Incorrect checkcode!";
+                Session["loginError"] = "验证码错误！";
                 Response.Write("<script>window.location.href='/webs/3.aspx';</script>");
                 return;
             }
@@ -76,14 +77,14 @@ namespace WebApplication_asp_ocro.webs
             catch
             {
                 Session["loginErrorID"] = "stdContentMoudle_stdContent_buttonLogin";
-                Session["loginError"] = "Server error!";
+                Session["loginError"] = "服务器错误！";
                 Response.Write("<script>window.location.href='/webs/3.aspx';</script>");
                 return;
             }
             if (Equals(obj, null))
             {
                 Session["loginErrorID"] = "stdContentMoudle_stdContent_inputPassword";
-                Session["loginError"] = "Username or password wrong!";
+                Session["loginError"] = "用户名或密码错误！";
                 Response.Write("<script>window.location.href='/webs/3.aspx';</script>");
                 return;
             }

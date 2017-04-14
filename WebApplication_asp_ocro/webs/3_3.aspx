@@ -1,55 +1,55 @@
-﻿<%@ Page Title="Edit Profile" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="3_3.aspx.cs" Inherits="WebApplication_asp_ocro.webs._3_3" %>
+﻿<%@ Page Title="修改信息" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="3_3.aspx.cs" Inherits="WebApplication_asp_ocro.webs._3_3" %>
 
 <asp:Content ID="stdContent" ContentPlaceHolderID="stdContent" runat="server">
     <form role="form" method="post" runat="server" id="Edit">
         <div class="form-group">
-            <label for="inputUsername">Username</label>
+            <label for="inputUsername">用户名</label>
             <asp:TextBox runat="server" type="text" ReadOnly="true"
                 class="form-control" name="inputUsername" ID="inputUsername" />
         </div>
         <div class="form-group">
-            <label for="inputOldPassword">Old Password</label>
+            <label for="inputOldPassword">原密码</label>
             <asp:TextBox runat="server" type="password"
-                class="form-control" name="inputOldPassword" ID="inputOldPassword" placeholder="Old password is required if you change any profile"/>
+                class="form-control" name="inputOldPassword" ID="inputOldPassword" placeholder="修改信息必须输入原密码"/>
         </div>
         <div class="form-group">
-            <label for="inputPassword">New Password</label>
+            <label for="inputPassword">新密码</label>
             <asp:TextBox runat="server" type="password"
-                class="form-control" name="inputPassword" ID="inputPassword" placeholder="Remain empty if you don't want to change password" />
+                class="form-control" name="inputPassword" ID="inputPassword" placeholder="如果不想修改密码请留空" />
         </div>
         <div class="form-group">
-            <label for="inputRepeatPassword">Repeat New Password</label>
+            <label for="inputRepeatPassword">确认密码</label>
             <asp:TextBox runat="server"
-                type="password" class="form-control" name="inputRepeatPassword"
+                type="password" class="form-control" name="inputRepeatPassword" placeholder="如果不想修改密码请留空"
                 ID="inputRepeatPassword" />
         </div>
         <div class="form-group">
-            <label for="selectorSex" style="display: block;">Sex&nbsp</label>
+            <label for="selectorSex" style="display: block;">性别&nbsp</label>
             <asp:RadioButtonList ID="selectorSex" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow" Enabled="false">
-                <asp:ListItem Selected="True" Value="1">&nbspMale&nbsp&nbsp</asp:ListItem>
-                <asp:ListItem Value="0">&nbspFemale&nbsp</asp:ListItem>
+                <asp:ListItem Selected="True" Value="1">&nbsp 男 &nbsp&nbsp</asp:ListItem>
+                <asp:ListItem Value="0">&nbsp 女 &nbsp</asp:ListItem>
             </asp:RadioButtonList>
         </div>
         <div class="form-group">
-            <label for="inputYear" style="display: block;">Age</label>
+            <label for="inputYear" style="display: block;">年龄</label>
             <asp:TextBox runat="server"
                 class="form-control" name="inputYear" ID="inputYear" />
         </div>
         <div class="form-group">
-            <label for="selectorGrade" style="display: block;">Grade</label>
+            <label for="selectorGrade" style="display: block;">年级</label>
             <asp:DropDownList runat="server" name="selectGrade" ID="selectGrade" CssClass="form-control">
-                <asp:ListItem Value="1">Grade 1</asp:ListItem>
-                <asp:ListItem Value="2">Grade 2</asp:ListItem>
-                <asp:ListItem Value="3">Grade 3</asp:ListItem>
-                <asp:ListItem Value="4">Grade 4</asp:ListItem>
+                <asp:ListItem Value="2016">2016</asp:ListItem>
+                <asp:ListItem Value="2015">2015</asp:ListItem>
+                <asp:ListItem Value="2014">2014</asp:ListItem>
+                <asp:ListItem Value="2013">2013</asp:ListItem>
             </asp:DropDownList>
         </div>
         <div class="form-group">
-            <label for="selectorMajor" style="display: block;">Major</label>
+            <label for="selectorMajor" style="display: block;">专业</label>
             <asp:TextBox runat="server" ReadOnly="true"
                 class="form-control" name="inputMajor" ID="inputMajor" />
         </div>
-        <asp:Button runat="server" type="submit" class="btn btn-primary form-control" ID="buttonSubmit" Text="Accept(Not Available Yet)" OnClick="buttonSubmit_Click" />
+        <asp:Button runat="server" type="submit" class="btn btn-primary form-control" ID="buttonSubmit" Text="修改" OnClick="buttonSubmit_Click" />
     </form>
 </asp:Content>
 <asp:Content ID="stdContentSideBar" ContentPlaceHolderID="stdContentSideBar" runat="server">
@@ -83,19 +83,19 @@
             var year = $("#" + idFix + "inputYear")[0].value;
 
             if (oldpassword.length < 7 || password.length > 20) {
-                changeBorderColor("#" + idFix + "inputOldPassword", "Please enter you old password");
+                changeBorderColor("#" + idFix + "inputOldPassword", "请输入原密码！");
                 return false;
             }
             if (password.length != 0 && (password.length < 7 || password.length > 20)) {
-                changeBorderColor("#" + idFix + "inputPassword", "Password should satisfy:<br/>1.Length at least 7, at most 20.<br/>2.Include '0-9','a-z','A-Z'<br/>and special character(such as '!') only.");
+                changeBorderColor("#" + idFix + "inputPassword", "密码需要满足:<br/>1.长度在7到20之间。<br/>2.只包含数字、大小写字母、特殊字符。");
                 return false;
             }
             if (password.length!=0 && password != repassword) {
-                changeBorderColor("#" + idFix + "inputRepeatPassword", "Password you entered is not equal.");
+                changeBorderColor("#" + idFix + "inputRepeatPassword", "两次输入的密码不一致！");
                 return false;
             }
             if (year < 18 || year > 100) {
-                changeBorderColor("#" + idFix + "inputYear", "Age should satisfy:<br/>1.You are at least 18 years old.<br/>2.You can't older than 100 years old.");
+                changeBorderColor("#" + idFix + "inputYear", "年龄需要满足:<br/>1.已年满十八周岁。<br/>2.不能超过100岁。");
                 return false;
             }
 

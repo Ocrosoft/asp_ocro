@@ -14,10 +14,11 @@
 	 *   set the background-image to .tip-inner instead.
 	 */
 }
-.tip-skyblue .tip-inner {
-	font:bold 13px/15px 'trebuchet ms',arial,helvetica,sans-serif;
-	padding:0 3px 1px 3px;
-}
+    .tip-skyblue .tip-inner {
+        font: bold 13px/15px arial,helvetica,sans-serif;
+        padding: 0 3px 1px 3px;
+        font-family: 'Microsoft YaHei';
+    }
 
 /* Configure an arrow image - the script will automatically position it on the correct side of the tip */
 .tip-skyblue .tip-arrow-top {

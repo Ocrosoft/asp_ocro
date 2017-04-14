@@ -1,4 +1,4 @@
-html{
+html {
     height: 100%;
 }
 
@@ -44,4 +44,5 @@ a:hover {
     min-height: 90%;
     border-radius: 4px;
     background-color: rgba(255,255,255,0.8);
+    font-family: 'Microsoft YaHei';
 }

@@ -1,38 +1,38 @@
-﻿<%@ Page Title="Login" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="3.aspx.cs" Inherits="WebApplication_asp_ocro.webs._3" %>
+﻿<%@ Page Title="登录" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="3.aspx.cs" Inherits="WebApplication_asp_ocro.webs._3" %>
 
 <asp:Content ID="stdContent" ContentPlaceHolderID="stdContent" runat="server">
     <form class="form-horizontal" role="form" runat="server" method="post" id="Login">
         <div class="form-group">
-            <label for="inputUsername">Username</label>
+            <label for="inputUsername">用户名</label>
             <div>
-                <asp:TextBox runat="server" CssClass="form-control" ID="inputUsername" placeholder="Email/Name/Phone Number"></asp:TextBox>
+                <asp:TextBox runat="server" CssClass="form-control" ID="inputUsername" placeholder="邮箱 / 姓名 / 手机号"></asp:TextBox>
             </div>
         </div>
         <div class="form-group">
-            <label for="inputPassword">Password</label>
+            <label for="inputPassword">密码</label>
             <div>
-                <asp:TextBox runat="server" CssClass="form-control" ID="inputPassword" placeholder="Password" TextMode="Password"></asp:TextBox>
+                <asp:TextBox runat="server" CssClass="form-control" ID="inputPassword" placeholder="请输入密码" TextMode="Password"></asp:TextBox>
             </div>
         </div>
         <div class="form-group">
-            <label for="inputCheckCode" style="display: block;">CheckCode</label>
+            <label for="inputCheckCode" style="display: block;">验证码</label>
             <asp:TextBox runat="server" ID="checkCode"
                 CssClass="form-control" Style="width: 75%; display: inline;"
-                placeholder="Enter checkcode" />
+                placeholder="请输入验证码" />
             <img
                 style="cursor: pointer; float: right; width: 12%;" alt="CheckCode" id="imageCode"
                 src="/webs/CheckCode.aspx" />
         </div>
         <div class="form-group">
-            <asp:CheckBox runat="server" Text="&nbspRemember me" ID="checkBoxRemember" />
-            <asp:CheckBox runat="server" Text="&nbspTeacher" ID="checkBoxTeacher" Style="position: absolute; right: 0;" />
+            <asp:CheckBox runat="server" Text="&nbsp记住用户名" ID="checkBoxRemember" />
+            <asp:CheckBox runat="server" Text="&nbsp教师" ID="checkBoxTeacher" Style="position: absolute; right: 0;" />
         </div>
         <div class="form-group">
             <div>
-                <asp:Button ID="buttonLogin" runat="server" Text="Login" OnClick="Click_Login" CssClass="btn btn-primary form-control" />
+                <asp:Button ID="buttonLogin" runat="server" Text="登录" OnClick="Click_Login" CssClass="btn btn-primary form-control" />
             </div>
             <a href="/webs/3_1.aspx">
-                <input type="button" class="btn btn-link" style="outline: none; right: 0; position: absolute;" value="Register->" />
+                <input type="button" class="btn btn-link" style="outline: none; right: 0; position: absolute;" value="注册->" />
             </a>
         </div>
     </form>
@@ -40,8 +40,8 @@
 <asp:Content ID="stdContentSideBar" ContentPlaceHolderID="stdContentSideBar" runat="server">
     <div class="panel panel-success">
         <div class="panel-heading">提示</div>
-        <div class="panel-body" style="text-align:center;">
-            <label for="hint" style="text-align:center;">
+        <div class="panel-body" style="text-align: center;">
+            <label for="hint" style="text-align: center;">
                 测试教师账号：teacher01<br />
                 测试教师密码：123123123<br />
                 登录需要勾选 Teacher 单选框
@@ -50,9 +50,9 @@
     </div>
     <div class="panel panel-success">
         <div class="panel-heading">提示</div>
-        <div class="panel-body" style="text-align:center;">
-            <label for="hint" style="text-align:center;">
-                登录教师账号，<br/>
+        <div class="panel-body" style="text-align: center;">
+            <label for="hint" style="text-align: center;">
+                登录教师账号，<br />
                 可以查看所有注册信息。
             </label>
         </div>
@@ -75,17 +75,17 @@
 
             var reg = new RegExp("^[0-9a-zA-Z_]{1,21}$");
             if (!reg.test(username)) {
-                changeBorderColor("#" + idFix + "inputUsername", "Username should satisfy:<br/>1.Length at least 1, at most 20.<br/>2.Include '0-9','a-z','A-Z','_' only.");
+                changeBorderColor("#" + idFix + "inputUsername", "用户名需要满足:<br/>1.长度在1到20之间。<br/>2.只包含下划线、大小写字母、数字。");
                 return false;
             }
             reg = new RegExp("^[!@#$%^&*()0-9a-zA-Z_?<>.]{7,20}$");
             if (!reg.test(password)) {
-                changeBorderColor("#" + idFix + "inputPassword", "Password should satisfy:<br/>1.Length at least 7, at most 20.<br/>2.Include '0-9','a-z','A-Z'<br/>and special character(such as '!') only.");
+                changeBorderColor("#" + idFix + "inputPassword", "密码需要满足:<br/>1.长度在7到20之间。<br/>2.只包含数字、大小写字母、特殊字符。");
                 return false;
             }
             reg = new RegExp("^[a-zA-Z0-9]{4}$");
             if (!reg.test(checkcode)) {
-                changeBorderColor("#" + idFix + "checkCode", "Checkcode should satisfy:<br>1.Length must be 4.<br/>2.Include '0-9','a-z','A-Z' only.");
+                changeBorderColor("#" + idFix + "checkCode", "验证码需要满足:<br>1.长度必须为4。<br/>2.只包含数字、大小写字母。");
                 return false;
             }
             return true;

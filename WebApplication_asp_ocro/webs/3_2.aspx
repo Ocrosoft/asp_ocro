@@ -1,9 +1,8 @@
-﻿<%@ Page Title="Welcome" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="3_2.aspx.cs" Inherits="WebApplication_asp_ocro.webs._3_2" %>
+﻿<%@ Page Title="欢迎" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="3_2.aspx.cs" Inherits="WebApplication_asp_ocro.webs._3_2" %>
 <asp:Content ID="stdContent" ContentPlaceHolderID="stdContent" runat="server">
     <form class="form-horizontal" role="form"  runat="server" style="text-align:center;">
-        <h1 class="text-success">Welcome!</h1>
+        <h1 class="text-success">欢迎!</h1>
         <h1><asp:Label runat="server" ID="labelIden" CssClass="text-success"></asp:Label></h1><br/>
-        <asp:Button ID="Button1" runat="server" Text="Return to login page(useless now)" CssClass="btn btn-primary" Style="width: 50%;" OnClick="Click_Back" /><br />
         <br />
     </form>
 </asp:Content>
@@ -33,7 +32,7 @@
     <script>
         $('#loginOperation').poshytip('destroy');
         $('#loginOperation').poshytip({
-            content: 'Logout here!',
+            content: '在这里退出登录',
             className: 'tip-skyblue',
             showOn: 'none',
             alignTo: 'target',

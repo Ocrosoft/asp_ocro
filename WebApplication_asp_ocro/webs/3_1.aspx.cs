@@ -14,6 +14,13 @@ namespace WebApplication_asp_ocro.webs
                 Response.Write("<script>window.location.href='/webs/3_2.aspx';</script>");
                 return;
             }
+            if (Session["regError"] != null)
+            {
+                Page.ClientScript.RegisterStartupScript(Page.GetType(), "",
+                    "$(document).ready(function(){changeBorderColor('#" + Session["regErrorID"] + "','" + Session["regError"] + "');});", true);
+                Session["regErrorID"] = null;
+                Session["regError"] = null;
+            }
         }
         protected void buttonSubmit_Click(object sender, EventArgs e)
         {
@@ -48,7 +55,7 @@ namespace WebApplication_asp_ocro.webs
 
             try
             {
-                string sql = "insert into users values(?0,?1,?2,?3,?4,?5,?6,?7);";
+                string sql = "insert into users(username, password, sex, grade, age, major, IP, regtime) values(?0,?1,?2,?3,?4,?5,?6,?7);";
                 MySqlParameter[] para = new MySqlParameter[8];
                 para[0] = new MySqlParameter("?0", username);
                 para[1] = new MySqlParameter("?1", password);
@@ -61,18 +68,19 @@ namespace WebApplication_asp_ocro.webs
                 int res = MysqlHelper.ExecuteNonQuery(sql, para);
                 if (res > 0)
                 {
-                    Response.Write("<script>alert('Register successful! Navigation to login page...');</script>");
                     Response.Write("<script>window.location.href='/webs/3.aspx';</script>");
                 }
                 else
                 {
-                    Response.Write("<script>alert('Register faild, an error has occurred!');</script>");
+                    Session["regErrorID"] = "stdContentMoudle_stdContent_inputUsername";
+                    Session["regError"] = "注册失败，请更换用户名后重试！";
                     Response.Write("<script>window.location.href='/webs/3_1.aspx';</script>");
                 }
             }
             catch
             {
-                Response.Write("<script>alert('Register faild, user has been exists!');</script>");
+                Session["regErrorID"] = "stdContentMoudle_stdContent_inputUsername";
+                Session["regError"] = "注册失败，请更换用户名后重试！";
                 Response.Write("<script>window.location.href='/webs/3_1.aspx';</script>");
                 return;
             }
