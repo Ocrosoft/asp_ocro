@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Data;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace WebApplication_asp_ocro.webs
 {
@@ -11,7 +8,10 @@ namespace WebApplication_asp_ocro.webs
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            string sql = "select recordDate,areaName,value from aqi where recordDate='2013-01-01';";
+            DataTable table = MysqlHelper.ExecuteDataTable(sql);
+            GridView1.DataSource = table;
+            GridView1.DataBind();
         }
     }
 }

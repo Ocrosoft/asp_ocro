@@ -65,6 +65,7 @@
     <Content Include="css\leaflet.css" />
     <Content Include="index.html" />
     <Content Include="js\d3.v3.min.js" />
+    <Content Include="js\heatmap.js" />
     <Content Include="js\jquery-2.1.4.min.js" />
     <Content Include="js\leaflet.js" />
     <Content Include="js\tooltips\jquery.poshytip.js" />
@@ -228,7 +229,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>1669</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

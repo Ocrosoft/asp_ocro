@@ -1,12 +1,16 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="998.aspx.cs" Inherits="WebApplication_asp_ocro.webs._998" %>
 
 <asp:Content ID="cssCusImportHead" ContentPlaceHolderID="cssCusImportHead" runat="server">
-    <link type="text/css" rel="stylesheet" href="/css/leaflet.css" />
     <!-- leftlet -->
-    <script src="/js/leaflet.js"></script>
+    <link type="text/css" rel="stylesheet" href="/css/leaflet.css" />
     <!-- leaflet -->
+    <script src="/js/leaflet.js"></script>
+    <!-- d3 -->
     <script src="/js/d3.v3.min.js" charset="utf-8"></script>
-    <!-- d3.js -->
+    <!-- heatmap -->
+    <script src="/js/heatmap.js" charset="utf-8"></script>
+    <!-- baidu map -->
+    <script src="//api.map.baidu.com/api?v=1.3"></script>
     <style>
         #map {
             width: 100%;
@@ -26,13 +30,49 @@
                 /*fill: brown;*/
                 fill-opacity: .7;
             }
+
+        #baidu_map {
+            display: none;
+        }
+
+        #layer {
+            z-index: 99999;
+            background-color: rgba(255,255,255,0.8);
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            text-align: center;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="stdContent" ContentPlaceHolderID="stdContentMoudle" runat="server">
+    <script>
+        var dv = document.createElement("div");
+        dv.innerHTML = '<h1 id="loading" class="text-success">加载中，请稍候</h1>';
+        dv.id = 'layer';
+        var page = document.getElementsByTagName("body")[0];
+        page.insertBefore(dv, page.firstChild);
+
+        var loading_interval = setInterval(function () {
+            var loading_h1 = document.getElementById('loading');
+            if (loading_h1 == null) clearInterval(loading_interval);
+            else {
+                var text = loading_h1.innerText.trim();
+                if (text.length == 10) loading_h1.innerText = "加载中，请稍候";
+                else if (text.length == 7) loading_h1.innerText = "加载中，请稍候.";
+                else if (text.length == 8) loading_h1.innerText = "加载中，请稍候..";
+                else if (text.length == 9) loading_h1.innerText = "加载中，请稍候...";
+            }
+        }, 1000);
+    </script>
+    <form runat="server" style="display: none;">
+        <asp:GridView ID="GridView1" runat="server"></asp:GridView>
+    </form>
     <div class="container">
         <div class="row clearfix">
             <div class="col-md-9 column">
                 <div id="map"></div>
+                <div id="baidu_map"></div>
             </div>
             <div class="col-md-3 column">
                 <label for="sideBar">SideBar</label>
@@ -83,7 +123,7 @@
 
                 g.attr("transform", "translate(" + -topLeft[0] + "," + -topLeft[1] + ")"); // 偏移
 
-                feature.attr("fill", function (d, i) { return color(i);}).attr("d", path); // 使用路径生成器
+                feature.attr("fill", function (d, i) { return color(i); }).attr("d", path); // 使用路径生成器
             };
 
             // 使用 leaflet 的函数进行坐标转化
@@ -92,5 +132,65 @@
                 this.stream.point(point.x, point.y);
             }
         });
+        var query_finished = false;
+        var baidu_map = new BMap.Map("baidu_map");
+        var localSearch = new BMap.LocalSearch(baidu_map);
+        // 根据省市名称查询经纬度（同时(指上一查询结果还未返回)查询返回多次，但是结果是最后一次查询的结果）
+        function searchByStationName(keyword, hash, i) { // 名称，哈希表，当前查询的记录id
+            localSearch.enableAutoViewport();
+            localSearch.setSearchCompleteCallback(function (searchResult) {
+                var poi = searchResult.getPoi(0);
+                //console.log(poi.point.lng + "," + poi.point.lat);
+                var lng = poi.point.lng;
+                var lat = poi.point.lat;
+                hash[keyword] = { lng, lat };
+                //console.log(keyword + "=" + hash[keyword]);
+                continuee(i + 1); // 查询结束后查询下一个
+            });
+            localSearch.search(keyword);
+        }
+
+    </script>
+    <script>
+        var hash = new Array();
+        var data = $('#stdContentMoudle_GridView1')[0];
+        var row_count = data.rows.length;
+        function continuee(i) {
+            if (i >= row_count) {
+                query_finished = true;
+                $('#layer').remove();
+                return;
+            }
+            var html = data.rows[i].innerHTML;
+            var recordDate, areaName, value;
+            for (var j = 0; j < 3; j++) {
+                html = html.substring(html.indexOf('>') + 1);
+                //console.log(html);
+                if (j == 0) recordDate = html.substring(0, html.indexOf('<'));
+                else if (j == 1) areaName = html.substring(0, html.indexOf('<'));
+                else if (j == 2) value = html.substring(0, html.indexOf('<'));
+                html = html.substring(html.indexOf('>') + 1);
+            }
+            if (hash[areaName] == null) { // 如果没有查询过，则查询
+                searchByStationName(areaName, hash, i);
+            }
+            else {
+                continuee(i + 1); // 如果查询过了，直接下一个
+            }
+        }
+        continuee(1); // 开始查询
+    </script>
+    <script>
+        var it = setInterval(function () {
+            if (query_finished) {
+                console.log(hash['杭州']);
+                console.log(map.latLngToLayerPoint(new L.LatLng(hash['杭州'].lat, hash['杭州'].lng)))
+
+                clearInterval(it);
+            }
+            else {
+                console.log('not finished');
+            }
+        }, 2000);
     </script>
 </asp:Content>
