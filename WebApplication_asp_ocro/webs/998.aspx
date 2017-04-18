@@ -40,7 +40,7 @@
             background-color: rgba(255,255,255,0.8);
             width: 100%;
             height: 100%;
-            position: absolute;
+            position: fixed;
             text-align: center;
         }
     </style>
@@ -143,7 +143,7 @@
                 //console.log(poi.point.lng + "," + poi.point.lat);
                 var lng = poi.point.lng;
                 var lat = poi.point.lat;
-                hash[keyword] = { lng, lat };
+                hash[keyword] = poi.point;
                 //console.log(keyword + "=" + hash[keyword]);
                 continuee(i + 1); // 查询结束后查询下一个
             });

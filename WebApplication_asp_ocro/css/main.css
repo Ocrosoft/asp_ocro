@@ -36,6 +36,7 @@ a:hover {
     cursor: pointer;
     bottom: 100px;
     right: -135px;
+    z-index: 999;
 }
 
 .container {
@@ -45,4 +46,9 @@ a:hover {
     border-radius: 4px;
     background-color: rgba(255,255,255,0.8);
     font-family: 'Microsoft YaHei';
+}
+
+.logo {
+    max-height:32px;
+    margin-top:8px;
 }

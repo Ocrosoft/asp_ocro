@@ -36,6 +36,7 @@
             <nav class="navbar navbar-default" role="navigation" style="border-radius: 0px;">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse"></button>
+                    <a href="https://www.ocrosoft.com/"><img class="logo" src="https://www.ocrosoft.com/wp-content/uploads/2017/01/2017012411552552.png" /></a>
                     <a class="navbar-brand" href="/webs/3.aspx">ASP.NET</a>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

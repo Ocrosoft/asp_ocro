@@ -10,19 +10,19 @@ namespace WebApplication_asp_ocro.webs
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["loginSession"] == null)
-            {
-                Response.Write("<script>window.location.href='/webs/3.aspx';</script>");
-                return;
-            }
-            else
-            {
-                if ((string)Session["loginIden"] != "Teacher")
-                {
-                    Response.Write("<script>history.go(-1);</script>");
-                    return;
-                }
-            }
+            //if (Session["loginSession"] == null)
+            //{
+            //    Response.Write("<script>window.location.href='/webs/3.aspx';</script>");
+            //    return;
+            //}
+            //else
+            //{
+            //    if ((string)Session["loginIden"] != "Teacher")
+            //    {
+            //        Response.Write("<script>history.go(-1);</script>");
+            //        return;
+            //    }
+            //}
 
             if (Session["editID"] == null) refreshBind();
             else
@@ -50,6 +50,7 @@ namespace WebApplication_asp_ocro.webs
             string id = lb.ID;
             id = id.Substring(id.IndexOf("_") + 1);
             Session["editID"] = Int32.Parse(id);
+            //ScriptManager.RegisterStartupScript(this.UpdatePanel1, this.GetType(), "", "alert('修改');", true);
             ScriptManager.RegisterStartupScript(this.UpdatePanel1, this.GetType(), "", "$('#refresh').click();", true);
         }
 
@@ -150,18 +151,21 @@ namespace WebApplication_asp_ocro.webs
                 }
                 TableCell delCell = new TableCell();
                 LinkButton lb = new LinkButton();
-                lb.CssClass = "linkButtonEdit";
+                
                 if (edit && (int)dr[7] == editID)
                 {
+                    lb.CssClass = "linkButtonAccept";
                     lb.ID = "LinkAcceptButton_" + dr[7].ToString();
                     lb.Text = "确认";
                     lb.Click += new EventHandler(Button_AcceptEdit);
                 }
                 else
                 {
+                    lb.CssClass = "linkButtonEdit";
                     lb.ID = "LinkEditButton_" + dr[7].ToString();
                     lb.Text = "修改";
                     lb.Click += new EventHandler(Button_Edit);
+                    
                 }
                 delCell.Controls.Add(lb);
                 myRow.Cells.Add(delCell);
@@ -179,7 +183,7 @@ namespace WebApplication_asp_ocro.webs
 
         protected void Button_AcceptEdit(object sender, EventArgs e)
         {
-            Response.Write("<script>location.href=/webs/3.aspx;</script>");
+            ScriptManager.RegisterStartupScript(this.UpdatePanel1, this.GetType(), "", "alert('确定');", true);
         }
     }
 }
