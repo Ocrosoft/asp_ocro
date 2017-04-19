@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="999.aspx" />
+    <Content Include="Admin\AdminPanel.aspx" />
     <Content Include="Admin\Default.aspx" />
     <Content Include="CheckCode.aspx" />
     <Content Include="css\bootstrap-theme.css.map" />
@@ -69,6 +70,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Image\Loading.gif" />
+    <Content Include="js\leaflet-heatmap.js" />
     <Content Include="Login.aspx" />
     <Content Include="Register.aspx" />
     <Content Include="Student\Default.aspx" />
@@ -132,6 +135,13 @@
     </Compile>
     <Compile Include="999.aspx.designer.cs">
       <DependentUpon>999.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AdminPanel.aspx.cs">
+      <DependentUpon>AdminPanel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminPanel.aspx.designer.cs">
+      <DependentUpon>AdminPanel.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -205,9 +215,7 @@
       <DependentUpon>UIL.Master</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Image\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Business_Logic_Layer\Business_Logic_Layer.csproj">
       <Project>{A43339DE-5E5A-4743-963C-27BD9553505C}</Project>
