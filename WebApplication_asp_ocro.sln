@@ -1,13 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication_asp_ocro", "WebApplication_asp_ocro\WebApplication_asp_ocro.csproj", "{901710B6-0090-43C6-A464-817C36D61903}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business_Logic_Layer", "Business_Logic_Layer\Business_Logic_Layer.csproj", "{A43339DE-5E5A-4743-963C-27BD9553505C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data_Access _Layer", "Data_Access _Layer\Data_Access _Layer.csproj", "{305D5986-C2E6-4B50-B95E-FEC80AD330FF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data_Access_Layer", "Data_Access _Layer\Data_Access_Layer.csproj", "{305D5986-C2E6-4B50-B95E-FEC80AD330FF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User_Interface_Layer", "User_Interface_Layer\User_Interface_Layer.csproj", "{810362F7-D1D7-4C8F-98C3-828A9FBA806B}"
 EndProject
@@ -19,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{901710B6-0090-43C6-A464-817C36D61903}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{901710B6-0090-43C6-A464-817C36D61903}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{901710B6-0090-43C6-A464-817C36D61903}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{901710B6-0090-43C6-A464-817C36D61903}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A43339DE-5E5A-4743-963C-27BD9553505C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A43339DE-5E5A-4743-963C-27BD9553505C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A43339DE-5E5A-4743-963C-27BD9553505C}.Release|Any CPU.ActiveCfg = Release|Any CPU

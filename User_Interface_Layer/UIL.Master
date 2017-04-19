@@ -1,0 +1,161 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="UIL.master.cs" Inherits="User_Interface_Layer.UIL" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <!-- 导入标准css -->
+    <asp:ContentPlaceHolder ID="cssStdImportHead" runat="server">
+        <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="/css/main.css" />
+        <link rel="stylesheet" type="text/css" href="/js/tooltips/tip-skyblue/tip-skyblue.css" />
+    </asp:ContentPlaceHolder>
+    <!-- 导入自定义css -->
+    <asp:ContentPlaceHolder ID="cssCusImportHead" runat="server">
+        <!-- Σ( ° △ °|||)︴ -->
+    </asp:ContentPlaceHolder>
+</head>
+<body style="font-family: 'Microsoft YaHei';">
+    <!-- 导入Header标准js -->
+    <asp:ContentPlaceHolder ID="scriptStdImportHeader" runat="server">
+        <script src="/js/jquery-2.1.4.min.js"></script>
+        <script src="/js/particles.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/tooltips/jquery.poshytip.js"></script>
+    </asp:ContentPlaceHolder>
+    <!-- Header标准Div -->
+    <asp:ContentPlaceHolder ID="divStdHeader" runat="server">
+        <div id="particles-js" class="particles-div"></div>
+        <div id="back"></div>
+    </asp:ContentPlaceHolder>
+    <!-- 导航 -->
+    <asp:ContentPlaceHolder ID="stdHeader" runat="server">
+        <div class="clearfix">
+            <nav class="navbar navbar-default" role="navigation" style="border-radius: 0px;">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"></button>
+                    <a href="https://www.ocrosoft.com/">
+                        <img class="logo" src="https://www.ocrosoft.com/wp-content/uploads/2017/01/2017012411552552.png" />
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown" id="loginOperation">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <%= (Session["loginSession"] == null ? "登录" : Session["loginSession"])%>
+                                <strong class="caret"></strong>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <% 
+                                    if (Session["loginSession"] != null)
+                                    {
+                                %>
+                                <li><a href="Modify.aspx">修改资料</a></li>
+                                <%
+                                    if (Session["loginIden"].ToString() == "Teacher")
+                                    {
+                                %>
+                                <li><a href="ManagerPanel.aspx">管理面板</a></li>
+                                <%
+                                    }
+                                %>
+                                <li id="logout"><a href="#" runat="server" onserverclick="Logout">退出登录</a></li>
+                                <%
+                                    }
+                                    else
+                                    {
+                                %>
+                                <li><a href="/Login.aspx">登录</a></li>
+                                <li><a href="/Register.aspx">注册</a></li>
+                                <%
+                                    }
+                                %>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </asp:ContentPlaceHolder>
+    <!-- 内容 -->
+    <asp:ContentPlaceHolder ID="stdContentMoudle" runat="server">
+        <div class="container">
+            <div class="row clearfix">
+                <div class="col-md-1 column">
+                </div>
+                <div class="col-md-6 column">
+                    <asp:ContentPlaceHolder ID="stdContent" runat="server">
+                    </asp:ContentPlaceHolder>
+                </div>
+                <div class="col-md-1 column">
+                </div>
+                <div class="col-md-3 column">
+                    <asp:ContentPlaceHolder ID="stdContentSideBar" runat="server">
+                        <label for="sideBar">SideBar</label>
+                        <br />
+                        <label for="none">Σ( ° △ °|||)︴</label>
+                        <!-- 想保留默认侧边栏而添加新的侧边栏用 -->
+                        <asp:ContentPlaceHolder ID="cusContentSideBar" runat="server">
+                        </asp:ContentPlaceHolder>
+                    </asp:ContentPlaceHolder>
+                </div>
+            </div>
+        </div>
+    </asp:ContentPlaceHolder>
+    <!-- 版权 -->
+    <asp:ContentPlaceHolder ID="stdFooter" runat="server">
+        <div class="clearfix">
+            <nav class="navbar navbar-default" role="navigation" style="border-radius: 0px; bottom: 0px; margin: 20px 0px 0px 0px;">
+                <p class="text-muted credit" style="padding: 10px; text-align: center;">
+                    <span id="copyright">&copy;2017 ocrosoft.com<br />
+                        浙ICP备16010729号
+                        <span id='cc'>150104400108</span>
+                    </span>
+                </p>
+            </nav>
+        </div>
+    </asp:ContentPlaceHolder>
+    <!-- 导入Footer标准js -->
+    <asp:ContentPlaceHolder ID="scriptStdFooter" runat="server">
+        <script src="/js/particlesON.js"></script>
+        <script src="/js/main.js"></script>
+        <script>
+            function changeBorderColor(id, message) {
+                $(id).css('border-color', '#f00');
+                $(id).poshytip('destroy');
+                $(id).poshytip({
+                    content: message,
+                    className: 'tip-skyblue',
+                    showOn: 'none',
+                    alignTo: 'target',
+                    alignX: 'inner-right',
+                    offsetY: '10'
+                });
+                $(id).poshytip('show');
+                $(id).focus(function () {
+                    $(id).css('border-color', '#ccc');
+                    $(id).poshytip('destroy');
+                });
+            }
+        </script>
+        <script>
+            $('.panel-heading').css("cursor", "pointer");
+            $('.panel-heading').bind('click', function () {
+                console.log(this.nextSibling.nextSibling);
+                if (this.nextSibling.nextSibling.style.display == 'none')
+                    this.nextSibling.nextSibling.style.display = 'block';
+                else
+                    this.nextSibling.nextSibling.style.display = 'none';
+            });
+        </script>
+    </asp:ContentPlaceHolder>
+    <!-- 导入自定义Footer js -->
+    <asp:ContentPlaceHolder ID="scriptCusFooter" runat="server">
+        <!-- Σ( ° △ °|||)︴ -->
+    </asp:ContentPlaceHolder>
+</body>
+</html>

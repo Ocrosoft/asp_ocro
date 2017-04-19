@@ -62,53 +62,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="css\leaflet.css" />
-    <Content Include="index.html" />
-    <Content Include="js\d3.v3.min.js" />
-    <Content Include="js\heatmap.js" />
-    <Content Include="js\jquery-2.1.4.min.js" />
-    <Content Include="js\leaflet.js" />
-    <Content Include="js\tooltips\jquery.poshytip.js" />
-    <Content Include="js\tooltips\jquery.poshytip.min.js" />
-    <Content Include="js\tooltips\tip-darkgray\tip-darkgray.css" />
-    <Content Include="js\tooltips\tip-darkgray\tip-darkgray.png" />
-    <Content Include="js\tooltips\tip-darkgray\tip-darkgray_arrows.png" />
-    <Content Include="js\tooltips\tip-green\tip-green.css" />
-    <Content Include="js\tooltips\tip-green\tip-green_arrows.gif" />
-    <Content Include="js\tooltips\tip-skyblue\tip-skyblue.css" />
-    <Content Include="js\tooltips\tip-skyblue\tip-skyblue.png" />
-    <Content Include="js\tooltips\tip-skyblue\tip-skyblue_arrows.png" />
-    <Content Include="js\tooltips\tip-twitter\tip-twitter.css" />
-    <Content Include="js\tooltips\tip-twitter\tip-twitter_arrows.gif" />
-    <Content Include="js\tooltips\tip-violet\tip-violet.css" />
-    <Content Include="js\tooltips\tip-violet\tip-violet.png" />
-    <Content Include="js\tooltips\tip-violet\tip-violet_arrows.png" />
-    <Content Include="js\tooltips\tip-yellowsimple\tip-yellowsimple.css" />
-    <Content Include="js\tooltips\tip-yellowsimple\tip-yellowsimple_arrows.gif" />
-    <Content Include="js\tooltips\tip-yellow\tip-yellow.css" />
-    <Content Include="js\tooltips\tip-yellow\tip-yellow.png" />
-    <Content Include="js\tooltips\tip-yellow\tip-yellow_arrows.png" />
-    <Content Include="MySql.Data.dll" />
-    <Content Include="webs\1.aspx" />
-    <Content Include="webs\2.aspx" />
-    <Content Include="webs\2_2.aspx" />
-    <Content Include="webs\3.aspx" />
-    <Content Include="webs\3_1.aspx" />
-    <Content Include="webs\3_2.aspx" />
-    <Content Include="webs\3_3.aspx" />
-    <Content Include="webs\3_5.aspx" />
     <Content Include="Master.Master" />
-    <Content Include="css\bootstrap-theme.css.map" />
-    <Content Include="css\bootstrap-theme.min.css.map" />
-    <Content Include="css\bootstrap.css.map" />
-    <Content Include="css\bootstrap.min.css.map" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="webs\998.aspx" />
-    <Content Include="webs\CheckCode.aspx" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -116,82 +70,11 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-    <Content Include="webs\china.json" />
-    <Content Include="webs\us-states.json" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="css\bootstrap-theme.css" />
-    <Content Include="css\bootstrap-theme.min.css" />
-    <Content Include="css\bootstrap.css" />
-    <Content Include="css\bootstrap.min.css" />
-    <Content Include="css\main.css" />
-    <Content Include="js\bootstrap.js" />
-    <Content Include="js\bootstrap.min.js" />
-    <Content Include="js\main.js" />
-    <Content Include="js\npm.js" />
-    <Content Include="js\particles.js" />
-    <Content Include="js\particlesON.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MyMD5.cs" />
-    <Compile Include="MysqlHelper.cs" />
-    <Compile Include="webs\1.aspx.cs">
-      <DependentUpon>1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="webs\1.aspx.designer.cs">
-      <DependentUpon>1.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="webs\2.aspx.cs">
-      <DependentUpon>2.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="webs\2.aspx.designer.cs">
-      <DependentUpon>2.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="webs\2_2.aspx.cs">
-      <DependentUpon>2_2.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="webs\2_2.aspx.designer.cs">
-      <DependentUpon>2_2.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="webs\3.aspx.cs">
-      <DependentUpon>3.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="webs\3.aspx.designer.cs">
-      <DependentUpon>3.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="webs\3_1.aspx.cs">
-      <DependentUpon>3_1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="webs\3_1.aspx.designer.cs">
-      <DependentUpon>3_1.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="webs\3_2.aspx.cs">
-      <DependentUpon>3_2.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="webs\3_2.aspx.designer.cs">
-      <DependentUpon>3_2.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="webs\3_3.aspx.cs">
-      <DependentUpon>3_3.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="webs\3_3.aspx.designer.cs">
-      <DependentUpon>3_3.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="webs\3_5.aspx.cs">
-      <DependentUpon>3_5.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="webs\3_5.aspx.designer.cs">
-      <DependentUpon>3_5.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Master.Master.cs">
       <DependentUpon>Master.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -200,23 +83,19 @@
       <DependentUpon>Master.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="webs\998.aspx.cs">
-      <DependentUpon>998.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="webs\998.aspx.designer.cs">
-      <DependentUpon>998.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="webs\CheckCode.aspx.cs">
-      <DependentUpon>CheckCode.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="webs\CheckCode.aspx.designer.cs">
-      <DependentUpon>CheckCode.aspx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Image\" />
+    <ProjectReference Include="..\Business_Logic_Layer\Business_Logic_Layer.csproj">
+      <Project>{a43339de-5e5a-4743-963c-27bd9553505c}</Project>
+      <Name>Business_Logic_Layer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Data_Access _Layer\Data_Access_Layer.csproj">
+      <Project>{305d5986-c2e6-4b50-b95e-fec80ad330ff}</Project>
+      <Name>Data_Access_Layer</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="webs\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

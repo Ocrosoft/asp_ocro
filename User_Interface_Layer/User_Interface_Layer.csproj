@@ -19,6 +19,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -57,6 +58,26 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="999.aspx" />
+    <Content Include="Admin\Default.aspx" />
+    <Content Include="CheckCode.aspx" />
+    <Content Include="css\bootstrap-theme.css.map" />
+    <Content Include="css\bootstrap-theme.min.css.map" />
+    <Content Include="css\bootstrap.css.map" />
+    <Content Include="css\bootstrap.min.css.map" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Login.aspx" />
+    <Content Include="Register.aspx" />
+    <Content Include="Student\Default.aspx" />
+    <Content Include="Student\Modify.aspx" />
+    <Content Include="Teacher\Default.aspx" />
+    <Content Include="Teacher\ManagerPanel.aspx" />
+    <Content Include="Teacher\Modify.aspx" />
+    <Content Include="UIL.Master" />
+    <Content Include="china.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -65,10 +86,141 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="css\bootstrap-theme.css" />
+    <Content Include="css\bootstrap-theme.min.css" />
+    <Content Include="css\bootstrap.css" />
+    <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\leaflet.css" />
+    <Content Include="css\main.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="js\bootstrap.js" />
+    <Content Include="js\bootstrap.min.js" />
+    <Content Include="js\d3.v3.min.js" />
+    <Content Include="js\heatmap.js" />
+    <Content Include="js\jquery-2.1.4.min.js" />
+    <Content Include="js\leaflet.js" />
+    <Content Include="js\main.js" />
+    <Content Include="js\npm.js" />
+    <Content Include="js\particles.js" />
+    <Content Include="js\particlesON.js" />
+    <Content Include="js\tooltips\jquery.poshytip.js" />
+    <Content Include="js\tooltips\jquery.poshytip.min.js" />
+    <Content Include="js\tooltips\tip-darkgray\tip-darkgray.css" />
+    <Content Include="js\tooltips\tip-darkgray\tip-darkgray.png" />
+    <Content Include="js\tooltips\tip-darkgray\tip-darkgray_arrows.png" />
+    <Content Include="js\tooltips\tip-green\tip-green.css" />
+    <Content Include="js\tooltips\tip-green\tip-green_arrows.gif" />
+    <Content Include="js\tooltips\tip-skyblue\tip-skyblue.css" />
+    <Content Include="js\tooltips\tip-skyblue\tip-skyblue.png" />
+    <Content Include="js\tooltips\tip-skyblue\tip-skyblue_arrows.png" />
+    <Content Include="js\tooltips\tip-twitter\tip-twitter.css" />
+    <Content Include="js\tooltips\tip-twitter\tip-twitter_arrows.gif" />
+    <Content Include="js\tooltips\tip-violet\tip-violet.css" />
+    <Content Include="js\tooltips\tip-violet\tip-violet.png" />
+    <Content Include="js\tooltips\tip-violet\tip-violet_arrows.png" />
+    <Content Include="js\tooltips\tip-yellowsimple\tip-yellowsimple.css" />
+    <Content Include="js\tooltips\tip-yellowsimple\tip-yellowsimple_arrows.gif" />
+    <Content Include="js\tooltips\tip-yellow\tip-yellow.css" />
+    <Content Include="js\tooltips\tip-yellow\tip-yellow.png" />
+    <Content Include="js\tooltips\tip-yellow\tip-yellow_arrows.png" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="999.aspx.cs">
+      <DependentUpon>999.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="999.aspx.designer.cs">
+      <DependentUpon>999.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CheckCode.aspx.cs">
+      <DependentUpon>CheckCode.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CheckCode.aspx.designer.cs">
+      <DependentUpon>CheckCode.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Register.aspx.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Register.aspx.designer.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\Modify.aspx.cs">
+      <DependentUpon>Modify.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\Modify.aspx.designer.cs">
+      <DependentUpon>Modify.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Teacher\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Teacher\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Teacher\ManagerPanel.aspx.cs">
+      <DependentUpon>ManagerPanel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Teacher\ManagerPanel.aspx.designer.cs">
+      <DependentUpon>ManagerPanel.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Teacher\Modify.aspx.cs">
+      <DependentUpon>Modify.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Teacher\Modify.aspx.designer.cs">
+      <DependentUpon>Modify.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UIL.Master.cs">
+      <DependentUpon>UIL.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UIL.Master.designer.cs">
+      <DependentUpon>UIL.Master</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Image\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Business_Logic_Layer\Business_Logic_Layer.csproj">
+      <Project>{A43339DE-5E5A-4743-963C-27BD9553505C}</Project>
+      <Name>Business_Logic_Layer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Data_Access _Layer\Data_Access_Layer.csproj">
+      <Project>{305d5986-c2e6-4b50-b95e-fec80ad330ff}</Project>
+      <Name>Data_Access_Layer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{14810889-c39d-48f3-a3f4-a533cda19d19}</Project>
+      <Name>Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
