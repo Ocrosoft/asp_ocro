@@ -7,8 +7,6 @@ namespace User_Interface_Layer
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            GridView1.DataSource = BLL_DataViewer.QueryAQI();
-            GridView1.DataBind();
         }
     }
 }

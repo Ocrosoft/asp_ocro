@@ -81,6 +81,9 @@
     <Content Include="Teacher\Modify.aspx" />
     <Content Include="UIL.Master" />
     <Content Include="china.json" />
+    <Content Include="AQI.csv" />
+    <None Include="Properties\PublishProfiles\1.pubxml" />
+    <None Include="Properties\PublishProfiles\2.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

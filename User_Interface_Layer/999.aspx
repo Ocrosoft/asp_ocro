@@ -81,14 +81,15 @@
                 if (loadingStep == 1) {
                     label.innerText = '数据处理中...';
                 }
+                else if (loadingStep == 2) {
+                    label.innerText = '加载完成！';
+                    var it = setInterval(function () { $('#layer').fadeOut(1000, function () { $('#layer').remove(); }); }, 2000);
+                }
                 document.getElementById('loadingMessageH1').appendChild(label);
                 $('#loadingMessage').animate({ paddingTop: '50', opacity: '1' }, 1000);
             });
         }
     </script>
-    <form runat="server" style="display: none;">
-        <asp:GridView ID="GridView1" runat="server"></asp:GridView>
-    </form>
     <div class="container">
         <div class="row clearfix">
             <div class="col-md-9 column">
@@ -96,21 +97,41 @@
                 <div id="baidu_map"></div>
             </div>
             <div class="col-md-3 column">
-                <label for="sideBar">SideBar</label>
-                <br />
-                <label for="none">Σ( ° △ °|||)︴</label>
+                <div class="panel panel-success">
+                    <div class="panel-heading">时间选择</div>
+                    <div class="panel-body">
+                        <label for="year" style="left: 5px;" id="labelTime">2000年1月1日</label>
+                        <input id="sliderYear" type="range" min="0" max="15" value="0"/><br/>
+                        <input id="sliderMonth" type="range" min="1" max="12" value="1"/><br/>
+                        <input id="sliderDay" type="range" min="1" max="31" value="1"/>
+                    </div>
+                </div>
+                <script>
+                    var labelTime = $('#labelTime');
+
+                    function changeValue() {
+                        //console.log($('#sliderYear'));
+                        var year = $('#sliderYear')[0].value;
+                        var month = $('#sliderMonth')[0].value;
+                        var day = $('#sliderDay')[0].value;
+                        if (year < 10) year = 200 + year;
+                        else year = 20 + year;
+                        $('#labelTime').html(year + "年" + month + "月" + day + "日");
+                    }
+                    $('#sliderYear').change(changeValue);
+                    $('#sliderMonth').change(changeValue)
+                    $('#sliderDay').change(changeValue);
+                </script>
             </div>
         </div>
     </div>
-</asp:Content>
-<asp:Content ID="stdContentSideBar" ContentPlaceHolderID="stdContentSideBar" runat="server">
 </asp:Content>
 <asp:Content ID="scriptCusFooter" ContentPlaceHolderID="scriptCusFooter" runat="server">
     <!-- 全局变量声明 -->
     <script>
         var hash = new Array(); // 保存 中文名 -> 经纬度 的哈希表
-        var data = $('#stdContentMoudle_GridView1')[0]; // 数据表格
-        var row_count = data.rows.length; // 数据量
+        var data; // 数据表格
+        var row_count; // 数据量
         var data_list = []; // 保存经纬度和AQI的数组
         var map; // leaflet 地图
         var svg; // d3 绘制地图的使用的 svg 对象
@@ -118,7 +139,6 @@
         var baidu_map; // 百度地图对象
         var localSearch; // 百度地图经纬度查询对象
     </script>
-
     <!-- 加载leafalet，baidu，绘制地图边框，查询经纬度 -->
     <script>
         $('#map').css('height', $('.container').css('height')); // 改变 leaflet 地图大小
@@ -187,9 +207,7 @@
                 var lat = poi.point.lat; // 精度
                 hash[keyword] = poi.point; // 保存结果为 {lat: , lng: }
 
-                var html = $('#stdContentMoudle_GridView1')[0].rows[i].innerHTML;
-                for (var j = 0; j < 5; j++) html = html.substring(html.indexOf('>') + 1);
-                var val = html.substring(0, html.indexOf('<')); // 获取 AQI
+                var val = data[i].value; // 获取 AQI
                 var POINT = {
                     lat: lat,
                     lng: lng,
@@ -206,25 +224,30 @@
     <!-- 数据处理 -->
     <script>
         /**
+        * 加载 数据
+        */
+        function loadingData() {
+            d3.csv("/AQI.csv", function (datas) {
+                data = datas; // 获取数据
+                row_count = data.length; // 数据量
+                loadingNext(); // 加载下一步
+                continuee(1); // 开始查询
+            });
+        }
+        loadingData();
+        /**
          * 处理数据：将地名转化为经纬度，并和 AQI 数值一起加入到数据表中
          * @param i 处理第 i 条数据
          */
         function continuee(i) {
             if (i >= row_count) { // 加载完了所有数据
                 query_finished = true;
-                document.getElementById('loading').innerText = "加载完成！";
-                $('#layer').fadeOut(1000, function () { $('#layer').remove(); });
                 return;
             }
-            var html = data.rows[i].innerHTML;
             var recordDate, areaName, value;
-            for (var j = 0; j < 3; j++) { // 获取数据
-                html = html.substring(html.indexOf('>') + 1);
-                if (j == 0) recordDate = html.substring(0, html.indexOf('<'));
-                else if (j == 1) areaName = html.substring(0, html.indexOf('<'));
-                else if (j == 2) value = html.substring(0, html.indexOf('<'));
-                html = html.substring(html.indexOf('>') + 1);
-            }
+            recordDate = data[i].recordDate;
+            areaName = data[i].areaName;
+            value = data[i].value;
             if (hash[areaName] == null) { // 如果没有查询过，则查询
                 searchByStationName(areaName, i);
             }
@@ -237,8 +260,6 @@
                 continuee(i + 1); // 如果查询过了，直接下一个
             }
         }
-        continuee(1); // 开始查询
-        loadingNext();
     </script>
     <!-- 判断数据处理是否完成，并执行绘制热力图的步骤 -->
     <script>
@@ -265,6 +286,8 @@
             }
 
             heatmapLayer.setData(data_pack); // 绑定数据
+
+            loadingNext();
         }
 
         /**
