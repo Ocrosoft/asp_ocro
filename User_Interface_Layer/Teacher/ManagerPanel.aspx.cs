@@ -26,15 +26,23 @@ namespace User_Interface_Layer.Teacher
                 }
             }
 
-            if (Session["editID"] == null)
+            if (!string.IsNullOrEmpty(hiddenFieldEdit.Value))
             {
-                refreshBind();
+                refreshBind(true, Int32.Parse(hiddenFieldValue.Value));
+                hiddenFieldEdit.Value = "";
+                hiddenFieldAccept.Value = "True";
+            }
+            else if(!string.IsNullOrEmpty(hiddenFieldAccept.Value))
+            {
+                refreshBind(true, Int32.Parse(hiddenFieldValue.Value));
+                hiddenFieldAccept.Value = "";
             }
             else
             {
-                refreshBind(true, (int)Session["editID"]);
-                Session["editID"] = null;
+                refreshBind();
             }
+
+
         }
 
         protected void Button_Delete(object sender, EventArgs e)
@@ -58,11 +66,12 @@ namespace User_Interface_Layer.Teacher
             LinkButton lb = (LinkButton)sender;
             string id = lb.ID;
             id = id.Substring(id.IndexOf("_") + 1);
-            Session["editID"] = Int32.Parse(id);
-            ScriptManager.RegisterStartupScript(this.UpdatePanel1, this.GetType(), "", "$('#refresh').click();", true);
+            hiddenFieldEdit.Value = "True";
+            hiddenFieldValue.Value = id;
+            ScriptManager.RegisterStartupScript(UpdatePanel1, GetType(), "refresh", "$('#refresh').click();", true);
         }
 
-        protected void refreshBind(bool edit = false, int editID = 0)
+        public void refreshBind(bool edit = false, int editID = 0)
         {
             List<Models.Student> list = BLL_Student.queryAllStudent();
 
@@ -118,16 +127,19 @@ namespace User_Interface_Layer.Teacher
                 {
                     // 用户名
                     TextBox tb_username = new TextBox();
+                    tb_username.ID = "tb_username";
                     tb_username.Text = student.username;
                     cell_username.Controls.Add(tb_username);
                     // 性别
                     DropDownList ddl_sex = new DropDownList();
+                    ddl_sex.ID = "ddl_sex";
                     ddl_sex.Items.Add(new ListItem("男", "1"));
                     ddl_sex.Items.Add(new ListItem("女", "0"));
                     ddl_sex.SelectedIndex = student.sex == "True" ? 0 : 1;
                     cell_sex.Controls.Add(ddl_sex);
                     // 年级
                     DropDownList ddl_grade = new DropDownList();
+                    ddl_grade.ID = "ddl_grade";
                     ddl_grade.Items.Add(new ListItem("2016", "2016"));
                     ddl_grade.Items.Add(new ListItem("2015", "2015"));
                     ddl_grade.Items.Add(new ListItem("2014", "2014"));
@@ -136,10 +148,12 @@ namespace User_Interface_Layer.Teacher
                     cell_grade.Controls.Add(ddl_grade);
                     // 年龄
                     TextBox tb_age = new TextBox();
+                    tb_age.ID = "tb_age";
                     tb_age.Text = student.age;
                     cell_age.Controls.Add(tb_age);
                     // 专业
                     DropDownList ddl_major = new DropDownList();
+                    ddl_major.ID = "ddl_major";
                     ddl_major.Items.Add(new ListItem("电子商务", "电子商务"));
                     ddl_major.Items.Add(new ListItem("计算机", "计算机"));
                     ddl_major.Items.Add(new ListItem("软件工程", "软件工程"));
@@ -203,8 +217,24 @@ namespace User_Interface_Layer.Teacher
 
         protected void Button_AcceptEdit(object sender, EventArgs e)
         {
-            //ScriptManager.RegisterStartupScript(this.UpdatePanel1, this.GetType(), "", "alert('确定');", true);
-        }
+            hiddenFieldAccept.Value = "";
+            TextBox tb_username = Page.Form.FindControl("tb_username") as TextBox;
+            DropDownList ddl_sex = Page.Form.FindControl("ddl_sex") as DropDownList;
+            DropDownList ddl_grade = Page.Form.FindControl("ddl_grade") as DropDownList;
+            TextBox tb_age = Page.Form.FindControl("tb_age") as TextBox;
+            DropDownList ddl_major = Page.Form.FindControl("ddl_major") as DropDownList;
+       
+            string username = tb_username.Text;
+            string sex = ddl_sex.SelectedIndex.ToString();
+            string grade = ddl_grade.SelectedValue;
+            string age = tb_age.Text;
+            string major = ddl_major.SelectedValue;
 
+            Models.Student student = new Models.Student(username, "", sex == "0" ? "1" : "0", grade, age, major, "", "");
+
+            BLL_Student.modify(student);
+
+            ScriptManager.RegisterStartupScript(UpdatePanel1, GetType(), "refresh", "$('#refresh').click();", true);
+        }
     }
 }

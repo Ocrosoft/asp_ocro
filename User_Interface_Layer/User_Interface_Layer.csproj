@@ -66,12 +66,15 @@
     <Content Include="css\bootstrap-theme.min.css.map" />
     <Content Include="css\bootstrap.css.map" />
     <Content Include="css\bootstrap.min.css.map" />
+    <Content Include="css\rangeslider.css" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Image\Loading.gif" />
+    <Content Include="Image\LoadingComplete.gif" />
     <Content Include="js\leaflet-heatmap.js" />
+    <Content Include="js\rangeslider.min.js" />
     <Content Include="Login.aspx" />
     <Content Include="Register.aspx" />
     <Content Include="Student\Default.aspx" />
@@ -81,9 +84,10 @@
     <Content Include="Teacher\Modify.aspx" />
     <Content Include="UIL.Master" />
     <Content Include="china.json" />
-    <Content Include="AQI.csv" />
+    <Content Include="AQI-2013.csv" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <None Include="Properties\PublishProfiles\2.pubxml" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

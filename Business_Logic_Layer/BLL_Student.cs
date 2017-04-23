@@ -30,7 +30,7 @@ namespace Business_Logic_Layer
             return DAL_Student.studentExits(username, password);
         }
         /// <summary>
-        /// 修改学生信息
+        /// 修改学生信息，密码为空则不修改密码，不允许修改注册时间和注册IP
         /// </summary>
         /// <param name="student">修改后的学生信息</param>
         /// <returns></returns>

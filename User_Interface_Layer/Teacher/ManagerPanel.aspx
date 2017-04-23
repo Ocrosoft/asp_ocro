@@ -6,6 +6,9 @@
                 <form runat="server" id="usersForm">
                     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                         <ContentTemplate>
+                            <asp:HiddenField ID="hiddenFieldEdit" runat="server" />
+                            <asp:HiddenField ID="hiddenFieldAccept" runat="server" />
+                            <asp:HiddenField ID="hiddenFieldValue" runat="server" />
                             <asp:ScriptManager runat="server"></asp:ScriptManager>
                             <div class="table-responsive">
                                 <asp:Table runat="server" CssClass="table" ID="registedUser">
@@ -27,7 +30,6 @@
             }
             else return false;
         });
-
         $('.linkButtonEdit').click(function () {
             this.innerText = '请稍候...';
         });
