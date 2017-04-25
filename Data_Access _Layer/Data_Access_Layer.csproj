@@ -69,6 +69,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="MySql.Data.dll" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

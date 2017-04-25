@@ -39,7 +39,8 @@ namespace User_Interface_Layer.Admin
             {
                 Session["adminLoginErrorID"] = "stdContentMoudle_stdContent_checkCode";
                 Session["adminLoginError"] = "验证码错误！";
-                Page.ClientScript.RegisterStartupScript(Page.GetType(), "", "location.href='Default.aspx';", true);
+                Response.Write("<script>location.href='Default.aspx';</script>");
+                //Page.ClientScript.RegisterStartupScript(Page.GetType(), "", "location.href='Default.aspx';", true);
                 return;
             }
 
@@ -49,7 +50,8 @@ namespace User_Interface_Layer.Admin
             {
                 Session["adminLoginErrorID"] = "stdContentMoudle_stdContent_inputPassword";
                 Session["adminLoginError"] = "用户名或密码错误！";
-                Page.ClientScript.RegisterStartupScript(Page.GetType(), "", "location.href='Default.aspx';", true);
+                Response.Write("<script>location.href='Default.aspx';</script>");
+                //Page.ClientScript.RegisterStartupScript(Page.GetType(), "", "location.href='Default.aspx';", true);
             }
             else
             {

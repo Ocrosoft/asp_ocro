@@ -24,7 +24,7 @@
         </div>
         <div class="form-group">
             <label for="selectorSex" style="display: block;">性别&nbsp</label>
-            <asp:RadioButtonList ID="selectorSex" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow" Enabled="false">
+            <asp:RadioButtonList ID="selectorSex" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow">
                 <asp:ListItem Selected="True" Value="1">&nbsp 男 &nbsp&nbsp</asp:ListItem>
                 <asp:ListItem Value="0">&nbsp 女 &nbsp</asp:ListItem>
             </asp:RadioButtonList>
@@ -45,8 +45,12 @@
         </div>
         <div class="form-group">
             <label for="selectorMajor" style="display: block;">专业</label>
-            <asp:TextBox runat="server" ReadOnly="true"
-                class="form-control" name="inputMajor" ID="inputMajor" />
+            <asp:DropDownList runat="server" name="selectMajor" ID="selectMajor" CssClass="form-control">
+                <asp:ListItem Value="电子商务">电子商务</asp:ListItem>
+                <asp:ListItem Value="计算机">计算机</asp:ListItem>
+                <asp:ListItem Value="软件工程">软件工程</asp:ListItem>
+                <asp:ListItem Value="信息技术">信息技术</asp:ListItem>
+            </asp:DropDownList>
         </div>
         <asp:Button runat="server" type="submit" class="btn btn-primary form-control" ID="buttonSubmit" Text="修改" OnClick="buttonSubmit_Click" />
     </form>

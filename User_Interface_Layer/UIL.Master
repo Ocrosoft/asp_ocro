@@ -34,7 +34,7 @@
     <asp:ContentPlaceHolder ID="stdHeader" runat="server">
         <div class="clearfix">
             <nav class="navbar navbar-default" role="navigation" style="border-radius: 0px;">
-                <div class="navbar-header">
+                <div class="navbar-header" style="padding-left: 5px; padding-right: 5px;">
                     <button type="button" class="navbar-toggle" data-toggle="collapse"></button>
                     <a href="https://www.ocrosoft.com/">
                         <img class="logo" src="https://www.ocrosoft.com/wp-content/uploads/2017/01/2017012411552552.png" />
@@ -42,31 +42,57 @@
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
+                        <li>
+                            <a href="<%= (Session["loginSession"]==null)?"/Login.aspx":(Session["loginIden"]=="Teacher"?"/Teacher/Default.aspx":"/Student/Default.aspx") %>">首页</a>
+                        </li>
+                        <%
+                            if (Session["loginSession"] != null)
+                            {
+                        %>
+                        <li class="dropdown" id="kcbj">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">课程班级<strong class="caret"></strong></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/Student/JoinClass.aspx">加入课程班级</a></li>
+                                <li><a href="/Student/QuitClass.aspx">退出课程班级</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">团队功能</a>
+                        </li>
+                        <li>
+                            <a href="#">项目作业</a>
+                        </li>
+                        <li>
+                            <a href="#">签到</a>
+                        </li>
+                        <%
+                            }
+                        %>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown" id="loginOperation">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <%= (Session["loginSession"] == null ? "登录" : Session["loginSession"])%>
+                                <%= (Session["loginSession"] == null ? "登录" : Session["loginSession"])/*是否已登陆*/%>
                                 <strong class="caret"></strong>
                             </a>
                             <ul class="dropdown-menu">
                                 <% 
-                                    if (Session["loginSession"] != null)
+                                    if (Session["loginSession"] != null) // 已登陆
                                     {
                                 %>
                                 <li><a href="Modify.aspx">修改资料</a></li>
                                 <%
-                                    if (Session["loginIden"].ToString() == "Teacher")
-                                    {
+                                        if (Session["loginIden"].ToString() == "Teacher") // 教师
+                                        {
                                 %>
                                 <li><a href="ManagerPanel.aspx">管理面板</a></li>
                                 <%
-                                    }
+                                        }
                                 %>
                                 <li id="logout"><a href="#" runat="server" onserverclick="Logout">退出登录</a></li>
                                 <%
                                     }
-                                    else
+                                    else // 未登录
                                     {
                                 %>
                                 <li><a href="/Login.aspx">登录</a></li>
@@ -95,9 +121,8 @@
                 </div>
                 <div class="col-md-3 column">
                     <asp:ContentPlaceHolder ID="stdContentSideBar" runat="server">
-                        <label for="sideBar">SideBar</label>
-                        <br />
-                        <label for="none">Σ( ° △ °|||)︴</label>
+                        <!--<label for="sideBar">SideBar</label>-->
+                        <div style="height: 24px;"></div>
                         <!-- 想保留默认侧边栏而添加新的侧边栏用 -->
                         <asp:ContentPlaceHolder ID="cusContentSideBar" runat="server">
                         </asp:ContentPlaceHolder>

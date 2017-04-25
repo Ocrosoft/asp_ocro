@@ -78,6 +78,7 @@
     <Content Include="Login.aspx" />
     <Content Include="Register.aspx" />
     <Content Include="Student\Default.aspx" />
+    <Content Include="Student\JoinClass.aspx" />
     <Content Include="Student\Modify.aspx" />
     <Content Include="Teacher\Default.aspx" />
     <Content Include="Teacher\ManagerPanel.aspx" />
@@ -185,6 +186,13 @@
     </Compile>
     <Compile Include="Student\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\JoinClass.aspx.cs">
+      <DependentUpon>JoinClass.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\JoinClass.aspx.designer.cs">
+      <DependentUpon>JoinClass.aspx</DependentUpon>
     </Compile>
     <Compile Include="Student\Modify.aspx.cs">
       <DependentUpon>Modify.aspx</DependentUpon>

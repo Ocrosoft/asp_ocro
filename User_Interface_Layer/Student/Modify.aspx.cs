@@ -10,14 +10,16 @@ namespace User_Interface_Layer.Student
         {
             if (Session["loginSession"] == null)
             {
-                Page.ClientScript.RegisterStartupScript(Page.GetType(), "", "location.href='/Login.aspx';", true);
+                Response.Write("<script>location.href='/Login.aspx';</script>");
+                //Page.ClientScript.RegisterStartupScript(Page.GetType(), "", "location.href='/Login.aspx';", true);
                 return;
             }
             else
             {
                 if (Session["loginIden"].ToString() != "Student")
                 {
-                    Page.ClientScript.RegisterStartupScript(Page.GetType(), "", "location.href='/Login.aspx';", true);
+                    Response.Write("<script>location.href='/Login.aspx';</script>");
+                    //Page.ClientScript.RegisterStartupScript(Page.GetType(), "", "location.href='/Login.aspx';", true);
                     return;
                 }
                 if (Session["modifyErrorMsg"] != null) // 修改失败
@@ -34,7 +36,7 @@ namespace User_Interface_Layer.Student
                     selectorSex.SelectedIndex = Boolean.Parse(student.sex) ? 0 : 1;
                     inputYear.Text = student.age;
                     selectGrade.SelectedValue = student.grade;
-                    inputMajor.Text = student.major;
+                    selectMajor.SelectedValue = student.major;
                 }
             }
         }
@@ -46,31 +48,36 @@ namespace User_Interface_Layer.Student
             string username = Session["loginSession"].ToString();
             string oldpassword = inputOldPassword.Text.Trim();
             string password = inputPassword.Text.Trim();
+            string sex = selectorSex.SelectedIndex == 0 ? "1" : "0";
             string age = inputYear.Text.Trim();
             string grade = selectGrade.SelectedValue;
+            string major = selectMajor.SelectedValue;
 
-            if(!BLL_Student.login(username, oldpassword))
+            if (!BLL_Student.login(username, oldpassword))
             {
                 Session["modifyErrorID"] = "stdContentMoudle_stdContent_inputOldPassword";
                 Session["modifyErrorMsg"] = "原密码输入错误！";
-                Page.ClientScript.RegisterStartupScript(Page.GetType(), "", "location.href='/Student/Modify.aspx';", true);
+                Response.Write("<script>location.href='/Student/Modify.aspx';</script>");
+                //Page.ClientScript.RegisterStartupScript(Page.GetType(), "", "location.href='/Student/Modify.aspx';", true);
                 return;
             }
 
             Models.Student student = null;
-            if (password.Length == 0) student = new Models.Student(username, "", "", grade, age, "", "", "");
-            else student = new Models.Student(username, password, "", grade, age, "", "", "");
+            if (password.Length == 0) student = new Models.Student(username, "", sex, grade, age, major, "", "");
+            else student = new Models.Student(username, password, sex, grade, age, major, "", "");
 
-            if(BLL_Student.modify(student))
+            if (BLL_Student.modify(student))
             {
                 Page.ClientScript.RegisterStartupScript(Page.GetType(), "alert", "alert('修改成功，刷新页面查看更新后的内容！');", true);
-                Page.ClientScript.RegisterStartupScript(Page.GetType(), "transfer", "location.href='/Student/Modify.aspx';", true);
+                Response.Write("<script>location.href='/Student/Modify.aspx';</script>");
+                //Page.ClientScript.RegisterStartupScript(Page.GetType(), "transfer", "location.href='/Student/Modify.aspx';", true);
             }
             else
             {
                 Session["modifyErrorID"] = "stdContentMoudle_stdContent_inputOldPassword";
                 Session["modifyErrorMsg"] = "原密码输入错误！";
-                Page.ClientScript.RegisterStartupScript(Page.GetType(), "", "location.href='/Student/Modify.aspx';", true);
+                Response.Write("<script>location.href='/Student/Modify.aspx';</script>");
+                //Page.ClientScript.RegisterStartupScript(Page.GetType(), "", "location.href='/Student/Modify.aspx';", true);
             }
         }
     }

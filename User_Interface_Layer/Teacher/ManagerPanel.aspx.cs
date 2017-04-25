@@ -14,14 +14,16 @@ namespace User_Interface_Layer.Teacher
         {
             if (Session["loginSession"] == null)
             {
-                Page.ClientScript.RegisterStartupScript(Page.GetType(), "", "location.href='/Login.aspx';", true);
+                Response.Write("<script>location.href='/Login.aspx';</script>");
+                //Page.ClientScript.RegisterStartupScript(Page.GetType(), "", "location.href='/Login.aspx';", true);
                 return;
             }
             else
             {
                 if (Session["loginIden"].ToString() != "Teacher")
                 {
-                    Page.ClientScript.RegisterStartupScript(Page.GetType(), "", "location.href='/Login.aspx';", true);
+                    Response.Write("<script>location.href='/Login.aspx';</script>");
+                    //Page.ClientScript.RegisterStartupScript(Page.GetType(), "", "location.href='/Login.aspx';", true);
                     return;
                 }
             }
