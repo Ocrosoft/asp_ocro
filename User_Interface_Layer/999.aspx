@@ -24,14 +24,22 @@
         }
 
         path {
-            fill-opacity: .2; /* 填充透明度 */
+            fill-opacity: 0.2; /* 填充透明度 */
             stroke: #fff; /* 线色 */
             stroke-width: 1.5px; /* 线宽 */
         }
 
-            path:hover { /* 鼠标悬停时 */
-                /*fill: brown;*/
-                fill-opacity: .7;
+        .path:hover { /* 鼠标悬停时 */
+            /*fill: brown;*/
+            fill-opacity: .7;
+        }
+
+        circle {
+            opacity: 0.5;
+        }
+
+            circle:hover {
+                cursor: pointer;
             }
 
         #baidu_map {
@@ -47,10 +55,14 @@
             text-align: center;
             top: 0px;
         }
+
+        #value_areaName #value_value {
+            text-align: center;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="stdContent" ContentPlaceHolderID="stdContentMoudle" runat="server">
-    <script>alert('当前只加载2013年数据！请耐心等待。');</script>
+    <script>//alert('当前只加载2013年数据！请耐心等待。');</script>
     <script src="js/rangeslider.min.js"></script>
     <div id="layer">
         <img id="loadingImage" src="image/Loading.gif" /><br />
@@ -65,54 +77,54 @@
         </div>
     </div>
     <script>
-        $('#layer').css('height', $('window').height); // 调节 layer 大小
+                    $('#layer').css('height', $('window').height); // 调节 layer 大小
 
-        var loading_point_interval;
-        function add_Loading_Point_Interval() {
-            loading_point_interval = setInterval(function () {
-                var text = $('#loadingMessage')[0].innerText;
-                if (text.length == 8) text = text.substring(0, 5);
-                else if (text.length >= 5) text += '.';
-                $('#loadingMessage')[0].innerText = text;
-            }, 1000);
-        }
-        var loading_interval = setInterval(function () {
-            var loading_h1 = document.getElementById('loading');
-            if (loading_h1 == null) {
-                clearInterval(loading_interval);
-            }
-        }, 2000);
+                    var loading_point_interval;
+                    function add_Loading_Point_Interval() {
+                        loading_point_interval = setInterval(function () {
+                            var text = $('#loadingMessage')[0].innerText;
+                            if (text.length == 8) text = text.substring(0, 5);
+                            else if (text.length >= 5) text += '.';
+                            $('#loadingMessage')[0].innerText = text;
+                        }, 1000);
+                    }
+                    var loading_interval = setInterval(function () {
+                        var loading_h1 = document.getElementById('loading');
+                        if (loading_h1 == null) {
+                            clearInterval(loading_interval);
+                        }
+                    }, 2000);
 
-        var loadingStep = 0;
+                    var loadingStep = 0;
 
-        function loadingNext() {
-            loadingStep++;
-            clearInterval(loading_point_interval);
-            if (loadingStep == 1) {
-                $('#loadingMessage')[0].innerText = '读取数据中 100%';
-                clearInterval(interval_loading_data);
-            }
-            $('#loadingMessage').animate({ paddingTop: '', opacity: '0' }, 1000, function () {
-                $('#loadingMessage').remove();
-                var label = document.createElement('label');
-                label.id = 'loadingMessage';
-                label.for = 'loadingMessage';
-                label.style.paddingTop = '100px';
-                label.style.opacity = 0;
-                if (loadingStep == 1) {
-                    label.innerText = '数据处理中 0%';
-                }
-                else if (loadingStep == 2) {
-                    label.innerText = '加载完成！';
-                    $('#loadingImage')[0].src = 'image/LoadingComplete.gif';
-                    var it = setInterval(function () { $('#layer').fadeOut(1000, function () { $('#layer').remove(); }); }, 2000);
-                }
-                document.getElementById('loadingMessageH1').appendChild(label);
-                $('#loadingMessage').animate({ paddingTop: '50', opacity: '1' }, 1000, function () {
-                    if (loadingStep == 1) continuee(0); // 开始查询
-                });
-            });
-        }
+                    function loadingNext() {
+                        loadingStep++;
+                        clearInterval(loading_point_interval);
+                        if (loadingStep == 1) {
+                            $('#loadingMessage')[0].innerText = '读取数据中 100%';
+                            clearInterval(interval_loading_data);
+                        }
+                        $('#loadingMessage').animate({ paddingTop: '', opacity: '0' }, 1000, function () {
+                            $('#loadingMessage').remove();
+                            var label = document.createElement('label');
+                            label.id = 'loadingMessage';
+                            label.for = 'loadingMessage';
+                            label.style.paddingTop = '100px';
+                            label.style.opacity = 0;
+                            if (loadingStep == 1) {
+                                label.innerText = '数据处理中 0%';
+                            }
+                            else if (loadingStep == 2) {
+                                label.innerText = '加载完成！';
+                                $('#loadingImage')[0].src = 'image/LoadingComplete.gif';
+                                var it = setInterval(function () { $('#layer').fadeOut(1000, function () { $('#layer').remove(); }); }, 2000);
+                            }
+                            document.getElementById('loadingMessageH1').appendChild(label);
+                            $('#loadingMessage').animate({ paddingTop: '50', opacity: '1' }, 1000, function () {
+                                if (loadingStep == 1) continuee(0); // 开始查询
+                            });
+                        });
+                    }
     </script>
     <div class="container">
         <div class="row clearfix">
@@ -127,7 +139,7 @@
                     <div class="panel-body">
                         <label for="year" style="left: 5px;" id="labelTime">2013年1月1日</label><br />
                         <br />
-                        <input id="sliderYear" type="range" min="2000" max="2015" value="2013" oninput="changeValue()"/><br />
+                        <input id="sliderYear" type="range" min="2000" max="2015" value="2013" oninput="changeValue()" /><br />
                         <br />
                         <input id="sliderMonth" type="range" min="1" max="12" value="1" oninput="changeValue()" /><br />
                         <br />
@@ -141,9 +153,19 @@
                 <div class="panel panel-success">
                     <div class="panel-heading">动画播放</div>
                     <div class="panel-body">
-                        <input type="button" class="btn btn-primary form-control" value="从当前开始播放"/>
+                        <input id="animeSpeed" type="text" class="form-control" placeholder="动画速度(前进一天的ms数)" value="1000" /><br />
+                        <input id="animeButton" type="button" class="btn btn-primary form-control" onclick="playAnime();" value="从当前开始播放" />
                     </div>
                 </div>
+
+                <div class="panel panel-success">
+                    <div class="panel-heading">当前数值</div>
+                    <div class="panel-body">
+                        <input type="text" readonly="true" id="value_areaName" class="form-control"/><br/>
+                        <input type="text" readonly="true" id="value_value" class="form-control" />
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -152,6 +174,7 @@
     <!-- 全局变量声明 -->
     <script>
         var hash = new Array(); // 保存 中文名 -> 经纬度 的哈希表
+        var hash_areaName = new Array(); // 保存 中文名 -> 该地所有数值 的哈希表
         var time_hash = new Array(); // 保存时间 -> 数组 的哈希表
         var data; // 数据表格
         var row_count; // 数据量
@@ -162,7 +185,10 @@
         var baidu_map; // 百度地图对象
         var localSearch; // 百度地图经纬度查询对象
         var heatmapLayer; // heatmap 图层
-        var row_now = 0; // 当前处理的行
+        var row_now = -1; // 当前处理的行
+        var interval_anime; // 动画
+        var circles = null; // 地点（圆对象集）
+        var topLeft = [];
     </script>
     <!-- 加载leafalet，baidu，绘制地图边框，查询经纬度 -->
     <script>
@@ -172,6 +198,20 @@
             .addLayer(new L.TileLayer("https://api.mapbox.com/styles/v1/ocrosoft/cj1euool700ha2ro4ylwb373e/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoib2Nyb3NvZnQiLCJhIjoiY2oxZXVpdmxhMDA5MjJ3dXNidHYzbzc3ayJ9.jRFWntgGrOk28RaSBmfJNg", {
                 attribution: '<a href="https://www.mapbox.com/">Mapbox</a> | <a href="https://www.ocrosoft.com">Ocrosoft</a>'
             })); // 生成地图
+
+        // heatmap 配置
+        var cfg = {
+            "radius": 2, // 半径
+            "maxOpacity": .8, // 最大透明度
+            "scaleRadius": true,
+            "useLocalExtrema": true,
+            latField: 'lat', // 精度
+            lngField: 'lng', // 纬度
+            valueField: 'value' // 数值
+        };
+
+        heatmapLayer = new HeatmapOverlay(cfg); // 创建 heatmap 图层
+        map.addLayer(heatmapLayer); // 将 heatmap 图层添加到地图上
 
         svg = d3.select(map.getPanes().overlayPane).append("svg"),
             g = svg.append("g").attr("class", "leaflet-zoom-hide");
@@ -197,8 +237,8 @@
              */
             function reset() {
                 var bounds = path.bounds(collection),
-                    topLeft = bounds[0],
                     bottomRight = bounds[1];
+                topLeft = bounds[0];
 
                 svg.attr("width", bottomRight[0] - topLeft[0]) // 右(下角)-左(上角)=宽度
                     .attr("height", bottomRight[1] - topLeft[1]) // (右)下(角)-(左)上(角)=高度
@@ -208,6 +248,13 @@
                 g.attr("transform", "translate(" + -topLeft[0] + "," + -topLeft[1] + ")"); // 偏移
 
                 feature.attr("fill", function (d, i) { return color(i); }).attr("d", path); // 使用路径生成器
+
+                if (circles != null) {
+                    circles.attr("cx", function (d) { return map.latLngToLayerPoint(d).x; })
+                        .attr("cy", function (d) { return map.latLngToLayerPoint(d).y; })
+                        .attr("r", function () { return 2 * map.getZoom(); })
+                        .attr("transform", "translate(" + -topLeft[0] + "," + -topLeft[1] + ")"); // 偏移
+                }
             };
 
             // 使用 leaflet 的函数进行坐标转化
@@ -223,12 +270,14 @@
          */
         function addToDataList(lat, lng) {
             var POINT = {
+                areaName: data[row_now].areaName,
                 lat: lat,
                 lng: lng,
                 value: data[row_now].value
             }
-            if (row_now != 1) {
-                var date_last = data[row_now- 1].recordDate; // 上一条记录的时间
+            //console.log(POINT);
+            if (row_now != 0) {
+                var date_last = data[row_now - 1].recordDate; // 上一条记录的时间
                 var date_this = data[row_now].recordDate; // 这条记录的时间
                 if (date_last != date_this) { // 时间不一样
                     time_hash[date_last] = data_list;
@@ -248,7 +297,7 @@
             localSearch.enableAutoViewport();
             localSearch.setSearchCompleteCallback(function (searchResult) { // 构造回调函数
                 var poi, lng, lat;
-                try{
+                try {
                     poi = searchResult.getPoi(0); // 返回的点
                     lng = poi.point.lng; // 纬度
                     lat = poi.point.lat; // 经度
@@ -261,7 +310,7 @@
                     console.log('查询出现错误(' + keyword + ')：')
                     console.log(e);
                 }
-                
+
                 setTimeout(function () { continuee(); }, 1); // 查询结束后查询下一个
             });
 
@@ -291,15 +340,33 @@
             text = "数据处理中 " + Math.ceil(cal) + "%";
             $('#loadingMessage')[0].innerText = text;
 
-            if (row_now >= row_count - 1) { // 加载完了所有数据
-                time_hash[data[row_now].recordDate] = data_list;
+            if (row_now >= row_count) { // 加载完了所有数据
+                time_hash[data[row_now - 1].recordDate] = data_list;
                 query_finished = true;
                 return;
             }
+
             var recordDate, areaName, value;
             recordDate = data[row_now].recordDate;
             areaName = data[row_now].areaName;
             value = data[row_now].value;
+            // 分地区记录
+            if (hash_areaName[areaName] == null) { // 第一次出现
+                hash_areaName[areaName] = [];
+                var p = {
+                    recordDate: recordDate,
+                    value: value
+                };
+                hash_areaName[areaName].push(p);
+            }
+            else {
+                var p = {
+                    recordDate: recordDate,
+                    value: value
+                };
+                hash_areaName[areaName].push(p);
+            }
+            // 分时间记录
             if (hash[areaName] == null) { // 如果没有查询过，则查询
                 searchByStationName(areaName);
             }
@@ -317,20 +384,6 @@
          * 在经纬度查询结束后被调用的函数。
          */
         function final() {
-            // heatmap 配置
-            var cfg = {
-                "radius": 2, // 半径
-                "maxOpacity": .8, // 最大透明度
-                "scaleRadius": true,
-                "useLocalExtrema": true,
-                latField: 'lat', // 精度
-                lngField: 'lng', // 纬度
-                valueField: 'value' // 数值
-            };
-
-            heatmapLayer = new HeatmapOverlay(cfg); // 创建 heatmap 图层
-            map.addLayer(heatmapLayer); // 将 heatmap 图层添加到地图上
-
             //heatmapLayer.setData(data_pack); // 绑定数据
             changeValue();
 
@@ -385,7 +438,7 @@
             else {
                 if (month == 2) {
                     $('#sliderDay')[0].max = 28;
-                    if (day==29||day == 30 || day == 31) $('#sliderDay')[0].value = 29;
+                    if (day == 29 || day == 30 || day == 31) $('#sliderDay')[0].value = 29;
                 }
                 else if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
                     $('#sliderDay')[0].max = 31;
@@ -412,9 +465,146 @@
                     data: time_hash[timeString]
                 }
                 heatmapLayer.setData(data_pack); // 绑定数据
+
+                svg.selectAll("circle").remove();
+                circles = svg.selectAll("circle")
+                    .data(time_hash[timeString])
+                    .enter().append("circle");
+                svg.selectAll("circle").on('click', function (d) {
+                    alert('你选择了' + d.areaName + "，详细数据已在console中输出。");
+                    showLineChart(d.areaName);
+                    console.log(hash_areaName[d.areaName]);
+                });
+                svg.selectAll("circle").on("mouseenter", function (d) {
+                    $('#value_areaName')[0].value = d.areaName;
+                    $('#value_value')[0].value = d.value;
+                });
+                if (circles != null) {
+                    circles.attr("cx", function (d) { return map.latLngToLayerPoint(d).x; })
+                        .attr("cy", function (d) { return map.latLngToLayerPoint(d).y; })
+                        .attr("r", function () { return 2 * map.getZoom(); })
+                        .attr("transform", "translate(" + -topLeft[0] + "," + -topLeft[1] + ")"); // 偏移
+                }
             }
         }
 
         $('input[type="range"]').rangeslider({ polyfill: false });
     </script>
+    <!-- 动画播放 -->
+    <script>
+        function playAnime() {
+            if ($('#animeButton')[0].value.indexOf('停止') != -1) {
+                clearInterval(interval_anime);
+                $('#animeButton')[0].value = "从当前开始播放";
+                return;
+            }
+            var animeSpeed = $('#animeSpeed')[0].value;
+            if (animeSpeed == null || animeSpeed <= 0) {
+                alert('请输入合法速度！');
+                return;
+            }
+            $('#animeButton')[0].value = "停止播放";
+            interval_anime = setInterval(function () {
+                var year = $('#sliderYear')[0].value;
+                var year_max = $('#sliderYear')[0].max;
+                var month = $('#sliderMonth')[0].value;
+                var month_max = $('#sliderMonth')[0].max;
+                var day = $('#sliderDay')[0].value;
+                var day_max = $('#sliderDay')[0].max;
+
+                if (day == day_max) {
+                    if (month == month_max) {
+                        if (year == year_max) {
+                            alert('动画播放完毕！');
+                            clearInterval(interval_anime);
+                        }
+                        else year++ , month = 1, day = 1;
+                    }
+                    else month++ , day = 1;
+                }
+                else day++;
+
+                $('#sliderYear').val(year).change();
+                $('#sliderMonth').val(month).change();
+                $('#sliderDay').val(day).change();
+
+            }, animeSpeed);
+        }
+    </script>
+
+    <script>  
+        function showLineChart(areaName) {
+            var width = 500;
+            var height = 500;
+
+            var dataset = [
+                {
+                    country: areaName,
+                    gdp: hash_areaName[areaName]
+                }
+            ];  
+
+            var padding = { top: 70, right: 70, bottom: 70, left: 70 };
+
+            var xScale = d3.scale.linear()
+                .domain([2000, 2015])
+                .range([0, width - padding.left - padding.right]);
+
+            var yScale = d3.scale.linear()
+                .domain([0, 200])
+                .range([height - padding.bottom - padding.top, 0]);
+
+            var linePath = d3.svg.line() // 创建一个直线生成器  
+                .x(function (d) {
+                    return xScale(d[0]);
+                })
+                .y(function (d) {
+                    return yScale(d[1]);
+                })
+                .interpolate("basis"); // 插值模式  
+
+            // 定义两个颜色  
+            var colors = d3.rgb(0, 0, 0);
+
+            var svgg = d3.select(".container")
+                .append("svg")
+                .attr("width", '100%')
+                .attr("height", height);
+
+            svgg.selectAll("path")
+                .data(dataset)
+                .enter()
+                .append("path")
+                .attr("transform", "translate(" + padding.left + "," + padding.top + ")")
+                .attr("d", function (d) {
+                    return linePath(d.gdp);
+                })
+                .attr("fill", "none")
+                .attr("stroke-width", 3)
+                .attr("stroke", function (d, i) {
+                    return colors[i];
+                });
+
+            var xAxis = d3.svg.axis()
+                .scale(xScale)
+                .ticks(5)
+                .tickFormat(d3.format("d"))
+                .orient("bottom");
+
+            var yAxis = d3.svg.axis()
+                .scale(yScale)
+                .orient("left");
+
+            //添加一个g用于放x轴  
+            svgg.append("g")
+                .attr("class", "axis")
+                .attr("transform", "translate(" + padding.left + "," + (height - padding.top) + ")")
+                .call(xAxis);
+
+            svgg.append("g")
+                .attr("class", "axis")
+                .attr("transform", "translate(" + padding.left + "," + padding.top + ")")
+                .call(yAxis);
+        }
+</script>  
 </asp:Content>
