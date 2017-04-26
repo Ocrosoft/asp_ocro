@@ -37,7 +37,7 @@
         </div>
     </form>
 </asp:Content>
-<asp:Content ID="stdContentSideBar" ContentPlaceHolderID="stdContentSideBar" runat="server">
+<asp:Content ID="cusContentSideBar" ContentPlaceHolderID="cusContentSideBar" runat="server">
     <div class="panel panel-success">
         <div class="panel-heading">提示</div>
         <div class="panel-body" style="text-align: center;">

@@ -1,8 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/UIL.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="User_Interface_Layer.Student.Default" %>
 <asp:Content ID="stdContent" ContentPlaceHolderID="stdContent" runat="server">
     <form class="form-horizontal" role="form"  runat="server" style="text-align:center;">
-        <h1 class="text-success">欢迎!</h1>
-        <h1><asp:Label runat="server" ID="labelIden" CssClass="text-success"></asp:Label></h1><br/>
+        <h1 class="text-success">欢迎使用项目答辩评分系统!</h1>
         <br />
     </form>
 </asp:Content>

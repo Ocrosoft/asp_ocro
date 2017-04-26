@@ -10,14 +10,16 @@ namespace User_Interface_Layer.Teacher
         {
             if (Session["loginSession"] == null)
             {
-                Page.ClientScript.RegisterStartupScript(Page.GetType(), "", "location.href='/Login.aspx';", true);
+                Response.Write("<script>location.href='/Login.aspx';</script>");
+                //Page.ClientScript.RegisterStartupScript(Page.GetType(), "", "location.href='/Login.aspx';", true);
                 return;
             }
             else
             {
                 if (Session["loginIden"].ToString() != "Teacher")
                 {
-                    Page.ClientScript.RegisterStartupScript(Page.GetType(), "", "location.href='/Login.aspx';", true);
+                    Response.Write("<script>location.href='/Login.aspx';</script>");
+                    //Page.ClientScript.RegisterStartupScript(Page.GetType(), "", "location.href='/Login.aspx';", true);
                     return;
                 }
                 if (Session["modifyErrorMsg"] != null) // 修改失败
@@ -51,7 +53,8 @@ namespace User_Interface_Layer.Teacher
             {
                 Session["modifyErrorID"] = "stdContentMoudle_stdContent_inputOldPassword";
                 Session["modifyErrorMsg"] = "原密码输入错误！";
-                Page.ClientScript.RegisterStartupScript(Page.GetType(), "", "location.href='/Teacher/Modify.aspx';", true);
+                Response.Write("<script>location.href='/Teacher/Modify.aspx';</script>");
+                //Page.ClientScript.RegisterStartupScript(Page.GetType(), "", "location.href='/Teacher/Modify.aspx';", true);
                 return;
             }
 
@@ -62,13 +65,15 @@ namespace User_Interface_Layer.Teacher
             if (BLL_Teacher.modify(teacher))
             {
                 Page.ClientScript.RegisterStartupScript(Page.GetType(), "alert", "alert('修改成功，刷新页面查看更新后的内容！');", true);
-                Page.ClientScript.RegisterStartupScript(Page.GetType(), "transfer", "location.href='/Teacher/Modify.aspx';", true);
+                Response.Write("<script>location.href='/Teacher/Modify.aspx';</script>");
+                //Page.ClientScript.RegisterStartupScript(Page.GetType(), "transfer", "location.href='/Teacher/Modify.aspx';", true);
             }
             else
             {
                 Session["modifyErrorID"] = "stdContentMoudle_stdContent_inputOldPassword";
                 Session["modifyErrorMsg"] = "原密码输入错误！";
-                Page.ClientScript.RegisterStartupScript(Page.GetType(), "", "location.href='/Teacher/Modify.aspx';", true);
+                Response.Write("<script>location.href='/Teacher/Modify.aspx';</script>");
+                //Page.ClientScript.RegisterStartupScript(Page.GetType(), "", "location.href='/Teacher/Modify.aspx';", true);
             }
         }
     }

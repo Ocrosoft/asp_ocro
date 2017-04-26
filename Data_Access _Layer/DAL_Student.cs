@@ -61,7 +61,7 @@ namespace Data_Access_Layer
             return false;
         }
         /// <summary>
-        /// 修改一个学生信息。
+        /// 修改一个学生信息（包括密码、年龄、年纪、性别、专业）。
         /// </summary>
         /// <param name="student">修改后的学生信息</param>
         /// <returns></returns>
@@ -72,6 +72,8 @@ namespace Data_Access_Layer
             if (password.Length != 0) password = DAL_Safety.getMD5(password);
             string age = student.age;
             string grade = student.grade;
+            string sex = student.sex;
+            string major = student.major;
 
             try
             {
@@ -79,21 +81,25 @@ namespace Data_Access_Layer
                 int res = 0;
                 if (password.Length != 0)
                 {
-                    sql = "update users set password=?1, grade=?2, age=?3 where username=?4;";
-                    MySqlParameter[] para = new MySqlParameter[4];
+                    sql = "update users set password=?1, grade=?2, age=?3, sex=?4, major=?5 where username=?6;";
+                    MySqlParameter[] para = new MySqlParameter[6];
                     para[0] = new MySqlParameter("?1", password);
                     para[1] = new MySqlParameter("?2", grade);
                     para[2] = new MySqlParameter("?3", age);
-                    para[3] = new MySqlParameter("?4", username);
+                    para[3] = new MySqlParameter("?4", sex);
+                    para[4] = new MySqlParameter("?5", major);
+                    para[5] = new MySqlParameter("?6", username);
                     res = DAL_MysqlHelper.ExecuteNonQuery(sql, para);
                 }
                 else
                 {
-                    sql = "update users set grade=?1, age=?2 where username=?3;";
-                    MySqlParameter[] para = new MySqlParameter[3];
+                    sql = "update users set grade=?1, age=?2, sex=?3, major=?4 where username=?5;";
+                    MySqlParameter[] para = new MySqlParameter[5];
                     para[0] = new MySqlParameter("?1", grade);
                     para[1] = new MySqlParameter("?2", age);
-                    para[2] = new MySqlParameter("?3", username);
+                    para[2] = new MySqlParameter("?3", sex);
+                    para[3] = new MySqlParameter("?4", major);
+                    para[4] = new MySqlParameter("?5", username);
                     res = DAL_MysqlHelper.ExecuteNonQuery(sql, para);
                 }
                 if (res > 0)
