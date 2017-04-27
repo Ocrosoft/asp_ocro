@@ -116,7 +116,7 @@ namespace Data_Access_Layer
                 string sql = "select username,sex,age from teacher where username=?1;";
                 MySqlParameter[] para = new MySqlParameter[1];
                 para[0] = new MySqlParameter("?1", number);
-                DataTable dataTable = DAL_MysqlHelper.ExecuteDataTable(sql, para);
+                DataTable dataTable = DAL_MysqlHelper.ExecuteDataTable(sql, para).Tables[0];
                 Teacher teacher = new Teacher("", "", "", "");
                 if (dataTable != null)
                 {

@@ -217,11 +217,11 @@ namespace Data_Access_Layer
         #endregion
         #region ExecuteDataTable
         /// <summary> 
-        /// 执行查询语句，返回DataTable 
+        /// 执行查询语句，返回DataSet
         /// </summary> 
         /// <param name="SQLString">查询语句</param> 
-        /// <returns>DataTable</returns> 
-        public static DataTable ExecuteDataTable(string SQLString)
+        /// <returns>DataSet</returns> 
+        public static DataSet ExecuteDataTable(string SQLString)
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -236,15 +236,15 @@ namespace Data_Access_Layer
                 {
                     throw new Exception(ex.Message);
                 }
-                return ds.Tables[0];
+                return ds;
             }
         }
         /// <summary> 
         /// 执行查询语句，返回DataSet 
         /// </summary> 
         /// <param name="SQLString">查询语句</param> 
-        /// <returns>DataTable</returns> 
-        public static DataTable ExecuteDataTable(string SQLString, params MySqlParameter[] cmdParms)
+        /// <returns>DataSet</returns> 
+        public static DataSet ExecuteDataTable(string SQLString, params MySqlParameter[] cmdParms)
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -262,7 +262,7 @@ namespace Data_Access_Layer
                     {
                         throw new Exception(ex.Message);
                     }
-                    return ds.Tables[0];
+                    return ds;
                 }
             }
         }
@@ -306,7 +306,7 @@ namespace Data_Access_Layer
             if (!string.IsNullOrEmpty(orderExpression)) { sqlStr += string.Format(" Order by {0}", orderExpression); }
             if (matchs.Count > 0) //含有top的时候 
             {
-                DataTable dtTemp = ExecuteDataTable(sqlStr);
+                DataTable dtTemp = ExecuteDataTable(sqlStr).Tables[0];
                 rows = dtTemp.Rows.Count;
             }
             else //不含有top的时候 

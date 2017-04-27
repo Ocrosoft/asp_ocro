@@ -13,6 +13,34 @@
                             <div class="table-responsive">
                                 <asp:Table runat="server" CssClass="table" ID="registedUser">
                                 </asp:Table>
+                                <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="qeruyAllStudent_DataSet" TypeName="Business_Logic_Layer.BLL_Student" DataObjectTypeName="Models.Student" DeleteMethod="deleteByID" UpdateMethod="modify">
+                                    <DeleteParameters>
+                                        <asp:Parameter Name="ID" Type="String" />
+                                    </DeleteParameters>
+                                </asp:ObjectDataSource>
+                                <asp:GridView ID="GridView1" runat="server" AllowSorting="True" AutoGenerateColumns="False" CellPadding="4" DataSourceID="ObjectDataSource1" ForeColor="#333333" GridLines="None" CssClass="table" AllowPaging="True">
+                                    <AlternatingRowStyle BackColor="White" />
+                                    <Columns>
+                                        <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" ShowSelectButton="True" />
+                                        <asp:BoundField DataField="username" HeaderText="用户名" />
+                                        <asp:BoundField DataField="sex" HeaderText="性别" />
+                                        <asp:BoundField DataField="grade" HeaderText="年级" />
+                                        <asp:BoundField DataField="age" HeaderText="年龄" />
+                                        <asp:BoundField DataField="major" HeaderText="专业" />
+                                        <asp:BoundField DataField="IP" HeaderText="IP" />
+                                        <asp:BoundField DataField="regtime" HeaderText="注册时间" />
+                                    </Columns>
+                                    <EditRowStyle BackColor="#2461BF" />
+                                    <FooterStyle BackColor="#4472C4" Font-Bold="True" ForeColor="White" />
+                                    <HeaderStyle BackColor="#4472C4" Font-Bold="True" ForeColor="White" />
+                                    <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+                                    <RowStyle BackColor="#D9E2F3" />
+                                    <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+                                    <SortedAscendingCellStyle BackColor="#F5F7FB" />
+                                    <SortedAscendingHeaderStyle BackColor="#6D95E1" />
+                                    <SortedDescendingCellStyle BackColor="#E9EBEF" />
+                                    <SortedDescendingHeaderStyle BackColor="#4870BE" />
+                                </asp:GridView>
                             </div>
                             <input style="display: none" type="submit" id="refresh" />
                         </ContentTemplate>

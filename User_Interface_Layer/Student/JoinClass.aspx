@@ -1,10 +1,22 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/UIL.Master" AutoEventWireup="true" CodeBehind="JoinClass.aspx.cs" Inherits="User_Interface_Layer.Student.JoinClass" %>
+﻿<%@ Page Title="加入课程" Language="C#" MasterPageFile="~/UIL.Master" AutoEventWireup="true" CodeBehind="JoinClass.aspx.cs" Inherits="User_Interface_Layer.Student.JoinClass" %>
 
-<asp:Content ID="stdContent" ContentPlaceHolderID="stdContent" runat="server">
-    <h1 class="text-success" style="text-align: center;">加入课程</h1>
-    <div class="table-responsive">
-        <asp:Table runat="server" CssClass="table" ID="currentClass">
-        </asp:Table>
+<asp:Content ID="stdContentMoudle" ContentPlaceHolderID="stdContentMoudle" runat="server">
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-md-12 column">
+                <h2 class="text-success" style="text-align: center;">加入课程</h2>
+            </div>
+            <div class="col-md-1 column">
+            </div>
+            <div class="col-md-10 column">
+                <div class="table-responsive">
+                    <asp:Table runat="server" CssClass="table" ID="currentClass">
+                    </asp:Table>
+                </div>
+            </div>
+            <div class="col-md-1 column">
+            </div>
+        </div>
     </div>
 </asp:Content>
 <asp:Content ID="stdContentSideBar" ContentPlaceHolderID="stdContentSideBar" runat="server">

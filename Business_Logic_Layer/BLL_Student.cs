@@ -1,6 +1,7 @@
 ﻿using Data_Access_Layer;
 using Models;
 using System.Collections.Generic;
+using System.Data;
 
 namespace Business_Logic_Layer
 {
@@ -54,6 +55,14 @@ namespace Business_Logic_Layer
         public static List<Student> queryAllStudent()
         {
             return DAL_Student.queryAllStudent();
+        }
+        /// <summary>
+        /// 查询所有学生信息。
+        /// </summary>
+        /// <returns>DataSet</returns>
+        public static DataSet qeruyAllStudent_DataSet()
+        {
+            return DAL_Student.queryAllStudent_DataSet();
         }
     }
 }

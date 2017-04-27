@@ -129,7 +129,7 @@ namespace Data_Access_Layer
                 string sql = "select username,sex,grade,age,major from users where username=?1;";
                 MySqlParameter[] para = new MySqlParameter[1];
                 para[0] = new MySqlParameter("?1", number);
-                DataTable dataTable = DAL_MysqlHelper.ExecuteDataTable(sql, para);
+                DataTable dataTable = DAL_MysqlHelper.ExecuteDataTable(sql, para).Tables[0];
                 Student student = new Student("", "", "", "", "", "", "", "");
                 if (dataTable != null)
                 {
@@ -181,7 +181,7 @@ namespace Data_Access_Layer
         public static List<Student> queryAllStudent()
         {
             string sql = "select username,sex,grade,age,major,IP,regtime,id from users;";
-            DataTable table = DAL_MysqlHelper.ExecuteDataTable(sql);
+            DataTable table = DAL_MysqlHelper.ExecuteDataTable(sql).Tables[0];
             List<Student> list = new List<Student>();
             foreach (DataRow dr in table.Rows)
             {
@@ -197,6 +197,13 @@ namespace Data_Access_Layer
                 list.Add(student);
             }
             return list;
+        }
+
+        public static DataSet queryAllStudent_DataSet()
+        {
+            string sql = "select username,sex,grade,age,major,IP,regtime,id from users;";
+            DataSet ds = DAL_MysqlHelper.ExecuteDataTable(sql);
+            return ds;
         }
     }
 }

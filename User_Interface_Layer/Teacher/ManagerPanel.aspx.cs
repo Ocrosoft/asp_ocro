@@ -12,21 +12,19 @@ namespace User_Interface_Layer.Teacher
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["loginSession"] == null)
-            {
-                Response.Write("<script>location.href='/Login.aspx';</script>");
-                //Page.ClientScript.RegisterStartupScript(Page.GetType(), "", "location.href='/Login.aspx';", true);
-                return;
-            }
-            else
-            {
-                if (Session["loginIden"].ToString() != "Teacher")
-                {
-                    Response.Write("<script>location.href='/Login.aspx';</script>");
-                    //Page.ClientScript.RegisterStartupScript(Page.GetType(), "", "location.href='/Login.aspx';", true);
-                    return;
-                }
-            }
+            //if (Session["loginSession"] == null)
+            //{
+            //    Response.Write("<script>location.href='/Login.aspx';</script>");
+            //    return;
+            //}
+            //else
+            //{
+            //    if (Session["loginIden"].ToString() != "Teacher")
+            //    {
+            //        Response.Write("<script>location.href='/Login.aspx';</script>");
+            //        return;
+            //    }
+            //}
 
             if (!string.IsNullOrEmpty(hiddenFieldEdit.Value))
             {

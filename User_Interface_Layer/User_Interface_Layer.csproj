@@ -80,6 +80,9 @@
     <Content Include="Student\Default.aspx" />
     <Content Include="Student\JoinClass.aspx" />
     <Content Include="Student\Modify.aspx" />
+    <Content Include="Student\ProjectWork.aspx" />
+    <Content Include="Student\QuitClass.aspx" />
+    <Content Include="Student\TeamWork.aspx" />
     <Content Include="Teacher\Default.aspx" />
     <Content Include="Teacher\ManagerPanel.aspx" />
     <Content Include="Teacher\Modify.aspx" />
@@ -200,6 +203,27 @@
     </Compile>
     <Compile Include="Student\Modify.aspx.designer.cs">
       <DependentUpon>Modify.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\ProjectWork.aspx.cs">
+      <DependentUpon>ProjectWork.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\ProjectWork.aspx.designer.cs">
+      <DependentUpon>ProjectWork.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\QuitClass.aspx.cs">
+      <DependentUpon>QuitClass.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\QuitClass.aspx.designer.cs">
+      <DependentUpon>QuitClass.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\TeamWork.aspx.cs">
+      <DependentUpon>TeamWork.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\TeamWork.aspx.designer.cs">
+      <DependentUpon>TeamWork.aspx</DependentUpon>
     </Compile>
     <Compile Include="Teacher\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
