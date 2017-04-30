@@ -10,8 +10,6 @@
     <script src="/js/d3.v3.min.js" charset="utf-8"></script>
     <!-- heatmap -->
     <script src="/js/heatmap.js" charset="utf-8"></script>
-    <!-- baidu map -->
-    <script src="//api.map.baidu.com/api?v=1.3"></script>
     <!-- leaflet-heatmap -->
     <script src="/js/leaflet-heatmap.js"></script>
     <style>
@@ -35,15 +33,15 @@
         }
 
         circle {
-            opacity: 0.5;
+            opacity: 0;
         }
 
             circle:hover {
                 cursor: pointer;
             }
 
-        #baidu_map {
-            display: none;
+        g circle {
+            opacity: 1.0;
         }
 
         #layer {
@@ -77,7 +75,7 @@
                     var interval_loading_data = setInterval(function () {
                         if (loading_data_percent >= 100) loading_data_percent = 99; // 大于99%一直显示99%
                         $('#loadingMessage')[0].innerText = '读取数据中 ' + loading_data_percent++ + "%";
-                    }, 10);
+                    }, 5);
                 </script>
             </h1>
         </div>
@@ -144,13 +142,13 @@
                         });
                     }
     </script>
-    <!-- 侧边栏 -->
     <div class="container">
         <div class="row clearfix">
-            <div class="col-md-9 column">
+            <div class="col-md-9 column" id="mainDiv">
                 <div id="map"></div>
                 <div id="baidu_map"></div>
             </div>
+            <!-- 侧边栏 -->
             <div class="col-md-3 column">
 
                 <div class="panel panel-success">
@@ -186,6 +184,28 @@
                     </div>
                 </div>
 
+                <div class="panel panel-success">
+                    <div class="panel-heading">折线图选项</div>
+                    <div class="panel-body">
+                        精确度选择：
+                        <label>
+                            <input checked="checked" name="jqd" type="radio" value="1" onclick="jqdToYear()"/>
+                            年
+                        </label>
+                        <label>
+                            <input name="jqd" type="radio" value="2" onclick="jqdToMonth()"/>
+                            月
+                        </label>
+                        <label>
+                            <input name="jqd" type="radio" value="3" onclick="jqdToDay()" />
+                            日
+                        </label>
+                        <div style="display: none;" id="jqd_month_selector">
+                            <label>要查看的年份：</label><br />
+                            <select class="form-control"></select>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -198,19 +218,18 @@
         var time_hash = new Array(); // 保存时间 -> 数组 的哈希表
         var data; // 数据表格(原始csv)
         var area_data; // 地区数据(csv)
-        var row_count; // 数据量
         var data_list = []; // 保存经纬度和AQI的数组
         var map; // leaflet 地图
         var svg; // d3 绘制地图的使用的 svg 对象
         var baidu_map; // 百度地图对象
         var localSearch; // 百度地图经纬度查询对象
         var heatmapLayer; // heatmap 图层
-        var row_now = -1; // 当前处理的行
         var interval_anime; // 动画
         var circles = null; // 地点（圆对象集）
         var topLeft = [];
+        var lineChartedArea;
     </script>
-    <!-- 加载leafalet，baidu，绘制地图边框，查询经纬度 -->
+    <!-- 加载leafalet，绘制地图边框，查询经纬度 -->
     <script>
         $('#map').css('height', $('.container').css('height')); // 改变 leaflet 地图大小
 
@@ -283,66 +302,26 @@
                 this.stream.point(point.x, point.y);
             }
         });
-
-        baidu_map = new BMap.Map("baidu_map");
-        localSearch = new BMap.LocalSearch(baidu_map);
-        /**
-         * 根据省市名称查询经纬度（同时(指上一查询结果还未返回)查询返回多次，但是结果是最后一次查询的结果）
-         * @param keyword 要查询的地点名称
-         */
-        function searchByStationName(keyword) {
-            localSearch.enableAutoViewport();
-            localSearch.setSearchCompleteCallback(function (searchResult) { // 构造回调函数
-                var poi, lng, lat;
-                try {
-                    poi = searchResult.getPoi(0); // 返回的点
-                    hash[keyword] = poi.point; // 保存结果为 {lat: , lng: }
-                    console.log("x1" + keyword + "x2" + poi.point.lat+"x3"+poi.point.lng);
-                }
-                catch (e) {
-                    console.log('查询出现错误(' + keyword + ')：')
-                    console.log(e);
-                }
-
-                setTimeout(function () { queryArea(); }, 1); // 查询结束后查询下一个
-            });
-
-            localSearch.search(keyword); // 进行查询，等待返回
-        }
     </script>
     <!-- 数据处理 -->
     <script>
         /**
-        * 加载地区信息，并查询其经纬度
+        * 加载地区信息
         */
         function areaLoading() {
-            d3.csv("/AreaName.csv", function (datas) { // 读取所有地名
-                area_data = datas;
-                //console.log(area_data);
-                row_count = area_data.length;
-                queryArea(); // 开始查询
+            d3.csv("/AreaName-LatLng.csv", function (datas) { // 读取所有地名
+                datas.forEach(function (d, i) {
+                    $('#loadingMessage')[0].innerText = "查询数据中 " + Math.ceil(i / datas.length * 100) + "%";
+                    hash[d.areaName] = { lat: d.lat, lng: d.lng };
+                });
+                loadingNext();
             });
         };
-        /**
-        * 查询地区的经纬度
-        */
-        function queryArea() {
-            row_now++;
-            var cal = row_now / row_count * 100;
-            $('#loadingMessage')[0].innerText = "查询数据中 " + Math.ceil(cal) + "%";
-            if (row_now >= row_count) {
-                loadingNext();
-                return;
-            }
-            else {
-                searchByStationName(area_data[row_now].areaName);
-            }
-        }
         /**
         * 加载AQI数据
         */
         (function loadingData() {
-            d3.csv("/AQI-2013.csv", function (datas) {
+            d3.csv("/AQI-FULL.csv", function (datas) {
                 data = datas; // 获取数据
                 loadingNext(); // 加载下一步
             });
@@ -418,7 +397,7 @@
          */
         function final() {
             changeValue(); // 加载热力图
-            loadingNext(); // 下一步
+            //loadingNext(); // 下一步
         }
     </script>
     <!-- 时间选择，刷新数据绑定 -->
@@ -483,6 +462,7 @@
                     .enter().append("circle");
                 svg.selectAll("circle").on('click', function (d) {
                     showLineChart(d.areaName);
+                    $('svg')[1].scrollIntoView();
                 });
                 svg.selectAll("circle").on("mouseenter", function (d) {
                     $('#value_areaName')[0].value = d.areaName;
@@ -513,6 +493,7 @@
                 time_hash[timeString].forEach(function (d) {
                     if (d.areaName == $('#value_areaName')[0].value) {
                         $('#value_value')[0].value = d.value;
+                        showLineChart(d.areaName);
                     }
                 });
             }
@@ -569,7 +550,64 @@
          * @param areaName 地区名
          */
         function showLineChart(areaName) {
+            var lastChild = document.getElementById('mainDiv').lastChild;
+            var tagName = (' ' + lastChild.tagName).trim();
+            if (tagName == "svg") {
+                if (lineChartedArea == areaName + $('input[name="jqd"]:checked')[0].value) return;
+                lastChild.remove();
+            }
+            lineChartedArea = areaName + $('input[name="jqd"]:checked')[0].value;
+
             var data = hash_areaName[areaName];
+            var jqd = $('input[name="jqd"]:checked')[0].value;
+            var data_tmp = new Array();
+            if (jqd == 1) { // 精确度：年
+                data.forEach(function (d) {
+                    var year = d.recordDate.split('-')[0];
+                    if (data_tmp[year] == null) data_tmp[year] = { recordDate: year, value: d.value, cnt: 1 };
+                    else data_tmp[year] = { recordDate: year, value: parseInt(d.value) + parseInt(data_tmp[year].value), cnt: parseInt(data_tmp[year].cnt) + 1 };
+                });
+                data = [];
+                data_tmp.forEach(function (d) {
+                    d.value = d.value / d.cnt;
+                    data.push({ recordDate: d.recordDate, value: d.value });
+                });
+            }
+            else if (jqd == 2) { // 精确度：月
+                var data_year = new Array();
+                data.forEach(function (d) {
+                    var year = d.recordDate.split('-')[0];
+                    var month = d.recordDate.split('-')[1];
+                    if (data_year[year] == null) {
+                        data_year[year] = new Array();
+                        data_year[year]['year'] = year;
+                        data_year[year][month] = { recordDate: year + '-' + month, value: d.value, cnt: 1 };
+                    }
+                    else {
+                        if (data_year[year][month] == null) {
+                            data_year[year][month] = { recordDate: year + '-' + month, value: d.value, cnt: 1 };
+                        }
+                        else {
+                            data_year[year][month] = { recordDate: year + '-' + month, value: parseInt(d.value) + parseInt(data_year[year][month].value), cnt: parseInt(data_year[year][month].cnt) + 1 };
+                        }
+                    }
+                });
+                data = [];
+                //console.log(data_year);
+                console.log(data_year);
+                data_year.forEach(function (d) {
+                   $('#jqd_month_selector select')[0].options.add(new Option(d['year']));
+                    console.log(d);
+                    for (var i = 1; i <= 12; i++) {
+                        var j = (i < 10 ? '0' : '') + i;
+                        if (d[j] != null) {
+                            data.push({ recordDate: d[j].recordDate, value: d[j].value / d[j].cnt });
+                        }
+                    }
+                });
+                console.log(data);
+                $('#jqd_month_selector').css('display', 'block');
+            }
 
             // 定义circle的半径
             var r0 = 5,
@@ -578,11 +616,16 @@
             // 定义动画持续时间
             var duration = 500;
 
+            var width_map = $('#map').css('width');// ?px
+            width_map = width_map.substring(0, width_map.length - 2);
+            //console.log(width_map);
             var margin = { top: 20, right: 20, bottom: 30, left: 50 },
-                width = 1000 - margin.left - margin.right,
+                width = width_map - margin.left - margin.right,
                 height = 500 - margin.top - margin.bottom;
 
-            var parseDate = d3.time.format('%Y-%m-%d').parse;
+            var parseDate = d3.time.format('%Y').parse;
+            if (jqd == 2) parseDate = d3.time.format('%Y-%m').parse;
+            else if (jqd == 3) parseDate = d3.time.format('%Y-%m-%d').parse;
 
             var x = d3.time.scale()
                 .range([0, width]);
@@ -594,7 +637,10 @@
                 .scale(x)
                 .orient('bottom')
                 .tickFormat(d3.time.format('%d'))
-                .ticks(30);
+                .ticks(data.length);
+            if (jqd == 1) xAxis.tickFormat(d3.time.format('%Y'));
+            else if (jqd == 2) xAxis.tickFormat(d3.time.format('%m'));
+            else xAxis.tickFormat(d3.time.format('%d'));
 
             var yAxis = d3.svg.axis()
                 .scale(y)
@@ -618,7 +664,7 @@
                 .x(function (d) { return x(d.x); })
                 .y(function (d) { return y(d.y); });
 
-            var container = d3.select('.container')
+            var container = d3.select('#mainDiv')
                 .append('svg')
                 // .transition()
                 .attr('width', width + margin.left + margin.right)
@@ -631,7 +677,8 @@
 
                 svg = container.append('g')
                     .attr('class', 'content')
-                    .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+                    .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+                    .attr('title', areaName);
 
                 function draw() {
                     data.forEach(function (d) {
@@ -643,12 +690,20 @@
                     x.domain(d3.extent(data, function (d) { return d.recordDate; }));
                     y.domain([0, d3.max(data, function (d) { return d.value; })]);
 
-                    svg.append('text')
+                    var text_1 = svg.append('text')
                         .attr('class', 'title')
-                        //.text('2013年12月PV')
                         .attr('fill', '#fff')
                         .attr('x', width / 2)
-                        .attr('y', 0);
+                        .attr('y', height - 10);
+                    if (jqd == 1) {
+                        text_1.attr('text', areaName +' 2000-2015 年年平均AQI');
+                    }
+                    else if (jqd == 2) {
+                        text_1.attr('text', areaName + '  年月平均AQI');
+                    }
+                    else {
+                        text_1.attr('text', area_Name + '???');
+                    }
 
                     svg.append('g')
                         .attr('class', 'x axis')
@@ -750,10 +805,14 @@
                             d = x0 - d0.recordDate > d1.recordDate - x0 ? d1 : d0;
 
                         function formatWording(d) {
-                            return '日期：' + d3.time.format('%Y-%m-%d')(d.recordDate);
+                            var fmt;
+                            if (jqd == 1) fmt = d3.time.format('%Y')(d.recordDate);
+                            else if (jqd == 2) fmt = d3.time.format('%Y-%m')(d.recordDate);
+                            else fmt = d3.time.format('%Y-%m-%d')(d.recordDate);
+                            return '日期：' + fmt;
                         }
                         wording1.text(formatWording(d));
-                        wording2.text('PV：' + d.value);
+                        wording2.text('AQI：' + d.value);
 
 
                         var x1 = x(d.recordDate),
@@ -775,6 +834,18 @@
 
                 draw();
             }
+        }
+    </script>
+
+    <script>
+        function jqdToYear() {
+            alert('请注意，精确到年将会计算每年的平均值而丢失大量数据！');
+        }
+        function jqdToMonth() {
+            alert('请注意，精确到月将会计算每月的平均值而丢失部分数据！');
+        }
+        function jqdToDay() {
+
         }
     </script>
 </asp:Content>

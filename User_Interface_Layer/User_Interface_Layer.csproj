@@ -90,6 +90,7 @@
     <Content Include="china.json" />
     <Content Include="AQI-2013.csv" />
     <Content Include="AreaName-LatLng.csv" />
+    <Content Include="AQI-FULL.csv" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <None Include="Properties\PublishProfiles\2.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
