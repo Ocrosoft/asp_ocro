@@ -27,11 +27,21 @@ namespace User_Interface_Layer.Teacher
             //}
         }
 
-        protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            string id = GridView1.DataKeys[e.RowIndex].Value.ToString();
-            BLL_Student.deleteByID(id);
-            GridView1.DataBind();
+            //如果是绑定数据行 
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                if (e.Row.RowState == DataControlRowState.Normal || e.Row.RowState == DataControlRowState.Alternate)
+                {
+                    ((LinkButton)e.Row.Cells[0].Controls[2]).Attributes.Add("onclick", "javascript:return confirm('你确认要删除吗?')");
+                }
+            } 
+        }
+
+        protected void GridView1_RowUpdating1(object sender, GridViewUpdateEventArgs e)
+        {
+
         }
     }
 }

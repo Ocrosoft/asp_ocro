@@ -16,9 +16,9 @@ namespace Business_Logic_Layer
         {
             return DAL_Student.insertStudent(student);
         }
-        public static bool deleteByID(string ID)
+        public static bool deleteByID(int ID)
         {
-            return DAL_Student.deleteStudentByID(ID);
+            return DAL_Student.deleteStudentByID(ID.ToString());
         }
         /// <summary>
         /// 学生登录
@@ -39,6 +39,11 @@ namespace Business_Logic_Layer
         {
             return DAL_Student.modifyStudent(student);
         }
+        public static bool modify(string username, string sex, string grade, string age, string major, int ID)
+        {
+            Student student = new Student(username, "", sex, grade, age, major, "", "");
+            return DAL_Student.modifyStudent(student);
+        }
         /// <summary>
         /// 查询学生信息
         /// </summary>
@@ -51,18 +56,10 @@ namespace Business_Logic_Layer
         /// <summary>
         /// 查询所有学生信息。
         /// </summary>
-        /// <returns>一个学生实体的List表。</returns>
-        public static List<Student> queryAllStudent()
+        /// <returns>DataSet</returns>
+        public static DataSet qeruyAllStudent()
         {
             return DAL_Student.queryAllStudent();
-        }
-        /// <summary>
-        /// 查询所有学生信息。
-        /// </summary>
-        /// <returns>DataSet</returns>
-        public static DataSet qeruyAllStudent_DataSet()
-        {
-            return DAL_Student.queryAllStudent_DataSet();
         }
     }
 }

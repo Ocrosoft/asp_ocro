@@ -22,8 +22,8 @@
         <div class="form-group">
             <label for="selectorSex" style="display: block;">性别&nbsp</label>
             <asp:RadioButtonList ID="selectorSex" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow">
-                <asp:ListItem Selected="True" Value="1">&nbsp 男 &nbsp&nbsp</asp:ListItem>
-                <asp:ListItem Value="0">&nbsp 女 &nbsp</asp:ListItem>
+                <asp:ListItem Selected="True" Value="男">&nbsp 男 &nbsp&nbsp</asp:ListItem>
+                <asp:ListItem Value="女">&nbsp 女 &nbsp</asp:ListItem>
             </asp:RadioButtonList>
         </div>
         <div class="form-group">

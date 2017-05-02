@@ -177,29 +177,8 @@ namespace Data_Access_Layer
         /// <summary>
         /// 查询所有学生信息。
         /// </summary>
-        /// <returns>一个学生实体的List表。</returns>
-        public static List<Student> queryAllStudent()
-        {
-            string sql = "select username,sex,grade,age,major,IP,regtime,id from users;";
-            DataTable table = DAL_MysqlHelper.ExecuteDataTable(sql).Tables[0];
-            List<Student> list = new List<Student>();
-            foreach (DataRow dr in table.Rows)
-            {
-                Student student = new Student("", "", "", "", "", "", "", "");
-                student.username = dr[0].ToString();
-                student.sex = dr[1].ToString();
-                student.grade = dr[2].ToString();
-                student.age = dr[3].ToString();
-                student.major = dr[4].ToString();
-                student.IP = dr[5].ToString();
-                student.regtime = dr[6].ToString();
-                student.id = dr[7].ToString();
-                list.Add(student);
-            }
-            return list;
-        }
-
-        public static DataSet queryAllStudent_DataSet()
+        /// <returns>DataSet</returns>
+        public static DataSet queryAllStudent()
         {
             string sql = "select username,sex,grade,age,major,IP,regtime,id from users;";
             DataSet ds = DAL_MysqlHelper.ExecuteDataTable(sql);

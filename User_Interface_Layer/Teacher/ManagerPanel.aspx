@@ -1,4 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/UIL.Master" AutoEventWireup="true" CodeBehind="ManagerPanel.aspx.cs" Inherits="User_Interface_Layer.Teacher.ManagerPanel" %>
+<asp:Content ID="cssCusImportHead" ContentPlaceHolderID="cssCusImportHead" runat="server">
+    <style>
+        td {
+            height: 37px;
+        }
+    </style>
+</asp:Content>
 <asp:Content ID="stdContentMoudle" ContentPlaceHolderID="stdContentMoudle" runat="server">
     <div class="container">
         <div class="row clearfix">
@@ -11,30 +18,34 @@
                             <asp:HiddenField ID="hiddenFieldValue" runat="server" />
                             <asp:ScriptManager runat="server"></asp:ScriptManager>
                             <div class="table-responsive">
-                                <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="qeruyAllStudent_DataSet" TypeName="Business_Logic_Layer.BLL_Student">
+                                <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" 
+                                    SelectMethod="qeruyAllStudent" 
+                                    DeleteMethod="deleteByID"
+                                    UpdateMethod="modify"
+                                    TypeName="Business_Logic_Layer.BLL_Student">
                                 </asp:ObjectDataSource>
-                                <asp:GridView ID="GridView1" runat="server" AllowSorting="True" AutoGenerateColumns="False" CellPadding="4" DataSourceID="ObjectDataSource1" ForeColor="#333333" GridLines="None" CssClass="table" AllowPaging="True" PageSize="20" OnRowDeleting="GridView1_RowDeleting" DataKeyNames="id">
+                                <asp:GridView ID="GridView1" runat="server" AllowSorting="True" AutoGenerateColumns="False" CellPadding="4" DataSourceID="ObjectDataSource1" ForeColor="#333333" GridLines="None" CssClass="table" AllowPaging="True" PageSize="20" DataKeyNames="id" OnRowDataBound="GridView1_RowDataBound" OnRowUpdating="GridView1_RowUpdating1">
                                     <AlternatingRowStyle BackColor="White" />
                                     <Columns>
-                                        <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" ShowSelectButton="True" />
-                                        <asp:BoundField DataField="username" HeaderText="用户名" />
+                                        <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" ShowSelectButton="True"/>
+                                        <asp:BoundField DataField="username" HeaderText="用户名"  ControlStyle-CssClass="form-control" ControlStyle-Width="119px" />
                                          <asp:TemplateField HeaderText="性别">
                                             <ItemTemplate>
                                                 <asp:Label runat="server" ID="sex" Text='<%# Bind("sex") %>'></asp:Label>
                                             </ItemTemplate>
                                             <EditItemTemplate>
-                                                <asp:DropDownList runat="server">
-                                                    <asp:ListItem Value="1">男</asp:ListItem>
-                                                    <asp:ListItem Value="0">女</asp:ListItem>
+                                                <asp:DropDownList ID="editSex" runat="server" SelectedValue='<%# Bind("sex") %>' CssClass="form-control">
+                                                    <asp:ListItem Value="男">男</asp:ListItem>
+                                                    <asp:ListItem Value="女">女</asp:ListItem>
                                                 </asp:DropDownList>
                                             </EditItemTemplate>
                                         </asp:TemplateField>
                                          <asp:TemplateField HeaderText="年级">
                                             <ItemTemplate>
-                                                <asp:Label runat="server" ID="sex" Text='<%# Bind("grade") %>'></asp:Label>
+                                                <asp:Label runat="server" ID="grade" Text='<%# Bind("grade") %>'></asp:Label>
                                             </ItemTemplate>
                                             <EditItemTemplate>
-                                                <asp:DropDownList runat="server">
+                                                <asp:DropDownList ID="editGrade" runat="server" SelectedValue='<%# Bind("grade") %>' CssClass="form-control">
                                                     <asp:ListItem Value="2016">2016</asp:ListItem>
                                                     <asp:ListItem Value="2015">2015</asp:ListItem>
                                                     <asp:ListItem Value="2014">2014</asp:ListItem>
@@ -42,13 +53,13 @@
                                                 </asp:DropDownList>
                                             </EditItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:BoundField DataField="age" HeaderText="年龄" />
+                                        <asp:BoundField DataField="age" HeaderText="年龄"  ControlStyle-CssClass="form-control"  />
                                         <asp:TemplateField HeaderText="专业">
                                             <ItemTemplate>
-                                                <asp:Label runat="server" ID="sex" Text='<%# Bind("major") %>'></asp:Label>
+                                                <asp:Label runat="server" ID="major" Text='<%# Bind("major") %>'></asp:Label>
                                             </ItemTemplate>
                                             <EditItemTemplate>
-                                                <asp:DropDownList runat="server">
+                                                <asp:DropDownList ID="editMajor" runat="server"  SelectedValue='<%# Bind("major") %>' CssClass="form-control">
                                                     <asp:ListItem Value="电子商务">电子商务</asp:ListItem>
                                                     <asp:ListItem Value="计算机">计算机</asp:ListItem>
                                                     <asp:ListItem Value="软件工程">软件工程</asp:ListItem>
@@ -81,31 +92,4 @@
     </div>
 </asp:Content>
 <asp:Content ID="scriptCusFooter" ContentPlaceHolderID="scriptCusFooter" runat="server">
-    <script>
-        $('.DeleteButton').click(function () {
-            if (confirm("确定要删除这个学生吗?")) {
-                return true;
-            }
-            else return false;
-        });
-        $('.linkButtonEdit').click(function () {
-            this.innerText = '请稍候...';
-        });
-    </script>
-    <script>
-        var prm = Sys.WebForms.PageRequestManager.getInstance(); // updatepanel 刷新会导致js失效，需要重新注册
-        prm.add_endRequest(function () {
-            $('.DeleteButton').click(function () {
-                if (confirm("确定要删除这个学生吗?")) {
-                    return true;
-                }
-                else return false;
-            });
-
-            $('.linkButtonEdit').click(function () {
-                this.innerText = '请稍候...';
-            });
-        }
-        );
-    </script>
 </asp:Content>
