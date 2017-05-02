@@ -202,8 +202,21 @@
                         </label>
                         <div style="display: none;" id="jqd_month_selector">
                             <label>要查看的年份：</label><br />
-                            <select class="form-control"></select>
+                            <select id="jqd_month_select" class="form-control" onchange="update_select1_options()"></select><br/>
+                            <select id="jqd_month_select1" class="form-control"></select><br/>
+                            <input type="button" value="刷新折线图"  class="btn btn-primary form-control" onclick="showLineChart()" />
                         </div>
+                        <script>
+                            function update_select1_options() {
+                                $('#jqd_month_select1')[0].options.length = 0;
+                                var selected_year = $('#jqd_month_select')[0].value;
+                                var i = 0;
+                                while ($('#jqd_month_select')[0].options[i].value != selected_year) i++;
+                                for (; i < $('#jqd_month_select')[0].options.length; i++) {
+                                    $('#jqd_month_select1')[0].options.add(new Option($('#jqd_month_select')[0].options[i].value));
+                                }
+                            }
+                        </script>
                     </div>
                 </div>
             </div>
@@ -462,11 +475,11 @@
                     .enter().append("circle");
                 svg.selectAll("circle").on('click', function (d) {
                     showLineChart(d.areaName);
-                    $('svg')[1].scrollIntoView();
                 });
                 svg.selectAll("circle").on("mouseenter", function (d) {
                     $('#value_areaName')[0].value = d.areaName;
                     $('#value_value')[0].value = d.value;
+                    if ($('input[name="jqd"]:checked')[0].value == '2') show_jqd_month_select();
                 });
                 if (circles != null) {
                     circles.attr("cx", function (d) { return map.latLngToLayerPoint(d).x; })
@@ -545,69 +558,96 @@
     </script>
     <!-- 显示折线图 -->
     <script>  
+        function show_jqd_month_select() {
+            while ($('#jqd_month_selector select')[0].options.length != 0) {
+                $('#jqd_month_selector select')[0].options.remove(0);
+            }
+            var areaName = $('#value_areaName')[0].value;
+            if (areaName == null || areaName == "") return; // 没有选择地区
+            var data = hash_areaName[areaName];
+            if (data == null) return; // 不存在的地区
+            var data_year = new Array();
+            data.forEach(function (d) {
+                var year = d.recordDate.split('-')[0];
+                if (data_year[year] == null) {
+                    data_year[year] = new Array();
+                    data_year[year]['year'] = year;
+                }
+            });
+            data_year.forEach(function (d) {
+                $('#jqd_month_selector select')[0].options.add(new Option(d['year']));
+            });
+            $('#jqd_month_selector').css('display', 'block');
+            update_select1_options();
+        }
         /**
          * 显示折线图
          * @param areaName 地区名
          */
         function showLineChart(areaName) {
+            if (areaName == null) areaName = $('#value_areaName')[0].value;
             var lastChild = document.getElementById('mainDiv').lastChild;
             var tagName = (' ' + lastChild.tagName).trim();
             if (tagName == "svg") {
-                if (lineChartedArea == areaName + $('input[name="jqd"]:checked')[0].value) return;
+                if (lineChartedArea == areaName + $('input[name="jqd"]:checked')[0].value + $('#jqd_month_select')[0].value + $('#jqd_month_select1')[0].value) return;
                 lastChild.remove();
             }
-            lineChartedArea = areaName + $('input[name="jqd"]:checked')[0].value;
+            lineChartedArea = areaName + $('input[name="jqd"]:checked')[0].value + $('#jqd_month_select')[0].value + $('#jqd_month_select1')[0].value;
 
             var data = hash_areaName[areaName];
-            var jqd = $('input[name="jqd"]:checked')[0].value;
-            var data_tmp = new Array();
-            if (jqd == 1) { // 精确度：年
-                data.forEach(function (d) {
-                    var year = d.recordDate.split('-')[0];
-                    if (data_tmp[year] == null) data_tmp[year] = { recordDate: year, value: d.value, cnt: 1 };
-                    else data_tmp[year] = { recordDate: year, value: parseInt(d.value) + parseInt(data_tmp[year].value), cnt: parseInt(data_tmp[year].cnt) + 1 };
-                });
-                data = [];
-                data_tmp.forEach(function (d) {
-                    d.value = d.value / d.cnt;
-                    data.push({ recordDate: d.recordDate, value: d.value });
-                });
-            }
-            else if (jqd == 2) { // 精确度：月
-                var data_year = new Array();
-                data.forEach(function (d) {
-                    var year = d.recordDate.split('-')[0];
-                    var month = d.recordDate.split('-')[1];
-                    if (data_year[year] == null) {
-                        data_year[year] = new Array();
-                        data_year[year]['year'] = year;
-                        data_year[year][month] = { recordDate: year + '-' + month, value: d.value, cnt: 1 };
-                    }
-                    else {
-                        if (data_year[year][month] == null) {
+                var jqd = $('input[name="jqd"]:checked')[0].value;
+                var data_tmp = new Array();
+                if (jqd == 1) { // 精确度：年
+                    data.forEach(function (d) {
+                        var year = d.recordDate.split('-')[0];
+                        if (data_tmp[year] == null) data_tmp[year] = { recordDate: year, value: d.value, cnt: 1 };
+                        else data_tmp[year] = { recordDate: year, value: parseInt(d.value) + parseInt(data_tmp[year].value), cnt: parseInt(data_tmp[year].cnt) + 1 };
+                    });
+                    data = [];
+                    data_tmp.forEach(function (d) {
+                        d.value = parseInt(d.value / d.cnt);
+                        data.push({ recordDate: d.recordDate, value: d.value });
+                    });
+                }
+                else if (jqd == 2) { // 精确度：月
+                    var data_year = new Array();
+                    data.forEach(function (d) {
+                        var year = d.recordDate.split('-')[0];
+                        var month = d.recordDate.split('-')[1];
+                        if (data_year[year] == null) {
+                            data_year[year] = new Array();
+                            data_year[year]['year'] = year;
                             data_year[year][month] = { recordDate: year + '-' + month, value: d.value, cnt: 1 };
                         }
                         else {
-                            data_year[year][month] = { recordDate: year + '-' + month, value: parseInt(d.value) + parseInt(data_year[year][month].value), cnt: parseInt(data_year[year][month].cnt) + 1 };
+                            if (data_year[year][month] == null) {
+                                data_year[year][month] = { recordDate: year + '-' + month, value: d.value, cnt: 1 };
+                            }
+                            else {
+                                data_year[year][month] = { recordDate: year + '-' + month, value: parseInt(d.value) + parseInt(data_year[year][month].value), cnt: parseInt(data_year[year][month].cnt) + 1 };
+                            }
                         }
-                    }
-                });
-                data = [];
-                //console.log(data_year);
-                console.log(data_year);
-                data_year.forEach(function (d) {
-                   $('#jqd_month_selector select')[0].options.add(new Option(d['year']));
-                    console.log(d);
-                    for (var i = 1; i <= 12; i++) {
-                        var j = (i < 10 ? '0' : '') + i;
-                        if (d[j] != null) {
-                            data.push({ recordDate: d[j].recordDate, value: d[j].value / d[j].cnt });
+                    });
+                    data = [];
+                    var selected_year = $('#jqd_month_select')[0].value;
+                    var selected_year_end = $('#jqd_month_select1')[0].value;
+                    var add_flag = false;
+                    data_year.forEach(function (d) {
+                        if (d['year'] == selected_year) {
+                            add_flag = true;
                         }
-                    }
-                });
-                console.log(data);
-                $('#jqd_month_selector').css('display', 'block');
-            }
+                        if (add_flag) {
+                            for (var i = 1; i <= 12; i++) {
+                                var j = (i < 10 ? '0' : '') + i;
+                                if (d[j] != null) {
+                                    data.push({ recordDate: d[j].recordDate, value: parseInt(d[j].value / d[j].cnt) });
+                                }
+                            }
+                            if (d['year'] == selected_year_end) { add_flag = false; return; }
+                        }
+                    });
+                    $('#jqd_month_selector').css('display', 'block');
+                }
 
             // 定义circle的半径
             var r0 = 5,
@@ -679,6 +719,7 @@
                     .attr('class', 'content')
                     .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
                     .attr('title', areaName);
+                $('svg')[1].scrollIntoView();
 
                 function draw() {
                     data.forEach(function (d) {
@@ -840,9 +881,11 @@
     <script>
         function jqdToYear() {
             alert('请注意，精确到年将会计算每年的平均值而丢失大量数据！');
+            $('#jqd_month_selector').css('display', 'none');
         }
         function jqdToMonth() {
             alert('请注意，精确到月将会计算每月的平均值而丢失部分数据！');
+            show_jqd_month_select();
         }
         function jqdToDay() {
 
