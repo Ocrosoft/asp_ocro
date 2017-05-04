@@ -61,6 +61,7 @@
     <Content Include="999.aspx" />
     <Content Include="Admin\AdminPanel.aspx" />
     <Content Include="Admin\Default.aspx" />
+    <Content Include="Admin\ManagerPanel.aspx" />
     <Content Include="CheckCode.aspx" />
     <Content Include="css\bootstrap-theme.css.map" />
     <Content Include="css\bootstrap-theme.min.css.map" />
@@ -88,7 +89,6 @@
     <Content Include="Teacher\Modify.aspx" />
     <Content Include="UIL.Master" />
     <Content Include="china.json" />
-    <Content Include="AQI-2013.csv" />
     <Content Include="AreaName-LatLng.csv" />
     <Content Include="AQI-FULL.csv" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
@@ -162,6 +162,13 @@
     </Compile>
     <Compile Include="Admin\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ManagerPanel.aspx.cs">
+      <DependentUpon>ManagerPanel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ManagerPanel.aspx.designer.cs">
+      <DependentUpon>ManagerPanel.aspx</DependentUpon>
     </Compile>
     <Compile Include="CheckCode.aspx.cs">
       <DependentUpon>CheckCode.aspx</DependentUpon>

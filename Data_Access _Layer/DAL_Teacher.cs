@@ -158,5 +158,10 @@ namespace Data_Access_Layer
             if (Equals(obj, null)) return false;
             else return true;
         }
+
+        public static DataSet queryAll()
+        {
+            string sql="select username,"
+        }
     }
 }

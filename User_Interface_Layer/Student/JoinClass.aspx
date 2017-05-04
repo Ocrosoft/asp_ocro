@@ -10,8 +10,8 @@
             </div>
             <div class="col-md-10 column">
                 <div class="table-responsive">
-                    <asp:Table runat="server" CssClass="table" ID="currentClass">
-                    </asp:Table>
+                    <asp:ObjectDataSource ID="ObjectDataSource1" runat="server"></asp:ObjectDataSource>
+                    <asp:GridView ID="GridView1" runat="server"></asp:GridView>
                 </div>
             </div>
             <div class="col-md-1 column">
