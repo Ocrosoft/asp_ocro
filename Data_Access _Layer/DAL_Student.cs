@@ -180,8 +180,16 @@ namespace Data_Access_Layer
         /// <returns>DataSet</returns>
         public static DataSet queryAllStudent()
         {
-            string sql = "select username,sex,grade,age,major,IP,regtime,id from users;";
-            DataSet ds = DAL_MysqlHelper.ExecuteDataTable(sql);
+            DataSet ds = null;
+            try
+            {
+                string sql = "select username,sex,grade,age,major,IP,regtime,id from users;";
+                ds = DAL_MysqlHelper.ExecuteDataTable(sql);
+            }
+            catch
+            {
+
+            }
             return ds;
         }
     }

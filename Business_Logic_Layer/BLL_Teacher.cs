@@ -27,7 +27,7 @@ namespace Business_Logic_Layer
 
         public static Teacher queryAll()
         {
-
+            return null;
         }
     }
 }

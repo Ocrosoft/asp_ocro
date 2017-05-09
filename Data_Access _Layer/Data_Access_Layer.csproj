@@ -79,6 +79,7 @@
     <Compile Include="DAL_Safety.cs" />
     <Compile Include="DAL_Student.cs" />
     <Compile Include="DAL_Teacher.cs" />
+    <Compile Include="DAL_Team.cs" />
     <Compile Include="LogWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/UIL.Master" AutoEventWireup="true" CodeBehind="ManagerPanel.aspx.cs" Inherits="User_Interface_Layer.Admin.TeacherManager" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/UIL.Master" AutoEventWireup="true" CodeBehind="ManageTeacher.aspx.cs" Inherits="User_Interface_Layer.Admin.ManageTeacher" %>
 <asp:Content ID="stdContentMoudle" ContentPlaceHolderID="stdContentMoudle" runat="server">
     <div class="container">
         <div class="row clearfix">

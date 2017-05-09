@@ -161,7 +161,8 @@ namespace Data_Access_Layer
 
         public static DataSet queryAll()
         {
-            string sql="select username,"
+            //string sql="select username,"
+            return null;
         }
     }
 }

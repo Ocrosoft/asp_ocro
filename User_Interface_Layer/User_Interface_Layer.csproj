@@ -61,7 +61,8 @@
     <Content Include="999.aspx" />
     <Content Include="Admin\AdminPanel.aspx" />
     <Content Include="Admin\Default.aspx" />
-    <Content Include="Admin\ManagerPanel.aspx" />
+    <Content Include="Admin\ManageTeacher.aspx" />
+    <Content Include="Admin\ManageTeam.aspx" />
     <Content Include="CheckCode.aspx" />
     <Content Include="css\bootstrap-theme.css.map" />
     <Content Include="css\bootstrap-theme.min.css.map" />
@@ -85,7 +86,7 @@
     <Content Include="Student\QuitClass.aspx" />
     <Content Include="Student\TeamWork.aspx" />
     <Content Include="Teacher\Default.aspx" />
-    <Content Include="Teacher\ManagerPanel.aspx" />
+    <Content Include="Teacher\ManageStudent.aspx" />
     <Content Include="Teacher\Modify.aspx" />
     <Content Include="UIL.Master" />
     <Content Include="china.json" />
@@ -163,12 +164,19 @@
     <Compile Include="Admin\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Admin\ManagerPanel.aspx.cs">
-      <DependentUpon>ManagerPanel.aspx</DependentUpon>
+    <Compile Include="Admin\ManageTeacher.aspx.cs">
+      <DependentUpon>ManageTeacher.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Admin\ManagerPanel.aspx.designer.cs">
-      <DependentUpon>ManagerPanel.aspx</DependentUpon>
+    <Compile Include="Admin\ManageTeacher.aspx.designer.cs">
+      <DependentUpon>ManageTeacher.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ManageTeam.aspx.cs">
+      <DependentUpon>ManageTeam.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ManageTeam.aspx.designer.cs">
+      <DependentUpon>ManageTeam.aspx</DependentUpon>
     </Compile>
     <Compile Include="CheckCode.aspx.cs">
       <DependentUpon>CheckCode.aspx</DependentUpon>
@@ -241,12 +249,12 @@
     <Compile Include="Teacher\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Teacher\ManagerPanel.aspx.cs">
-      <DependentUpon>ManagerPanel.aspx</DependentUpon>
+    <Compile Include="Teacher\ManageStudent.aspx.cs">
+      <DependentUpon>ManageStudent.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Teacher\ManagerPanel.aspx.designer.cs">
-      <DependentUpon>ManagerPanel.aspx</DependentUpon>
+    <Compile Include="Teacher\ManageStudent.aspx.designer.cs">
+      <DependentUpon>ManageStudent.aspx</DependentUpon>
     </Compile>
     <Compile Include="Teacher\Modify.aspx.cs">
       <DependentUpon>Modify.aspx</DependentUpon>
