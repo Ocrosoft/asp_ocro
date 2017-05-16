@@ -13,5 +13,9 @@ namespace Business_Logic_Layer
         {
             return DAL_Team.queryAllTeam();
         }
+        public static bool deleteTeamByID(string id)
+        {
+            return DAL_Team.deleteTeamByID(id);
+        }
     }
 }

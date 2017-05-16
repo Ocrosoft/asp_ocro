@@ -14,14 +14,30 @@ namespace Data_Access_Layer
             DataSet ds = null;
             try
             {
-                string sql = "select * from team;";
+                string sql = "select team.*,teacher.TeaName from teacher inner join team on teacher.username=team.TeaID";
                 ds = DAL_MysqlHelper.ExecuteDataTable(sql);
             }
-            catch
+            catch (Exception e)
             {
 
             }
             return ds;
+        }
+
+        public static bool deleteTeamByID(string id)
+        {
+            try
+            {
+                string sql = "delete from team where TeamID=?1";
+                MySqlParameter para = new MySqlParameter("?1", id);
+                int ret = DAL_MysqlHelper.ExecuteNonQuery(sql, para);
+                if (ret >= 1) return true;
+                else return false;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }
