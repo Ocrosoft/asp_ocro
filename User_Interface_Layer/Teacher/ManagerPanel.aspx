@@ -1,10 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/UIL.Master" AutoEventWireup="true" CodeBehind="ManagerPanel.aspx.cs" Inherits="User_Interface_Layer.Teacher.ManagerPanel" %>
 <asp:Content ID="cssCusImportHead" ContentPlaceHolderID="cssCusImportHead" runat="server">
-    <style>
-        td {
-            height: 37px;
-        }
-    </style>
 </asp:Content>
 <asp:Content ID="stdContentMoudle" ContentPlaceHolderID="stdContentMoudle" runat="server">
     <div class="container">

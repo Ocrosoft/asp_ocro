@@ -39,6 +39,16 @@ namespace Business_Logic_Layer
         {
             return DAL_Student.modifyStudent(student);
         }
+        /// <summary>
+        /// 修改学生信息，仅修改传入内容
+        /// </summary>
+        /// <param name="username">用户名</param>
+        /// <param name="sex">性别</param>
+        /// <param name="grade">年级</param>
+        /// <param name="age">年龄</param>
+        /// <param name="major">专业</param>
+        /// <param name="ID">索引</param>
+        /// <returns></returns>
         public static bool modify(string username, string sex, string grade, string age, string major, int ID)
         {
             Student student = new Student(username, "", sex, grade, age, major, "", "");

@@ -58,6 +58,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="998.aspx" />
     <Content Include="999.aspx" />
     <Content Include="Admin\AdminPanel.aspx" />
     <Content Include="Admin\Default.aspx" />
@@ -142,6 +143,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="998.aspx.cs">
+      <DependentUpon>998.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="998.aspx.designer.cs">
+      <DependentUpon>998.aspx</DependentUpon>
+    </Compile>
     <Compile Include="999.aspx.cs">
       <DependentUpon>999.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

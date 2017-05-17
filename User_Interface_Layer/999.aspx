@@ -75,7 +75,7 @@
                     var interval_loading_data = setInterval(function () {
                         if (loading_data_percent >= 100) loading_data_percent = 99; // 大于99%一直显示99%
                         $('#loadingMessage')[0].innerText = '读取数据中 ' + loading_data_percent++ + "%";
-                    }, 5);
+                    }, 100);
                 </script>
             </h1>
         </div>
@@ -181,6 +181,13 @@
                         <input type="text" id="value_areaName" class="form-control" /><br />
                         <input type="text" readonly="true" id="value_value" class="form-control" /><br />
                         <input id="queryButton" type="button" class="btn btn-primary form-control" onclick="queryButton();" value="查询" />
+                    </div>
+                </div>
+
+                <div class="panel panel-success">
+                    <div class="panel-heading">背景音乐</div>
+                    <div class="panel-body">
+                        <iframe src="https://www.ocrosoft.com/outchain/" width="100%"></iframe>
                     </div>
                 </div>
 
