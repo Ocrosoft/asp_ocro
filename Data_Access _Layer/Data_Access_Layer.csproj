@@ -74,10 +74,12 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAL_Class.cs" />
     <Compile Include="DAL_MysqlHelper.cs" />
     <Compile Include="DAL_Safety.cs" />
     <Compile Include="DAL_Student.cs" />
     <Compile Include="DAL_Teacher.cs" />
+    <Compile Include="DAL_Team.cs" />
     <Compile Include="LogWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

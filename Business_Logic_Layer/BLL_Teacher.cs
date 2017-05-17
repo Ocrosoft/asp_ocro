@@ -24,5 +24,10 @@ namespace Business_Logic_Layer
         {
             return DAL_Teacher.queryTeacher(username);
         }
+
+        public static Teacher queryAll()
+        {
+            return null;
+        }
     }
 }

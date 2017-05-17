@@ -1,6 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/UIL.Master" AutoEventWireup="true" CodeBehind="ManagerPanel.aspx.cs" Inherits="User_Interface_Layer.Teacher.ManagerPanel" %>
-<asp:Content ID="cssCusImportHead" ContentPlaceHolderID="cssCusImportHead" runat="server">
-</asp:Content>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/UIL.Master" AutoEventWireup="true" CodeBehind="ManageStudent.aspx.cs" Inherits="User_Interface_Layer.Teacher.ManagerPanel" %>
 <asp:Content ID="stdContentMoudle" ContentPlaceHolderID="stdContentMoudle" runat="server">
     <div class="container">
         <div class="row clearfix">

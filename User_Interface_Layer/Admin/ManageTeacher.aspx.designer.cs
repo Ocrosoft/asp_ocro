@@ -7,9 +7,9 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace User_Interface_Layer {
+namespace User_Interface_Layer.Admin {
     
     
-    public partial class _999 {
+    public partial class AdminPanel {
     }
 }

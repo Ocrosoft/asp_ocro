@@ -15,6 +15,7 @@
     <style>
         #map {
             width: 100%;
+            height: 600px;
         }
 
         svg {
@@ -147,6 +148,10 @@
             <div class="col-md-9 column" id="mainDiv">
                 <div id="map"></div>
                 <div id="baidu_map"></div>
+                <div style="text-align:center;">
+                <p></p>
+                <label id="titles"></label>
+            </div>
             </div>
             <!-- 侧边栏 -->
             <div class="col-md-3 column">
@@ -213,6 +218,13 @@
                             <select id="jqd_month_select1" class="form-control"></select><br/>
                             <input type="button" value="刷新折线图"  class="btn btn-primary form-control" onclick="showLineChart()" />
                         </div>
+                        <div style="display: none;" id="jqd_day_selector">
+                            <label>要查看的年份：</label><br />
+                            <select id="jqd_day_year_select" class="form-control"></select><br/>
+                            <label>要查看的月份：</label><br />
+                            <select id="jqd_day_month_select" class="form-control"></select><br/>
+                            <input type="button" value="刷新折线图"  class="btn btn-primary form-control" onclick="showLineChart()" />
+                        </div>
                         <script>
                             function update_select1_options() {
                                 $('#jqd_month_select1')[0].options.length = 0;
@@ -251,7 +263,7 @@
     </script>
     <!-- 加载leafalet，绘制地图边框，查询经纬度 -->
     <script>
-        $('#map').css('height', $('.container').css('height')); // 改变 leaflet 地图大小
+        //$('#map').css('height', $('.container').css('height')); // 改变 leaflet 地图大小
 
         map = new L.Map("map", { center: [34, 105], zoom: 4 })
             .addLayer(new L.TileLayer("https://api.mapbox.com/styles/v1/ocrosoft/cj1euool700ha2ro4ylwb373e/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoib2Nyb3NvZnQiLCJhIjoiY2oxZXVpdmxhMDA5MjJ3dXNidHYzbzc3ayJ9.jRFWntgGrOk28RaSBmfJNg", {
@@ -587,6 +599,15 @@
             $('#jqd_month_selector').css('display', 'block');
             update_select1_options();
         }
+        function show_jqd_day_select() {
+            $('#jqd_day_year_select')[0].options.length = 0;
+            for (var i = 2000; i <= 2015;i++)
+                $('#jqd_day_year_select')[0].options.add(new Option(i));
+            $('#jqd_day_month_select')[0].options.length = 0;
+            for (var i = 1; i <= 12; i++)
+                $('#jqd_day_month_select')[0].options.add(new Option((i < 10 ? '0' : '') + i));
+            $('#jqd_day_selector').css('display', 'block');
+        }
         /**
          * 显示折线图
          * @param areaName 地区名
@@ -596,7 +617,7 @@
             var lastChild = document.getElementById('mainDiv').lastChild;
             var tagName = (' ' + lastChild.tagName).trim();
             if (tagName == "svg") {
-                if (lineChartedArea == areaName + $('input[name="jqd"]:checked')[0].value + $('#jqd_month_select')[0].value + $('#jqd_month_select1')[0].value) return;
+                if (lineChartedArea == areaName + $('input[name="jqd"]:checked')[0].value + ($('input[name="jqd"]:checked')[0].value == 2 ? $('#jqd_month_select')[0].value + $('#jqd_month_select1')[0].value : $('#jqd_day_year_select')[0].value + $('#jqd_day_month_select')[0].value)) return;
                 lastChild.remove();
             }
             lineChartedArea = areaName + $('input[name="jqd"]:checked')[0].value + $('#jqd_month_select')[0].value + $('#jqd_month_select1')[0].value;
@@ -655,10 +676,25 @@
                     });
                     $('#jqd_month_selector').css('display', 'block');
                 }
+                else if (jqd == 3) {
+                    var selected_year = $('#jqd_day_year_select')[0].value;
+                    var selected_month = $('#jqd_day_month_select')[0].value;
+                    var temp = [];
+                    data.forEach(function (d) {
+                        var year = d.recordDate.split('-')[0];
+                        var month = d.recordDate.split('-')[1];
+                        if (year == selected_year && month == selected_month) {
+                            console.log(year + " " + month);
+                            temp.push({ recordDate: d.recordDate, value: d.value });
+                        }
+                    });
+                    data = temp;
+                    $('#jqd_day_selector').css('display', 'block');
+                }
 
             // 定义circle的半径
-            var r0 = 5,
-                r1 = 8;
+        var r0 = 5,
+            r1 = 8;
 
             // 定义动画持续时间
             var duration = 500;
@@ -684,7 +720,7 @@
                 .scale(x)
                 .orient('bottom')
                 .tickFormat(d3.time.format('%d'))
-                .ticks(data.length);
+                .ticks(data.length>12?12:data.length);
             if (jqd == 1) xAxis.tickFormat(d3.time.format('%Y'));
             else if (jqd == 2) xAxis.tickFormat(d3.time.format('%m'));
             else xAxis.tickFormat(d3.time.format('%d'));
@@ -726,7 +762,9 @@
                     .attr('class', 'content')
                     .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
                     .attr('title', areaName);
-                $('svg')[1].scrollIntoView();
+                //$('svg')[1].scrollIntoView();
+                var max = document.documentElement.scrollHeight || document.body.scrollHeight;
+                $('body').animate({ scrollTop: max }, 1000);
 
                 function draw() {
                     data.forEach(function (d) {
@@ -736,21 +774,24 @@
                     });
 
                     x.domain(d3.extent(data, function (d) { return d.recordDate; }));
-                    y.domain([0, d3.max(data, function (d) { return d.value; })]);
+                    y.domain([0, 600]);
 
                     var text_1 = svg.append('text')
-                        .attr('class', 'title')
+                        .attr('class', 'appx')
                         .attr('fill', '#fff')
-                        .attr('x', width / 2)
-                        .attr('y', height - 10);
+                        .attr('x', 10)
+                        .attr('y', 20);
+                    text_1.innerText = "111";
                     if (jqd == 1) {
-                        text_1.attr('text', areaName +' 2000-2015 年年平均AQI');
+                        $('#titles')[0].innerText = areaName + ' 2000-2015 年年平均AQI';
                     }
                     else if (jqd == 2) {
-                        text_1.attr('text', areaName + '  年月平均AQI');
+                        if ($('#jqd_month_select')[0].value != $('#jqd_month_select1')[0].value)
+                            $('#titles')[0].innerText = areaName + '  ' + $('#jqd_month_select')[0].value + '-' + $('#jqd_month_select1')[0].value + ' 年月平均AQI';
+                        else $('#titles')[0].innerText = areaName + '  ' + $('#jqd_month_select')[0].value + ' 年月平均AQI';
                     }
                     else {
-                        text_1.attr('text', area_Name + '???');
+                        $('#titles')[0].innerText = areaName + '  ' + $('#jqd_day_year_select')[0].value + ' 年 ' + $('#jqd_day_month_select')[0].value + ' 月每日AQI';
                     }
 
                     svg.append('g')
@@ -887,15 +928,18 @@
 
     <script>
         function jqdToYear() {
-            alert('请注意，精确到年将会计算每年的平均值而丢失大量数据！');
+            //alert('请注意，精确到年将会计算每年的平均值而丢失大量数据！');
             $('#jqd_month_selector').css('display', 'none');
+            $('#jqd_day_selector').css('display', 'none');
         }
         function jqdToMonth() {
-            alert('请注意，精确到月将会计算每月的平均值而丢失部分数据！');
+            //alert('请注意，精确到月将会计算每月的平均值而丢失部分数据！');
             show_jqd_month_select();
+            $('#jqd_day_selector').css('display', 'none');
         }
         function jqdToDay() {
-
+            show_jqd_day_select();
+            $('#jqd_month_selector').css('display', 'none');
         }
     </script>
 </asp:Content>
