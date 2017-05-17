@@ -11,7 +11,13 @@ namespace User_Interface_Layer
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            try
+            {
+                string url = Request.QueryString["url"];
+                splj.Text = url;
+                Page.ClientScript.RegisterStartupScript(Page.GetType(), "play", "$(document).ready(function(){play();});", true);
+            }
+            catch { }
         }
     }
 }

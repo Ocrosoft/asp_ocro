@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Data_Access_Layer;
+using Models;
 using System.Data;
-using System.Linq;
-using System.Web;
-using Data_Access_Layer;
 
 namespace Business_Logic_Layer
 {
@@ -16,6 +13,10 @@ namespace Business_Logic_Layer
         public static bool deleteTeamByID(string id)
         {
             return DAL_Team.deleteTeamByID(id);
+        }
+        public static bool modifyTeam(Team team)
+        {
+            return DAL_Team.modifyTeam(team);
         }
     }
 }
