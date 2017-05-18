@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/UIL.Master" AutoEventWireup="true" CodeBehind="ManageTeam.aspx.cs" Inherits="User_Interface_Layer.Teacher.ManageTeam" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/UIL.Master" AutoEventWireup="true" CodeBehind="ManageTeam.aspx.cs" Inherits="User_Interface_Layer.Teacher.ManageTeam" MaintainScrollPositionOnPostback="true" %>
 
 <asp:Content ID="cssCusImportHead" ContentPlaceHolderID="cssCusImportHead" runat="server">
     <style>

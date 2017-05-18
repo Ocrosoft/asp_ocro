@@ -13,7 +13,19 @@ namespace User_Interface_Layer.Teacher
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["loginSession"] == null)
+            {
+                Response.Write("<script>location.href='/Login.aspx';</script>");
+                return;
+            }
+            else
+            {
+                if (Session["loginIden"].ToString() != "Teacher")
+                {
+                    Response.Write("<script>location.href='/Login.aspx';</script>");
+                    return;
+                }
+            }
         }
 
         protected void ListView1_ItemCommand(object sender, ListViewCommandEventArgs e)

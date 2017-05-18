@@ -24,7 +24,6 @@ namespace Data_Access_Layer
             }
             return ds;
         }
-
         public static bool deleteTeamByID(string id)
         {
             try
@@ -40,7 +39,6 @@ namespace Data_Access_Layer
                 return false;
             }
         }
-
         public static bool modifyTeam(Team team)
         {
             try
@@ -56,6 +54,46 @@ namespace Data_Access_Layer
                 para[6] = new MySqlParameter("?7", team.ScoreType);
                 para[7] = new MySqlParameter("?8", team.Introduce);
                 para[8] = new MySqlParameter("?9", team.TeamID);
+                int ret = DAL_MysqlHelper.ExecuteNonQuery(sql, para);
+                if (ret >= 1) return true;
+                else return false;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+        public static string queryJoinStatus(string teamID, string stuID)
+        {
+            try
+            {
+                string sql = "select AuditStatus from team_member where TeamID=?0 and StuID=?1";
+                MySqlParameter[] para = { new MySqlParameter("?0", teamID), new MySqlParameter("?1", stuID) };
+                DataSet ds = DAL_MysqlHelper.ExecuteDataTable(sql, para);
+                if (ds.Tables[0].Rows.Count == 0) return "未加入*";
+                else return ds.Tables[0].Rows[0].ItemArray[0].ToString();
+            }
+            catch (Exception e)
+            {
+                return "ERROR";
+            }
+        }
+        public static bool joinTeam(string teamID, string stuID, bool update = false)
+        {
+            string sql = "";
+            MySqlParameter[] para = new MySqlParameter[2];
+            try
+            {
+                if (!update)
+                {
+                    sql = "insert into team_member values(?0,?1,'已加入')";
+                }
+                else
+                {
+                    sql = "update team_member set(AuditStatus,'已加入') where TeamID=?0 and StuID=?1";
+                }
+                para[0] = new MySqlParameter("?0", teamID);
+                para[1] = new MySqlParameter("?1", stuID);
                 int ret = DAL_MysqlHelper.ExecuteNonQuery(sql, para);
                 if (ret >= 1) return true;
                 else return false;
