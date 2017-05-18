@@ -120,4 +120,53 @@
 <asp:Content ID="cusContentSideBar" ContentPlaceHolderID="cusContentSideBar" runat="server">
 </asp:Content>
 <asp:Content ID="scriptCusFooter" ContentPlaceHolderID="scriptCusFooter" runat="server">
+    <script>
+        var alpha_div = 0.00;
+        var interval_fsm;
+        function addFSMDiv(msg) {
+            $('#FSMDiv').remove();
+            var div = document.createElement('div');
+            div.id = 'FSMDiv';
+            div.style.textAlign = 'center';
+            div.style.height = '100%';
+            div.style.width = '100%';
+            div.style.position = 'absolute';
+            div.style.left = '0px';
+            div.style.top = '0px';
+            div.style.display = 'none';
+            div.style.background = 'rgba(255,255,255,0)';
+            var h1 = document.createElement('h1');
+            h1.id = 'FSMH1';
+            h1.innerText = msg;
+            h1.height = '100px';
+            div.appendChild(h1);
+            $('body')[0].appendChild(div);
+            $('#FSMH1').css('padding-top', (parseInt($('#FSMDiv').css('height').split('p')[0]) / 2)-50 + 'px');
+        }
+        //addFSMDiv('666');
+        function hideFullScreenMessage(divID) {
+            
+            interval_fsm = setInterval(function () {
+                alpha_div -= 0.02;
+                $('#' + divID).css('background', 'rgba(255,255,255,' + alpha_div + ')');
+                if (alpha_div <= 0) {
+                    $('#' + divID).css('display', 'none');
+                    clearInterval(interval_fsm);
+                }
+            }, 10);
+        }
+        function showFullScreenMessage(divID) {
+            $('#' + divID).css('display', 'block');
+            interval_fsm = setInterval(function () {
+                alpha_div += 0.02;
+                console.log(alpha_div);
+                $('#' + divID).css('background', 'rgba(255,255,255,' + alpha_div + ')');
+                if (alpha_div >= 1) {
+                    clearInterval(interval_fsm);
+                    setTimeout(hideFullScreenMessage(divID), 2000);
+                }
+            }, 10);
+        }
+        //showFullScreenMessage('FSMDiv');
+    </script>
 </asp:Content>

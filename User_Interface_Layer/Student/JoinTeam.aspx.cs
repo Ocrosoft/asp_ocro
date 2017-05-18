@@ -42,17 +42,24 @@ namespace User_Interface_Layer.Student
                 string auditStatus = BLL_Team.queryJoinStatus(teamID, Session["loginSession"].ToString());
                 Label labelAuditStatus = (Label)e.Row.FindControl("JoinStatus");
                 labelAuditStatus.Text = auditStatus;
+                if (auditStatus != "未加入")
+                {
+                    Button joinButton = (Button)e.Row.FindControl("ButtonJoin");
+                    joinButton.Enabled = false;
+                }
             }
         }
 
         protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "ButtonJoin")
+            if (e.CommandName == "JoinTeam")
             {
                 int rowIndex = Convert.ToInt32(e.CommandArgument);
-                TextBox textBoxTeamID = (TextBox)GridView1.Rows[rowIndex].FindControl("TeamID");
-                string teamID = textBoxTeamID.Text;
-
+                string teamID = GridView1.Rows[rowIndex].Cells[0].Text;
+                if (BLL_Team.joinTeam(teamID,Session["loginSession"].ToString()))
+                    Page.ClientScript.RegisterStartupScript(Page.GetType(), "alert", "alert('加入成功！');", true);
+                else Page.ClientScript.RegisterStartupScript(Page.GetType(), "alert", "alert('加入失败！');", true);
+                GridView1.DataBind();
             }
         }
     }

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Web;
+﻿using Models;
 using MySql.Data.MySqlClient;
-using Models;
+using System.Data;
 
 namespace Data_Access_Layer
 {
@@ -18,7 +14,7 @@ namespace Data_Access_Layer
                 string sql = "select team.*,teacher.TeaName from teacher inner join team on teacher.username=team.TeaID";
                 ds = DAL_MysqlHelper.ExecuteDataTable(sql);
             }
-            catch (Exception e)
+            catch
             {
 
             }
@@ -58,7 +54,7 @@ namespace Data_Access_Layer
                 if (ret >= 1) return true;
                 else return false;
             }
-            catch (Exception e)
+            catch
             {
                 return false;
             }
@@ -73,24 +69,41 @@ namespace Data_Access_Layer
                 if (ds.Tables[0].Rows.Count == 0) return "未加入*";
                 else return ds.Tables[0].Rows[0].ItemArray[0].ToString();
             }
-            catch (Exception e)
+            catch
+            {
+                return "ERROR";
+            }
+        }
+        public static string queryTeamAuditMode(string teamID)
+        {
+            string sql = "select AuditMode from team where teamID=?0";
+            MySqlParameter para = new MySqlParameter("?0", teamID);
+            try
+            {
+                DataSet ds = DAL_MysqlHelper.ExecuteDataTable(sql, para);
+                if (ds.Tables[0].Rows.Count == 0) return "";
+                else return ds.Tables[0].Rows[0].ItemArray[0].ToString();
+            }
+            catch
             {
                 return "ERROR";
             }
         }
         public static bool joinTeam(string teamID, string stuID, bool update = false)
         {
+            string AuditMode = queryTeamAuditMode(teamID);
+            string status = AuditMode == "自动审核" ? "已加入" : "待审核";
             string sql = "";
             MySqlParameter[] para = new MySqlParameter[2];
             try
             {
                 if (!update)
                 {
-                    sql = "insert into team_member values(?0,?1,'已加入')";
+                    sql = "insert into team_member values(?0,?1,'" + status + "')";
                 }
                 else
                 {
-                    sql = "update team_member set(AuditStatus,'已加入') where TeamID=?0 and StuID=?1";
+                    sql = "update team_member set AuditStatus='" + status + "' where TeamID=?0 and StuID=?1";
                 }
                 para[0] = new MySqlParameter("?0", teamID);
                 para[1] = new MySqlParameter("?1", stuID);
@@ -98,7 +111,7 @@ namespace Data_Access_Layer
                 if (ret >= 1) return true;
                 else return false;
             }
-            catch (Exception e)
+            catch
             {
                 return false;
             }

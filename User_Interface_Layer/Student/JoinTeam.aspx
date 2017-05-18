@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/UIL.Master" AutoEventWireup="true" CodeBehind="JoinTeam.aspx.cs" Inherits="User_Interface_Layer.Student.JoinClass" %>
+﻿<%@ Page Title="加入团队" Language="C#" MasterPageFile="~/UIL.Master" AutoEventWireup="true" CodeBehind="JoinTeam.aspx.cs" Inherits="User_Interface_Layer.Student.JoinClass" %>
 
 <asp:Content ID="cssCusImportHead" ContentPlaceHolderID="cssCusImportHead" runat="server">
     <style>
@@ -43,14 +43,14 @@
                                         <asp:BoundField DataField="AnswerStatus" HeaderText="答辩状态" ControlStyle-CssClass="form-control" ControlStyle-Width="119px">
                                             <ControlStyle CssClass="form-control" Width="119px" />
                                         </asp:BoundField>
-                                        <asp:TemplateField HeaderText="加入状态">
+                                        <asp:TemplateField HeaderText="加入状态" >
                                             <ItemTemplate>
                                                 <asp:Label runat="server" ID="JoinStatus"></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="操作" ItemStyle-CssClass="operation">
                                             <ItemTemplate>
-                                                <asp:Button ID="ButtonJoin" runat="server" Text="加入" CssClass="btn btn-primary form-control" CommandArgument="<%#Container.DataItemIndex %>" CommandName="JoinTeam" />
+                                                <asp:Button ID="ButtonJoin" runat="server" Text="加入" CssClass="btn btn-success form-control" CommandArgument="<%#Container.DataItemIndex %>" CommandName="JoinTeam" />
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                     </Columns>
