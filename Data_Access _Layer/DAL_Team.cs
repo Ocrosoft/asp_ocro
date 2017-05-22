@@ -1,5 +1,6 @@
 ﻿using Models;
 using MySql.Data.MySqlClient;
+using System;
 using System.Data;
 
 namespace Data_Access_Layer
@@ -114,6 +115,19 @@ namespace Data_Access_Layer
             catch
             {
                 return false;
+            }
+        }
+        public static DataSet queryMember(string TeamID)
+        {
+            string sql = "select b.username,b.major,a.AuditStatus from team_member a, users b where a.StuID=b.username and a.TeamID=?0";
+            MySqlParameter para = new MySqlParameter("?0", TeamID);
+            try
+            {
+                return DAL_MysqlHelper.ExecuteDataTable(sql, para);
+            }
+            catch (Exception e)
+            {
+                return null;
             }
         }
     }

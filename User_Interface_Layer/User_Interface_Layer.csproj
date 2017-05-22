@@ -85,6 +85,7 @@
     <Content Include="Teacher\ManageStudent.aspx" />
     <Content Include="Teacher\ManageTeam.aspx" />
     <Content Include="Teacher\Modify.aspx" />
+    <Content Include="Teacher\TeamAudit.aspx" />
     <Content Include="UIL.Master" />
     <Content Include="china.json" />
     <Content Include="AreaName-LatLng.csv" />
@@ -238,6 +239,13 @@
     </Compile>
     <Compile Include="Teacher\Modify.aspx.designer.cs">
       <DependentUpon>Modify.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Teacher\TeamAudit.aspx.cs">
+      <DependentUpon>TeamAudit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Teacher\TeamAudit.aspx.designer.cs">
+      <DependentUpon>TeamAudit.aspx</DependentUpon>
     </Compile>
     <Compile Include="UIL.Master.cs">
       <DependentUpon>UIL.Master</DependentUpon>

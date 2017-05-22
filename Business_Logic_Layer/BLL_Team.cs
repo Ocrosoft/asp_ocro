@@ -29,5 +29,9 @@ namespace Business_Logic_Layer
             if (queryJoinStatus(teamID, stuID, true).IndexOf('*') != -1) return DAL_Team.joinTeam(teamID, stuID);
             else return DAL_Team.joinTeam(teamID, stuID, true);
         }
+        public static DataSet queryMember(string TeamID)
+        {
+            return DAL_Team.queryMember(TeamID);
+        }
     }
 }

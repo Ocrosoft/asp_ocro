@@ -45,7 +45,9 @@ namespace User_Interface_Layer.Student
                 if (auditStatus != "未加入")
                 {
                     Button joinButton = (Button)e.Row.FindControl("ButtonJoin");
-                    joinButton.Enabled = false;
+                    joinButton.Text = "退出";
+                    joinButton.CssClass = "btn btn-warning form-control";
+                    //joinButton.Enabled = false;
                 }
             }
         }

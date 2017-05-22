@@ -5,6 +5,9 @@
         .teams .btn {
             margin-top: 8px;
         }
+        td {
+            padding-top:10px;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="stdContentMoudle" ContentPlaceHolderID="stdContentMoudle" runat="server">
@@ -12,6 +15,7 @@
         <div class="row clearfix">
             <div class="col-md-12">
                 <form runat="server">
+                    <asp:HiddenField runat="server" ID="lastShow"/>
                     <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="queryAllTeam" TypeName="Business_Logic_Layer.BLL_Team"></asp:ObjectDataSource>
                     <asp:ListView ID="ListView1" runat="server" DataSourceID="ObjectDataSource1" OnItemCommand="ListView1_ItemCommand">
                         <LayoutTemplate>
@@ -78,20 +82,20 @@
                                         <td width="119" valign="top" style="word-break: break-all;">课程名称
                                         </td>
                                         <td valign="top" colspan="11" style="word-break: break-all;" rowspan="1">
-                                            <div class="col-md-10" style="padding:0;">
+                                            <div class="col-md-10" style="padding: 0;">
                                                 <asp:TextBox ID="CourceName" runat="server" Text='<%#Bind("CourceName") %>' CssClass="form-control"></asp:TextBox>
                                             </div>
-                                            <label style="padding-left:10px;padding-top:8px;">(不超过10个字符)</label>
+                                            <label style="padding-left: 10px; padding-top: 8px;">(不超过10个字符)</label>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td width="119" valign="top" style="word-break: break-all;">学生班级
                                         </td>
                                         <td valign="top" colspan="11" style="word-break: break-all;" rowspan="1">
-                                            <div class="col-md-10" style="padding:0;">
+                                            <div class="col-md-10" style="padding: 0;">
                                                 <asp:TextBox ID="StuClass" runat="server" Text='<%#Bind("StuClass") %>' CssClass="form-control"></asp:TextBox>
                                             </div>
-                                             <label style="padding-left:10px;padding-top:8px;">(不超过14个字符)</label>
+                                            <label style="padding-left: 10px; padding-top: 8px;">(不超过14个字符)</label>
                                         </td>
                                     </tr>
                                     <tr>
@@ -99,13 +103,45 @@
                                         </td>
                                         <td valign="top" colspan="11" style="word-break: break-all;" rowspan="1">
                                             <asp:TextBox Height="100px" ID="Introduce" runat="server" Text='<%#Bind("Introduce") %>' CssClass="form-control" TextMode="MultiLine"></asp:TextBox>
-                                            <div class="col-md-8"><label style="padding-top:10px;">(如答辩时间、答辩地点、答辩要求、注意事项等)</label></div>
+                                            <div class="col-md-8">
+                                                <label style="padding-top: 10px;">(如答辩时间、答辩地点、答辩要求、注意事项等)</label></div>
                                             <div class="col-md-2">
                                                 <asp:Button ID="ButtonDelete" runat="server" Text="删除" CssClass="btn btn-warning form-control" CommandArgument="<%#Container.DataItemIndex %>" CommandName="DeleteTeam" />
                                             </div>
                                             <div class="col-md-2">
                                                 <asp:Button ID="ButtonSave" runat="server" Text="保存" CssClass="btn btn-primary form-control" CommandArgument="<%#Container.DataItemIndex %>" CommandName="SaveTeam" />
                                             </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="119" valign="top" style="word-break: break-all;">团队成员
+                                        </td>
+                                        <td valign="top" colspan="11" style="word-break: break-all;" rowspan="1">
+                                            <asp:Panel runat="server" ID="panel_show">
+                                                <asp:Button ID="ButtonShowMember" runat="server" Text="显示/刷新团队成员" style="margin-bottom:10px;" OnClientClick="this.parentNode.nextElementSibling.style.display = 'block';" CssClass="btn btn-primary form-control" CommandArgument="<%#Container.DataItemIndex %>" CommandName="ShowMember" />
+                                            </asp:Panel>
+                                            <asp:Panel runat="server" ID="panel_hide" Style="display: block"  CssClass="panel_hide">
+                                                <asp:GridView runat="server" ID="members" CellPadding="4" ForeColor="#333333" GridLines="None" CssClass="table" AllowPaging="True" PageSize="20" OnRowDataBound="GridView_RowDataBinding">
+                                                    <AlternatingRowStyle BackColor="White" />
+                                                    <Columns>
+                                                        <asp:TemplateField HeaderText="操作">
+                                                            <ItemTemplate>
+                                                                <asp:Button runat="server" ID="operation" Text="审核" CssClass="btn btn-primary form-control" style="margin-top:0px;"/>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                    </Columns>
+                                                    <EditRowStyle BackColor="#2461BF" />
+                                                    <FooterStyle BackColor="#4472C4" Font-Bold="True" ForeColor="White" />
+                                                    <HeaderStyle BackColor="#4472C4" Font-Bold="True" ForeColor="White" />
+                                                    <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+                                                    <RowStyle BackColor="#D9E2F3" />
+                                                    <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+                                                    <SortedAscendingCellStyle BackColor="#F5F7FB" />
+                                                    <SortedAscendingHeaderStyle BackColor="#6D95E1" />
+                                                    <SortedDescendingCellStyle BackColor="#E9EBEF" />
+                                                    <SortedDescendingHeaderStyle BackColor="#4870BE" />
+                                                </asp:GridView>
+                                            </asp:Panel>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -141,11 +177,11 @@
             h1.height = '100px';
             div.appendChild(h1);
             $('body')[0].appendChild(div);
-            $('#FSMH1').css('padding-top', (parseInt($('#FSMDiv').css('height').split('p')[0]) / 2)-50 + 'px');
+            $('#FSMH1').css('padding-top', (parseInt($('#FSMDiv').css('height').split('p')[0]) / 2) - 50 + 'px');
         }
         //addFSMDiv('666');
         function hideFullScreenMessage(divID) {
-            
+
             interval_fsm = setInterval(function () {
                 alpha_div -= 0.02;
                 $('#' + divID).css('background', 'rgba(255,255,255,' + alpha_div + ')');

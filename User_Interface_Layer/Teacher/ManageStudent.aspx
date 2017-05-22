@@ -6,9 +6,6 @@
                 <form runat="server" id="usersForm">
                     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                         <ContentTemplate>
-                            <asp:HiddenField ID="hiddenFieldEdit" runat="server" />
-                            <asp:HiddenField ID="hiddenFieldAccept" runat="server" />
-                            <asp:HiddenField ID="hiddenFieldValue" runat="server" />
                             <asp:ScriptManager runat="server"></asp:ScriptManager>
                             <div class="table-responsive">
                                 <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" 
