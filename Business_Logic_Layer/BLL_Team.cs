@@ -33,5 +33,9 @@ namespace Business_Logic_Layer
         {
             return DAL_Team.queryMember(TeamID);
         }
+        public static bool quitTeam(string teamID,string stuID)
+        {
+            return DAL_Team.quitTeam(teamID, stuID);
+        }
     }
 }

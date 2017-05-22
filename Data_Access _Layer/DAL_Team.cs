@@ -130,5 +130,24 @@ namespace Data_Access_Layer
                 return null;
             }
         }
+        public static bool quitTeam(string teamID, string stuID)
+        {
+            string AuditMode = queryTeamAuditMode(teamID);
+            string sql = "";
+            MySqlParameter[] para = new MySqlParameter[2];
+            try
+            {
+                sql = "update team_member set AuditStatus='未加入' where TeamID=?0 and StuID=?1";
+                para[0] = new MySqlParameter("?0", teamID);
+                para[1] = new MySqlParameter("?1", stuID);
+                int ret = DAL_MysqlHelper.ExecuteNonQuery(sql, para);
+                if (ret >= 1) return true;
+                else return false;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

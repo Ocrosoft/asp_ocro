@@ -58,10 +58,20 @@ namespace User_Interface_Layer.Student
             {
                 int rowIndex = Convert.ToInt32(e.CommandArgument);
                 string teamID = GridView1.Rows[rowIndex].Cells[0].Text;
-                if (BLL_Team.joinTeam(teamID,Session["loginSession"].ToString()))
-                    Page.ClientScript.RegisterStartupScript(Page.GetType(), "alert", "alert('加入成功！');", true);
-                else Page.ClientScript.RegisterStartupScript(Page.GetType(), "alert", "alert('加入失败！');", true);
-                GridView1.DataBind();
+                string status = BLL_Team.queryJoinStatus(teamID, Session["loginSession"].ToString());
+                if (status == "未加入")
+                {
+                    if (BLL_Team.joinTeam(teamID, Session["loginSession"].ToString()))
+                        Page.ClientScript.RegisterStartupScript(Page.GetType(), "alert", "alert('加入成功！');", true);
+                    else Page.ClientScript.RegisterStartupScript(Page.GetType(), "alert", "alert('加入失败！');", true);
+                }
+                else
+                {
+                    if (BLL_Team.quitTeam(teamID, Session["loginSession"].ToString()))
+                                   Page.ClientScript.RegisterStartupScript(Page.GetType(), "alert", "alert('退出成功！');", true);
+                    else Page.ClientScript.RegisterStartupScript(Page.GetType(), "alert", "alert('退出失败！');", true);
+                }
+                    GridView1.DataBind();
             }
         }
     }
