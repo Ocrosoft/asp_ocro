@@ -58,6 +58,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="997.aspx" />
     <Content Include="998.aspx" />
     <Content Include="999.aspx" />
     <Content Include="Admin\ManageTeacher.aspx" />
@@ -90,6 +91,7 @@
     <Content Include="china.json" />
     <Content Include="AreaName-LatLng.csv" />
     <Content Include="AQI-FULL.csv" />
+    <Content Include="01.csv" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <None Include="Properties\PublishProfiles\2.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
@@ -141,6 +143,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="997.aspx.cs">
+      <DependentUpon>997.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="997.aspx.designer.cs">
+      <DependentUpon>997.aspx</DependentUpon>
+    </Compile>
     <Compile Include="998.aspx.cs">
       <DependentUpon>998.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
