@@ -6,8 +6,8 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
-    <script src="/js/jquery-2.1.4.min.js"></script>
-    <script src="/js/d3.v3.min.js" charset="utf-8"></script>
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/d3.v3.min.js" charset="utf-8"></script>
     <style>
         .axis path,
         .axis line {
@@ -22,7 +22,7 @@
         }
 
         .MyRect {
-            fill: steelblue;
+            fill: black;
         }
 
         .MyText {
@@ -33,15 +33,21 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <div>
+        <div id="main" style="text-align:center;">
+            <label for="," id="info"></label><p/>
             <script>
                 var hash = new Array();
-                d3.csv("/01.csv", function (datas) {
+                d3.csv("01.csv", function (datas) {
                     function GetQueryString(name) {
                         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
                         var r = window.location.search.substr(1).match(reg);
                         if (r !== null) return unescape(r[2]); return null;
                     }
+                    var info = GetQueryString('str') + '24小时';
+                    if (GetQueryString('type') == '1') info += '上线情况';
+                    else if (GetQueryString('type') == '2') info += '下线情况';
+                    else if (GetQueryString('type') == '3') info += '在线情况';
+                    info = info.substr(0, 4) + '-' + info.substr(4, 2) + '-' + info.substr(6, 2) + ' ' + info.substr(8);
                     datas.forEach(function (d, i) {
                         if (GetQueryString('type') == '1') {
                             //上线
@@ -90,7 +96,7 @@
                         var height = 600;
 
                         //在 body 里添加一个 SVG 画布	
-                        var svg = d3.select("body")
+                        var svg = d3.select("#main")
                             .append("svg")
                             .attr("width", width)
                             .attr("height", height);
@@ -134,12 +140,43 @@
                             .attr("x", function (d, i) {
                                 return xScale(i) + rectPadding / 2;
                             })
+                            .attr("width", xScale.rangeBand() - rectPadding)
+                            .attr("y", function (d) {
+                                var min = yScale.domain()[0];
+                                return yScale(min);
+                            })
+                            .attr("height", function (d) {
+                                return 0;
+                            })
+                            .transition()
+                            .delay(function (d, i) {
+                                return i * 100;
+                            })
+                            .duration(2000)
+                            .ease("bounce")
                             .attr("y", function (d) {
                                 return yScale(d);
                             })
-                            .attr("width", xScale.rangeBand() - rectPadding)
                             .attr("height", function (d) {
                                 return height - padding.top - padding.bottom - yScale(d);
+                            });
+                        var a = d3.rgb(255, 0, 0); 
+                        var b = d3.rgb(55, 0, 0); 
+                        var compute = d3.interpolate(b, a);
+                        var data_avg = d3.mean(dataset);
+                        var data_min = d3.min(dataset);
+                        var data_max = d3.max(dataset);
+                        var data_dis = data_max - data_min;
+                        rects.transition()
+                            .delay(function (d, i) { return 2000 + i * 100; })
+                            .duration(1000)
+                            .style('fill', function (d, i) {
+                                var abs = Math.abs(d - data_avg) / data_avg;
+                                if (abs > 0.75) return compute(abs);
+                                else {
+                                    if (d < data_avg) return d3.rgb(0, 160, 0);
+                                    else return d3.rgb(70, 130, 180);
+                                }
                             });
 
                         //添加文字元素
@@ -152,9 +189,6 @@
                             .attr("x", function (d, i) {
                                 return xScale(i) + rectPadding / 2;
                             })
-                            .attr("y", function (d) {
-                                return yScale(d);
-                            })
                             .attr("dx", function () {
                                 return (xScale.rangeBand() - rectPadding) / 2;
                             })
@@ -163,6 +197,19 @@
                             })
                             .text(function (d) {
                                 return d;
+                            })
+                            .attr("y", function (d) {
+                                var min = yScale.domain()[0];
+                                return yScale(min);
+                            })
+                            .transition()
+                            .delay(function (d, i) {
+                                return i * 100;
+                            })
+                            .duration(2000)
+                            .ease("bounce")
+                            .attr("y", function (d) {
+                                return yScale(d);
                             });
 
                         //添加x轴
@@ -179,6 +226,7 @@
 
                     }
                     draw(hash[GetQueryString("str")]);
+                    document.getElementById('info').innerText = info;
                 });
             </script>
         </div>
